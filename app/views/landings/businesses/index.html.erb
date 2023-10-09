@@ -1,7 +1,7 @@
 <%= content_for(:title, 'Regülar: For Business') %>
 
 <div class="relative bg-cover bg-center h-[440px] px-20 py-40" style="background-image: url('/assets/hero_bg.png')">
-  <div class="absolute inset-0 w-full h-fit flex justify-end z-10 px-4 md:px-10 py-4">
+  <div class="absolute inset-0 w-full lg:max-w-6xl 2xl:max-w-7xl mx-auto h-fit flex justify-end z-10 px-4 md:px-10 py-4">
     <div class="h-fit w-fit flex items-center">
       <% if user_signed_in? %>
         <%= link_to dashboards_path, class: 'overflow-hidden flex gap-1 items-center border rounded-lg font-regular', style: 'background: rgba(255, 255, 255, 0.2);
@@ -21,7 +21,7 @@ backdrop-filter: blur(3px);
       <% end %>
     </div>
   </div>
-  <div class="absolute inset-0 flex gap-10 flex-col items-center justify-center py-20 px-10 md:px-20">
+  <div class="absolute inset-0 flex lg:max-w-6xl 2xl:max-w-7xl mx-auto gap-10 flex-col items-center justify-center py-20 px-10 md:px-20">
     <div class="flex flex-col gap-2 w-full mt-16 md:mt-20">
       <h1 class="text-5xl md:text-6xl font-bold w-fit md:bg-white">Regülar<span class="font-light"> for business</span>
       </h1>
@@ -36,7 +36,7 @@ backdrop-filter: blur(3px);
   </div>
 </div>
 
-<div class="px-10 md:px-20">
+<div class="px-10 md:px-20 lg:max-w-6xl 2xl:max-w-7xl mx-auto">
 
   <div class="h-10"></div>
 
@@ -169,14 +169,14 @@ backdrop-filter: blur(3px);
 
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <div class="border rounded-2xl px-10 py-8 grid grid-rows-2 h-[240px] bg-white">
-          <h2 class="text-2xl font-semibold">Track Regular Customer</h2>
+          <h2 class="text-2xl font-semibold">Regular Customer Tracking</h2>
           <p>Reward your regular customer. <br>Give discount or cashback. We got you!</p>
         </div>
 
         <div class="border rounded-2xl px-10 py-8 grid grid-rows-2 h-[240px] bg-white">
           <div class="">
-            <h2 class="text-2xl font-semibold">QR Code</h2>
-            <p class="font-light italic">"Six Zero...Three...uh...Maybank?"</p>
+            <h2 class="text-2xl font-semibold">QR Code Benefit</h2>
+            <p class="font-light italic">"Six Zero... Three... uh... Maybank?"</p>
           </div>
           <div class="">
             <p>Bank Transfer made easy and <strong>FREE</strong>.</p>
