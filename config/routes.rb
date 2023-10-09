@@ -1,11 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  namespace :dashboards do
-    get 'rewards/index'
-    get 'rewards/show'
-    get 'rewards/edit'
-  end
   root 'landings#index'
 
   get '/health', to: 'health_checks#health'
@@ -64,6 +59,7 @@ Rails.application.routes.draw do
         resources :reviews
       end
 
+      resources :rewards
       resources :qrs
       # resources :products # Feature on hold
       resources :rewards
