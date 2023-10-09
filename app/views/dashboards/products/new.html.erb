@@ -1,0 +1,78 @@
+<div class="flex flex-col gap-4 my-20">
+  <div class="w-full h-fit grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto px-10 md:px-0">
+    <%= form_with(model: @product, url: dashboards_products_path,
+                  data: { controller: 'dashboard--file-upload' },
+                  class: ' h-[160px] md:h-[200px] flex-none order-4 md:order-1 md:col-start-1 row-start-1'
+        ) do |form| %>
+      <label
+        data-action="mouseenter->dashboard--file-upload#mouseEnter mouseleave->dashboard--file-upload#mouseLeave click->dashboard--file-upload#mouseClick"
+        data-dashboard--file-upload-target="logoUploadContainer"
+        for="business_product_image" class="dashboard-glass cursor-pointer w-full h-full border border-[#7731D0] border-dashed rounded-2xl py-14 flex flex-col items-center justify-center gap-2 text-[#7731D0]">
+        <div
+          data-dashboard--file-upload-target="logoCta"
+          class="flex flex-col gap-1 items-center">
+          <i class="lni lni-camera text-2xl"></i>
+          <p>Image</p>
+        </div>
+        <div
+          data-dashboard--file-upload-target="logoCtaHover"
+          class="hidden flex flex-col gap-1 items-center">
+          <i
+            data-dashboard--file-upload-target="logoCtaHoverIconPlus"
+            class="lni lni-plus text-2xl"></i>
+          <button
+            data-dashboard--file-upload-target="logoCtaHoverUploadBtn"
+            class="hidden border rounded px-3 py-1 hover:bg-purple-500 hover:text-white">
+            Upload
+          </button>
+          <p data-dashboard--file-upload-target="logoCtaHoverMessage" class="hidden md:block">Click to add image</p>
+          <%= form.file_field :image, class: 'hidden', data: {
+            action: 'change->dashboard--file-upload#changeFile',
+            'dashboard--file-upload-target': 'logoFile',
+          } %>
+
+        </div>
+      </label>
+    <% end %>
+
+    <div
+      id="account_edit"
+      data-controller="dashboard--detail"
+      class="order-1 md:order-2 w-full col-span-2 rounded-2xl h-[200px] p-6 flex flex-col justify-start gap-2 bg-gradient-to-l from-[#4CA2C7] to-[#5570D0] rounded-[20px] shadow text-white">
+      <div class="flex flex-col">
+        <%= form_with model: @product, url: dashboards_products_path, class: 'flex flex-col justify-between space-between items-end h-full gap-4' do |f| %>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2 w-full items-center">
+            <div class="flex justify-start items-center hidden md:block">
+              Product Name
+            </div>
+            <div class="flex flex-col gap-2">
+              <%= f.text_field :name, placeholder: 'Nasi Lemak', class: 'text-green-400' %>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-2 w-full items-center">
+            <div class="flex justify-start items-center hidden md:block">
+              Price
+            </div>
+            <div class="flex">
+              <span class="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-200 border border-r-0 border-gray-300 rounded-l-md dark:bg-gray-600 dark:text-gray-400 dark:border-gray-600">
+                RM
+              </span>
+              <%= f.number_field :price, placeholder: '2.00', class: 'text-green-400' %>
+            </div>
+          </div>
+
+          <div class="flex gap-2">
+            <%= link_to dashboards_products_path, class: 'p-3 bg-red-500 rounded-lg flex items-center' do %>
+              <i class="lni lni-close"></i>
+            <% end %>
+            <button class="p-3 bg-green-500 rounded-lg flex items-center">
+              <i class="lni lni-checkmark"></i>
+            </button>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="h-20"></div>
+</div>

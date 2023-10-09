@@ -1,0 +1,25 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  host: <%= ENV["REGEULAR_DATABASE_HOST"] { '127.0.0.1' } %>
+  username: <%= ENV["REGEULAR_DATABASE_USERNAME"] %>
+  password: <%= ENV["REGEULAR_DATABASE_PASSWORD"] %>
+
+development:
+  <<: *default
+  database: regeular_development
+
+test:
+  <<: *default
+  database: regeular_test
+
+staging:
+  <<: *default
+  database: regeular_staging
+  username: regeular
+
+production:
+  <<: *default
+  database: regeular_production
+  username: regeular

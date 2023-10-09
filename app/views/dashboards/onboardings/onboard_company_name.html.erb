@@ -1,0 +1,26 @@
+<div class="relative w-screen h-screen overflow-hidden">
+  <div class="absolute w-full h-screen">
+    <img src='/assets/mesh.png' class="overflow-hidden object-cover w-screen h-screen" alt="">
+  </div>
+  <div class="absolute w-full h-full mt-20 md:mt-32 px-4">
+    <div class="w-full max-w-2xl mx-auto flex gap-10 items-center justify-center">
+      <div class="w-full flex flex-col gap-4 p-10 md:p-16 rounded onboarding-glass">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-700">Welcome Onboard!</h1>
+        <p class="text-gray-400 pl-1 ">Let’s start by adding your business informations!</p>
+        <small class="pl-1 text-gray-300 italic">&nbsp;</small>
+        <div class="md:h-2"></div>
+        <%= form_with(url: wizard_path, model: @business, class: 'flex flex-col gap-6') do |f| %>
+          <%= f.text_field :name, placeholder: 'Company Name', class: 'text-lg border border-gray-300 border rounded-md px-6 py-4' %>
+          <div class="h-4"></div>
+          <div class="flex flex-col w-full items-end gap-4">
+            <button class='px-5 py-3 rounded-md w-fit bg-sky-500 font-bold text-white flex items-center gap-4'>
+              Next <i class="lni lni-arrow-right"></i>
+            </button>
+            <p class="italic text-gray-300">Step 1 of 2</p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>

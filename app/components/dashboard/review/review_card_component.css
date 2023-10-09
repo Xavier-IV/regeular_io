@@ -1,0 +1,3 @@
+.card {
+    @apply grid grid-rows-4 gap-2 border rounded-2xl h-[160px] bg-white p-6;
+}

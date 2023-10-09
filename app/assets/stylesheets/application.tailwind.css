@@ -1,0 +1,134 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/*
+
+@layer components {
+  .btn-primary {
+    @apply py-2 px-4 bg-blue-200;
+  }
+}
+
+*/
+
+#business_edit input[type="text"],
+#business_edit input[type="email"],
+#business_edit input[type="password"],
+#business_edit select {
+    @apply w-full border rounded-sm border-gray-300 text-white placeholder-gray-200 px-4 py-2 bg-white/30;
+    @apply focus:ring-yellow-400;
+}
+
+#account_edit input[type="text"],
+#account_edit input[type="email"],
+#account_edit input[type="password"],
+#account_edit input[type="number"],
+#account_edit select {
+    @apply w-full border rounded-sm border-gray-300 text-white placeholder-gray-300 px-4 py-2 bg-white/30;
+    @apply focus:ring-yellow-400;
+}
+
+#account_edit input:disabled {
+    @apply opacity-40;
+}
+
+#bank_edit input[type="text"],
+#bank_edit input[type="email"],
+#bank_edit input[type="password"],
+#bank_edit select {
+    @apply w-full border rounded-sm border-gray-300 text-white placeholder-gray-200 px-4 py-2 bg-white/30;
+    @apply focus:ring-yellow-400;
+}
+
+#business_edit .field_with_errors {
+    @apply w-full p-0 m-0 border border-2 border-red-400 rounded-sm;
+}
+
+#business_edit .field_with_errors input,
+#business_edit .field_with_errors select {
+    @apply flex grow focus:ring-0 px-4 py-2 w-full;
+}
+
+#auths > h2 {
+    @apply text-2xl text-center mb-10;
+}
+
+#auths #error_explanation {
+    @apply bg-red-100 px-4 py-2 rounded-sm;
+}
+
+#auths .actions {
+    @apply bg-purple-600 text-white w-full md:w-fit text-center flex items-center justify-center rounded-sm px-4 py-3 my-4 cursor-pointer;
+}
+
+#auths .actions,
+#auths .actions input {
+    @apply cursor-pointer;
+}
+
+#auths input[type="text"],
+#auths input[type="email"],
+#auths input[type="password"]{
+    @apply w-full border rounded-sm border-gray-300;
+}
+
+#auths .field {
+    @apply my-4 text-gray-700;
+}
+
+#auths .extras {
+    @apply text-gray-500 text-sm flex flex-col gap-2;
+}
+
+#auths h3 {
+    @apply text-xl;
+}
+
+ul {
+    @apply list-disc list-inside;
+}
+
+.onboarding-glass {
+    background: rgba(255, 255, 255, 0.44);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(11.5px);
+    -webkit-backdrop-filter: blur(11.5px);
+    border: 1px solid rgba(255, 255, 255, 0.31);
+}
+
+.dashboard-glass {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(4.5px);
+    -webkit-backdrop-filter: blur(4.5px);
+    box-shadow: 0 4px 30px rgba(119, 49, 208, 0.1);
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+}
+
+.regular-customer-pill {
+    border-radius: 20px;
+    background: radial-gradient(150.35% 113.38% at 50% 50%, #FFD2F5 0%, #F3A7FF 100%);
+    box-shadow: 0px 4px 10px 0px rgba(255, 75, 226, 0.25);
+}
+
+#faqs .content {
+    @apply w-full py-4 border;
+}
+
+.accordion-title {
+    @apply select-none;
+    @apply flex items-center justify-between w-full p-5 font-medium text-left;
+    @apply text-gray-600;
+    @apply border-gray-200 hover:bg-gray-100;
+}

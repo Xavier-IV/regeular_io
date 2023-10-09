@@ -1,0 +1,49 @@
+<div class="relative w-screen h-screen  overflow-hidden">
+  <div class="absolute w-full h-screen">
+    <img src='/assets/mesh.png' class="overflow-hidden object-cover w-screen h-screen" alt="">
+  </div>
+  <div class="absolute w-full h-full mt-20 md:mt-32 px-4">
+    <div class="w-full max-w-2xl mx-auto flex gap-10 items-center justify-center">
+      <div class="w-full flex flex-col gap-4 p-10 md:p-16 rounded onboarding-glass">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-700">Business Location</h1>
+        <p class="text-gray-400 pl-1 ">Share with us where your business is located.</p>
+        <small class="pl-1 text-gray-300 italic">Don't worry, you can update this later!</small>
+        <div class="md:h-2"></div>
+        <%= form_with(url: wizard_path, model: @business, class: 'flex flex-col gap-6') do |f| %>
+          <div
+            data-controller="dashboard--city-update"
+            class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+            <%= f.collection_select :state, @states, :name, :name, { include_blank: 'Select a state...' },
+                                    { selected: @business.state,
+                                      data: {
+                                        action: 'change->dashboard--city-update#updateCities',
+                                        'dashboard--city-update-target': 'stateSelect' },
+                                      class: 'text-lg border border-gray-300 border rounded-md px-6 py-4 w-full'
+                                    } %>
+            <%= f.collection_select :city, @cities, :name, :name, { include_blank: 'Select city...' },
+                                    { selected: @business.city,
+                                      data: {
+                                        'dashboard--city-update-target': 'citySelect'
+                                      },
+                                      disabled: @business.state.blank?,
+                                      class: 'text-lg border border-gray-300 border rounded-md px-6 py-4 w-full'
+                                    } %>
+          </div>
+          <div class="h-4"></div>
+          <div class="flex flex-col w-full items-end gap-4">
+            <div class="flex gap-1">
+              <%= link_to previous_wizard_path, class: 'px-5 py-3 w-fit text-sky-400 flex items-center gap-4' do %>
+                Previous
+              <% end %>
+              <button class='px-5 py-3 rounded-md w-fit bg-sky-500 font-bold text-white flex items-center gap-4'>
+                Next <i class="lni lni-arrow-right"></i>
+              </button>
+            </div>
+            <p class="italic text-gray-300">Step 2 of 2</p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>

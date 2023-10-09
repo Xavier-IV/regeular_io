@@ -1,0 +1,22 @@
+{
+  "name": "Regeular",
+  "short_name": "Regeular",
+  "id": "/?source=pwa",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/assets/logos/regeular.png",
+      "sizes": "200x200",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/logos/regeular_512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

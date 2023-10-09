@@ -1,0 +1,43 @@
+<div class="flex flex-col gap-4 py-10 mt-16 md:py-16 overflow-scroll no-scrollbar">
+  <div class="w-full h-fit grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto px-4 md:px-10 md:px-0">
+    <div class="w-full h-fit px-4 flex col-span-3 items-center justify-center text-center row-start-1">
+      <p class="text-gray-400">Tips: <strong class="text-orange-400">Verify</strong> information with merchant.</p>
+    </div>
+    <div
+      style="box-shadow: 0px 4px 10px rgba(131, 105, 221, 0.50);"
+      class="col-span-3 order-2 py-10 md:py-20 md:order-4 w-full h-fit py-10 md:py-20 bg-gradient-to-l from-violet-500 to-indigo-500 rounded-2xl shadow flex flex-col items-center justify-center text-white gap-4">
+      <div class="w-full flex flex-col gap-2 px-6 items-center text-center">
+        <h2 class="text-3xl font-bold"><%= @business_bank.business.name %></h2>
+        <div class="flex gap-1 w-full">
+          <div class="h-[1px] w-full bg-purple-400 my-4 rounded-full drop-shadow-lg"></div>
+        </div>
+
+        <p class="text-gray-300">Bank Information</p>
+        <h2 class="text-2xl"><%= @business_bank.bank.name %></h2>
+
+        <div class="h-10"></div>
+        <p class="text-gray-300">Account Full Name</p>
+        <h2 class="text-xl"><%= @business_bank.full_name %></h2>
+
+        <div class="h-4"></div>
+        <p class="text-gray-300">Account Number</p>
+        <div data-controller="clipboard">
+          <div
+            data-action="click->clipboard#copyToClipboard"
+            class="flex items-center justify-center gap-2 cursor-pointer">
+            <h3
+              data-clipboard-target="text"
+              title="<%= @business_bank.account_number %>"
+              class="text-2xl md:text-2xl"><%= @business_bank.account_number.scan(/.{4}/).join(' ') %></h3>
+            <span class="text-2xl flex items-center"><i class="lni lni-clipboard"></i></span>
+          </div>
+          <p
+            data-clipboard-target="helperMessage"
+            class="invisible text-green-400 mt-2"
+          >Copied successfully!</p>
+        </div>
+        <div class="md:h-2"></div>
+      </div>
+    </div>
+  </div>
+</div>

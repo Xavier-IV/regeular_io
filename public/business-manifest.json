@@ -1,0 +1,22 @@
+{
+  "name": "Regeular: Business",
+  "short_name": "Regeular Business",
+  "id": "/?source=pwa",
+  "start_url": "/dashboards?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/assets/logos/regeular_business.png",
+      "sizes": "200x200",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/logos/regeular_business_512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

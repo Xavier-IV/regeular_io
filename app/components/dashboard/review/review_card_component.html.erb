@@ -1,0 +1,9 @@
+<div class="grid grid-rows-4 gap-2 border rounded-2xl min-h-[160px] bg-white p-6">
+  <div class="flex gap-1 items-center">
+    <% (1..5).each do |rate| %>
+      <%= render(Shared::Review::StarComponent.new(role: rate > @rating ? :default : :star )) %>
+
+      <% end %>
+  </div>
+  <p class="row-span-2"><%= @description %></p>
+</div>

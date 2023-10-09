@@ -1,0 +1,111 @@
+<div id="account_edit" class="flex flex-col gap-4 my-20">
+  <div class="w-full h-fit grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto px-10 md:px-0">
+    <%= form_with(model: @user, url: dashboards_account_path, local: true, method: :put,
+                  data: { controller: 'dashboard--file-upload' },
+                  class: ' h-[160px] md:h-[200px] flex-none order-4 md:order-1 md:col-start-1 row-start-1'
+        ) do |form| %>
+      <% if @user.avatar.present? && @user.avatar.attached? %>
+        <label
+          for="user_avatar"
+          data-action="mouseenter->dashboard--file-upload#mouseEnterUploaded mouseleave->dashboard--file-upload#mouseLeaveUploaded"
+          data-dashboard--file-upload-target="logoUploadContainer"
+          class="relative dashboard-glass cursor-pointer w-full h-full  overflow-hidden rounded-2xl border flex flex-col items-center justify-center gap-2 text-[#7731D0]">
+          <div
+            class="absolute w-full h-full z-10">
+            <%= image_tag rails_blob_url(@user.avatar), class: 'object-cover w-full h-full' %>
+          </div>
+          <div
+            data-action="click->dashboard--file-upload#mouseClickUploaded"
+            data-dashboard--file-upload-target="logoUploadedContainer"
+            class="hidden absolute w-full h-full z-20 bg-white/30 flex flex-col items-center justify-center backdrop-blur-sm">
+            <div
+              data-dashboard--file-upload-target="logoCtaHover"
+              class="flex flex-col gap-1 items-center">
+              <i
+                data-dashboard--file-upload-target="logoCtaHoverIconPlus"
+                class="lni lni-pencil text-2xl text-white"></i>
+              <button
+                data-dashboard--file-upload-target="logoCtaHoverUploadBtn"
+                class="hidden rounded bg-white px-3 py-1 hover:bg-purple-500 hover:text-white">
+                Upload
+              </button>
+              <p data-dashboard--file-upload-target="logoCtaHoverMessage" class="text-white hidden md:block">Click to update image</p>
+              <%= form.file_field :avatar, class: 'hidden', data: {
+                action: 'change->dashboard--file-upload#changeFile',
+                'dashboard--file-upload-target': 'logoFile',
+              } %>
+
+            </div>
+          </div>
+        </label>
+      <% else %>
+        <label
+          data-action="mouseenter->dashboard--file-upload#mouseEnter mouseleave->dashboard--file-upload#mouseLeave click->dashboard--file-upload#mouseClick"
+          data-dashboard--file-upload-target="logoUploadContainer"
+          for="user_avatar" class="dashboard-glass cursor-pointer w-full h-full border border-[#7731D0] border-dashed rounded-2xl py-14 flex flex-col items-center justify-center gap-2 text-[#7731D0]">
+          <div
+            data-dashboard--file-upload-target="logoCta"
+            class="flex flex-col gap-1 items-center">
+            <i class="lni lni-camera text-2xl"></i>
+            <p>Avatar</p>
+          </div>
+          <div
+            data-dashboard--file-upload-target="logoCtaHover"
+            class="hidden flex flex-col gap-1 items-center">
+            <i
+              data-dashboard--file-upload-target="logoCtaHoverIconPlus"
+              class="lni lni-plus text-2xl"></i>
+            <button
+              data-dashboard--file-upload-target="logoCtaHoverUploadBtn"
+              class="hidden border rounded px-3 py-1 hover:bg-purple-500 hover:text-white">
+              Upload
+            </button>
+            <p data-dashboard--file-upload-target="logoCtaHoverMessage" class="hidden md:block">Click to add image</p>
+            <%= form.file_field :avatar, class: 'hidden', data: {
+              action: 'change->dashboard--file-upload#changeFile',
+              'dashboard--file-upload-target': 'logoFile',
+            } %>
+
+          </div>
+        </label>
+      <% end %>
+    <% end %>
+
+    <div
+      data-controller="dashboard--detail"
+      class="order-1 md:order-2 w-full col-span-2 rounded-2xl h-[200px] p-6 flex flex-col justify-start gap-2 bg-gradient-to-l from-[#4CA2C7] to-[#5570D0] rounded-[20px] shadow text-white">
+      <div class="flex flex-col">
+        <%= form_with model: @user, url: dashboards_account_path, class: 'flex flex-col justify-between space-between items-end h-full gap-4' do |f| %>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-2 w-full items-center">
+            <div class="flex justify-start items-center hidden md:block">
+              Name
+            </div>
+            <div class="col-span-3 grid grid-cols-2 flex flex-col gap-2">
+              <%= f.text_field :first_name, placeholder: 'First name' %>
+              <%= f.text_field :last_name, placeholder: 'Last name' %>
+            </div>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-2 w-full items-center">
+            <div class="flex justify-start items-center hidden md:block">
+              E-mail
+            </div>
+            <div class="col-span-3 flex flex-col gap-2">
+              <%= f.text_field :email, placeholder: 'E-mail', disabled: true %>
+            </div>
+
+          </div>
+
+          <div class="flex gap-2">
+            <%= link_to dashboards_account_path, class: 'p-3 bg-red-500 rounded-lg flex items-center' do %>
+              <i class="lni lni-close"></i>
+            <% end %>
+            <button class="p-3 bg-green-500 rounded-lg flex items-center">
+              <i class="lni lni-checkmark"></i>
+            </button>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="h-20"></div>
+</div>

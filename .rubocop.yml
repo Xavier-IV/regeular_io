@@ -1,0 +1,65 @@
+require: rubocop-rails
+
+Metrics/AbcSize:
+  Enabled: false
+  Exclude:
+    - 'db/migrate/*'
+    - 'app/controllers/dashboards_controller.rb'
+    - 'lib/tasks/*'
+    - 'db/eeds.rb'
+
+Naming/VariableNumber:
+  EnforcedStyle: 'snake_case'
+  Exclude:
+    - '**/*' # Exclude everything initially
+  Include:
+    - '**/*' # Include everything
+  Ignore:
+    - 'google_oauth2'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'config/environments/*'
+    - 'config/routes.rb'
+    - 'lib/tasks/*'
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - 'bin/*'
+    - 'app/controllers/dashboards_controller.rb'
+    - 'app/controllers/dashboards/businesses_controller.rb'
+
+Metrics/MethodLength:
+  Enabled: false
+  Exclude:
+    - 'db/migrate/*'
+    - 'bin/*'
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - 'db/migrate/*'
+    - 'bin/*'
+    - 'app/controllers/dashboards_controller.rb'
+    - 'app/controllers/dashboards/businesses_controller.rb'
+
+Style/Documentation:
+  Enabled: false
+  Exclude:
+    - 'db/migrate/*'
+    - 'bin/*'
+    - 'test/*'
+
+Style/IfUnlessModifier:
+  Exclude:
+    - 'bin/*'
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Layout/LineLength:
+  Exclude:
+    - 'bin/*'
+    - 'db/seeds.rb'
+
+Rails/LexicallyScopedActionFilter:
+  Enabled: false

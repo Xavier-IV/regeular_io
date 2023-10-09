@@ -1,0 +1,388 @@
+<%= content_for(:title, 'Regülar: For Business') %>
+
+<div class="relative bg-cover bg-center h-[440px] px-20 py-40" style="background-image: url('/assets/hero_bg.png')">
+  <div class="absolute inset-0 w-full h-fit flex justify-end z-10 px-4 md:px-10 py-4">
+    <div class="h-fit w-fit flex items-center">
+      <% if user_signed_in? %>
+        <%= link_to dashboards_path, class: 'overflow-hidden flex gap-1 items-center border rounded-lg font-regular', style: 'background: rgba(255, 255, 255, 0.2);
+box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(3px);
+-webkit-backdrop-filter: blur(3px);' do %>
+          <span class="px-4 py-2">Go to Dashboard</span>
+          <% if current_user.avatar.present? && current_user.avatar.attached? %>
+            <div class="w-10 h-10 bg-white rounded-md overflow-hidden">
+              <%= image_tag rails_blob_url(current_user.avatar), class: 'object-cover w-full h-full' %>
+            </div>
+          <% end %>
+        <% end %>
+      <% else %>
+        <%= link_to 'Login', new_user_session_path, class: 'bg-white px-4 py-2' %>
+        <%= link_to 'Register', new_user_registration_path, class: 'bg-white px-4 py-2' %>
+      <% end %>
+    </div>
+  </div>
+  <div class="absolute inset-0 flex gap-10 flex-col items-center justify-center py-20 px-10 md:px-20">
+    <div class="flex flex-col gap-2 w-full mt-16 md:mt-20">
+      <h1 class="text-5xl md:text-6xl font-bold w-fit md:bg-white">Regülar<span class="font-light"> for business</span>
+      </h1>
+      <div class="h-4"></div>
+      <p class="text-gray-600 bg-white w-fit pl-0.5 text-xl">Better experience.<br>For business. For regular customers.
+      </p>
+    </div>
+    <div class="flex flex-col md:flex-row gap-2 items-start justify-start w-full">
+      <%= link_to 'Track Regular Customers', new_user_registration_path, class: 'px-3 py-3 md:px-5 md:py-3 border-none bg-purple-600 text-white rounded-md' %>
+      <%= link_to 'See how it works', "#learn-more", class: 'px-3 py-3 md:px-5 md:py-3 border border-purple-300 bg-white text-gray-800 rounded-md' %>
+    </div>
+  </div>
+</div>
+
+<div class="px-10 md:px-20">
+
+  <div class="h-10"></div>
+
+  <div
+    data-controller="landing--timer"
+    class="flex flex-col">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="w-full flex items-center justify-center my-10 -- row-start-1 --md md:row-start-1 md:col-start-2">
+        <%= image_tag 'undraw/chef.svg', class: 'w-5/6 md:w-4/6 md:w-full h-full p-2', alt: 'QR Code' %>
+      </div>
+
+      <div id="learn-more" class="flex flex-col gap-2 text-lg pl-1 justify-center -- row-start-2 my-4 --md md:row-start-1 md:col-start-1">
+        <h2 class="text-xl md:text-4xl font-bold">More Customers, <br/>Happy
+          Business?<br><span class="font-normal">Yes!</span></h2>
+        <p>All those ka-ching. Your business is blooming.</p>
+        <p>But what's even <strong class="text-purple-600">better?</strong></p>
+      </div>
+
+      <div class="rounded-2xl p-10 bg-gradient-to-tl from-indigo-500 to-violet-500 text-white -- row-start-3 col-span-2 --md md:w-1/2 md:row-start-2">
+        <p class="text-4xl md:text-5xl sticky top-0 py-10">
+          <strong>"Regular<br/><span class="pl-3 md:pl-4">Customers"</span></strong></p>
+      </div>
+
+      <div class="p-2 md:row-start-3 col-span-2 -- md:w-1/2 my-10 md:my-10 -- row-start-4">
+        <p class="text-xl text-gray-700"><strong>Yes, regular customers!</strong></p>
+        <div class="h-6"></div>
+        <p class="text-xl text-gray-700"><strong>But.</strong></p>
+
+        <div class="h-6"></div>
+        <p class="text-xl text-gray-500"><strong>Answer this honestly...</strong></p>
+      </div>
+
+      <div class="md:text-xl border rounded-2xl py-10 md:py-20 px-10 flex flex-col gap-4 h-fit -- row-start-5 --md md:row-start-4">
+        <p>How many <strong class="text-purple-700">regular customer</strong> do you know?</p>
+        <p>How many <strong class="text-purple-700">regular customer</strong> have you rewarded?</p>
+        <p>How many <strong class="text-purple-700">good reviews</strong> have you missed?</p>
+        <p>How many <strong class="text-purple-700">customers</strong> you had today?</p>
+        <p>Or, when did they last <strong class="text-purple-700">visited</strong> you...?</p>
+      </div>
+
+      <div class="w-full flex items-center justify-center -- row-start-6 --md md:row-start-4">
+        <%= image_tag 'undraw/think.svg', class: 'w-5/6 md:w-4/6 md:w-full h-full p-2', alt: 'QR Code' %>
+      </div>
+    </div>
+  </div>
+
+  <div class="h-20"></div>
+
+  <h2 class="text-xl"><strong class="text-purple-600">Regular customers</strong> ARE the future.</h2>
+
+  <div class="h-20"></div>
+
+  <h1 class="text-5xl w-full">How Regülar fit into <strong>your</strong> puzzle?</h1>
+
+  <div class="h-16"></div>
+  <hr class="my-4">
+  <div class="h-16"></div>
+
+  <div class="text-lg flex flex-col gap-4 px-2 md:px-0">
+    <p>We are continuously building a system that makes business and customer interaction great again.</p>
+    <p>The journey never ends, so we invite you onboard and embark with us.</p>
+  </div>
+
+  <div class="h-16"></div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-20">
+    <div class="flex md:col-span-2 flex-col text-gray-800 border rounded-2xl p-10 border-purple-500">
+      <div class="flex flex-col gap-4">
+
+        <h1 class="text-2xl md:text-5xl font-bold">Track<br><span class="text-purple-700">Regular Customer</span></h1>
+        <p class="text-gray-500 text-lg md:text-xl">Your greatest marketing partner</p>
+      </div>
+      <div class="h-10"></div>
+      <div class="md:text-lg flex flex-col gap-4">
+        <div class="flex gap-4 items-center">
+          <span class="text-green-500 flex items-center md:text-2xl"><i class="lni lni-checkmark-circle"></i></span>
+          <p>Better organic marketing.</p>
+        </div>
+        <div class="flex gap-4 items-center">
+          <span class="text-green-500 flex items-center md:text-2xl"><i class="lni lni-checkmark-circle"></i></span>
+          <p>Reward your regular customer.</p>
+        </div>
+        <div class="flex gap-4 items-center">
+          <span class="text-green-500 flex md:items-center md:text-2xl"><i class="lni lni-checkmark-circle"></i></span>
+          <p>Easily acknowledge your regular customer.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid md:col-span-2 gap-4  border rounded-2xl p-10 border-purple-500">
+      <div class="flex flex-col text-gray-800">
+        <h1 class="text-2xl md:text-5xl font-bold text-gray-800">Better.</h1>
+        <h1 class="text-2xl md:text-5xl font-bold text-purple-600">Review.</h1>
+        <h1 class="text-2xl md:text-5xl font-bold text-gray-800">Experience.</h1>
+        <div class="h-4"></div>
+        <div class="border border-dashed p-2 md:p-4 pr-5 rounded-lg border-purple-400 w-fit">
+          <p class="text-gray-500 text-lg md:text-xl pl-0.5">Purple Review = Your Goal</p>
+        </div>
+        <div class="h-10"></div>
+        <div class="px-1 flex flex-col gap-4">
+          <div class="flex gap-4 items-center">
+            <span class="text-green-500 flex items-center md:text-2xl"><i class="lni lni-stats-up"></i></span>
+            <p>Request your customer review on the spot.</p>
+          </div>
+          <div class="flex gap-4 items-center">
+            <span class="text-green-500 flex items-center md:text-2xl"><i class="lni lni-stats-up"></i></span>
+            <p>Boost your presence with <span class="text-purple-600 font-bold">regular customers'</span> review</p>
+          </div>
+          <div class="flex gap-4 items-center">
+            <span class="text-green-500 flex items-center md:text-2xl"><i class="lni lni-stats-up"></i></span>
+            <p>Keep track of all of your reviews and make improvement!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="h-16"></div>
+  <hr class="my-4">
+  <div class="h-16"></div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div class="flex col-span-3 flex-col text-gray-700">
+      <h1 class="text-5xl font-bold text-gray-800">All Your Tools</h1>
+      <div class="h-2"></div>
+      <p class="text-gray-500 text-xl pl-0.5">In one ecosystem.</p>
+      <div class="h-10"></div>
+      <p>That's not all, we're shipping with even <strong>more</strong> goodies!</p>
+      <div class="h-10"></div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div class="border rounded-2xl px-10 py-8 grid grid-rows-2 h-[240px] bg-white">
+          <h2 class="text-2xl font-semibold">Track Regular Customer</h2>
+          <p>Reward your regular customer. <br>Give discount or cashback. We got you!</p>
+        </div>
+
+        <div class="border rounded-2xl px-10 py-8 grid grid-rows-2 h-[240px] bg-white">
+          <div class="">
+            <h2 class="text-2xl font-semibold">QR Code</h2>
+            <p class="font-light italic">"Six Zero...Three...uh...Maybank?"</p>
+          </div>
+          <div class="">
+            <p>Bank Transfer made easy and <strong>FREE</strong>.</p>
+            <p>Use QR Code to verify and copy bank info. No more typo.</p>
+          </div>
+        </div>
+
+        <div class="border rounded-2xl px-10 py-8 grid grid-rows-2 h-[240px] bg-white">
+          <h2 class="text-2xl font-semibold">Digital Business Card</h2>
+          <p>Share your business success with a business card, now in digital format.</p>
+        </div>
+
+        <div class="border rounded-2xl px-10 py-8 grid grid-rows-2 h-[240px] bg-white">
+          <div class="">
+            <h2 class="text-2xl font-semibold">Quick Review</h2>
+            <p class="font-light italic">"I'll bring my family tomorrow too!"</p>
+          </div>
+          <p>Let the customer share their excitement, On. The. Spot.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="faqs" class="flex flex-col my-20">
+    <h2 class="text-3xl text-center">FAQs</h2>
+
+    <div class="h-10"></div>
+    <div
+      data-controller="landing--business--faq"
+      class="divide-y border rounded-2xl overflow-hidden"
+      id="accordion-collapse" data-accordion="collapse">
+      <h2>
+        <button
+          data-action="landing--business--faq#toggle"
+          data-landing--business--faq-id-param="1"
+          data-landing--business--faq-target="accordionTitle"
+          type="button" class="accordion-title">
+          <span>What is Regülar?</span>
+          <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+          </svg>
+        </button>
+      </h2>
+      <div data-landing--business--faq-target="accordionBody" class="hidden">
+        <div class="p-5 flex flex-col gap-2 text-gray-500">
+          <p class="mb-2">
+            We aim to provide better business and customer experience.
+          </p>
+          <p class="mb-2">
+            One of the best way is to work together with your <strong>regular customers.</strong>
+          </p>
+          <p class="mb-2">
+            We shine in providing regular customer better experience, which in return giving the business the same
+            benefit.
+          </p>
+          <p class="mb-2">
+            Tell me, when was the last time you got coupon from the tasty roadside stall, despite having eaten
+            there all day before your office hours?
+          </p>
+        </div>
+      </div>
+
+      <h2>
+        <button
+          data-action="landing--business--faq#toggle"
+          data-landing--business--faq-id-param="2"
+          data-landing--business--faq-target="accordionTitle"
+          type="button" class="accordion-title">
+          <span>How this differs from the competitors like Google Review?</span>
+          <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+          </svg>
+        </button>
+      </h2>
+      <div data-landing--business--faq-target="accordionBody" class="hidden">
+        <div class="p-5 flex flex-col gap-2 text-gray-500">
+          <p class="mb-2">
+            We're happy you asked that!
+          </p>
+          <p class="mb-2">
+            While it's true that Google and other established companies have made significant strides in connecting
+            businesses with customers, there are still some gaps in this relationship.
+          </p>
+          <p class="mb-2">
+            One of the challenges is, identifying whether a customer is a regular or not, which often requires delving
+            into customer reviews and behavior.
+          </p>
+          <p class="mb-2">
+            But there's much more to our mission than just addressing this issue. Our ultimate vision is to enhance the
+            overall experience for both businesses and customers. We're committed to finding innovative solutions to
+            bridge these gaps and create a better, more seamless experience for all.
+          </p>
+
+        </div>
+      </div>
+
+      <h2>
+        <button
+          data-action="landing--business--faq#toggle"
+          data-landing--business--faq-id-param="3"
+          data-landing--business--faq-target="accordionTitle"
+          type="button" class="accordion-title">
+          <span>Are you focusing only in reviews?</span>
+          <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+          </svg>
+        </button>
+      </h2>
+      <div data-landing--business--faq-target="accordionBody" class="hidden">
+        <div class="p-5 flex flex-col gap-2 text-gray-500">
+          <p class="mb-2">We are more than just providing reviews.</p>
+          <p class="mb-2">
+            We offers service that is going to help both business and customer, products such as
+            QR Code for direct bank transfer free of charge, digital business cards and more.
+          </p>
+          <p class="mb-2">
+            That is not the limit, we will keep updating with new features from time to time
+            to help our local communities blooms.
+          </p>
+        </div>
+      </div>
+
+      <h2>
+        <button
+          data-action="landing--business--faq#toggle"
+          data-landing--business--faq-id-param="4"
+          data-landing--business--faq-target="accordionTitle"
+          type="button" class="accordion-title">
+          <span>Will you be releasing any developer APIs?</span>
+          <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+          </svg>
+        </button>
+      </h2>
+      <div data-landing--business--faq-target="accordionBody" class="hidden">
+        <div class="p-5 flex flex-col gap-2 text-gray-500">
+          <p class="mb-2">We have this as part of our plan.</p>
+          <p class="mb-2">
+            At the moment, we are focusing more on local direct business-to-customer interaction more
+            than online market, as the online market is over populated and our local business
+            and customers still need help.
+          </p>
+          <p class="mb-2">
+            Imagine that you went to buy Nasi Lemak every morning, how often did you leave review
+            in the business Google Map? Perhaps it's not listed in Google Map too. We want to fill
+            that gap and do even more to helps.
+          </p>
+          <p class="mb-2">
+            Be part of this, share Regülar with your family and friend!
+          </p>
+        </div>
+      </div>
+
+      <h2>
+        <button
+          data-action="landing--business--faq#toggle"
+          data-landing--business--faq-id-param="5"
+          data-landing--business--faq-target="accordionTitle"
+          type="button" class="accordion-title">
+          <span>Is there any paid feature?</span>
+          <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+          </svg>
+        </button>
+      </h2>
+      <div data-landing--business--faq-target="accordionBody" class="hidden">
+        <div class="p-5 flex flex-col gap-2 text-gray-500">
+          <p class="mb-2">Yes, we plan to have Prime membership.</p>
+          <p class="mb-2">
+            You can use Regülar for <strong>FREE</strong>, always. More advanced feature will be developed
+            to cater your business needs, but it is totally up to you to subscribe.
+          </p>
+          <p class="mb-2">
+            For now, <strong>we don't have any Prime Features yet</strong>, so use Regülar to your heart's content!
+          </p>
+        </div>
+      </div>
+
+      <h2>
+        <button
+          data-action="landing--business--faq#toggle"
+          data-landing--business--faq-id-param="6"
+          data-landing--business--faq-target="accordionTitle"
+          type="button" class="accordion-title">
+          <span>What drives you to create Regülar?</span>
+          <svg data-accordion-icon class="w-3 h-3 rotate-180 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5 5 1 1 5"/>
+          </svg>
+        </button>
+      </h2>
+      <div data-landing--business--faq-target="accordionBody" class="hidden">
+        <div class="p-5 flex flex-col gap-2 text-gray-500">
+          <p class="mb-2">My family.</p>
+
+          <p class="mb-2">Both my mom and sister have cafes, and I would like to
+            help them ultimately. If Regülar is able to help my family, first and foremost, I am sure it will have
+            a place in our communities too.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    <p class="text-gray-300 text-center">&copy; <%= Time.now.year %> Regülar. All Rights Reserved</p>
+  </footer>
+  <div class="h-40"></div>
+</div>

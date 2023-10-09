@@ -1,0 +1,52 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      ruby: latest
+    commands:
+      - nohup /usr/local/bin/dockerd --host=unix:///var/run/docker.sock --host=tcp://127.0.0.1:2375 --storage-driver=overlay2 &
+      - timeout 15 sh -c "until docker info; do echo .; sleep 1; done"
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR....
+      - aws --version
+      # update the following line with your own region
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - REPOSITORY_URI=${REPOSITORY_URI}
+      - IMAGE_REPO_NAME=${REPOSITORY_NAME}
+      - IMAGE_TAG=${CODEBUILD_RESOLVED_SOURCE_VERSION}-v${CODEBUILD_BUILD_NUMBER}
+      - TASK_DEFINITION_NAME=${TASK_DEFINITION_NAME}
+  build:
+    commands:
+      - echo Repo Tag
+      - echo $REPOSITORY_URI:$IMAGE_TAG
+      - echo Build started on `date`
+      - echo Building the Docker image...
+      - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG . -f ./deploy/docker/environment/distribution/Dockerfile
+      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $REPOSITORY_URI:$IMAGE_TAG
+  post_build:
+    commands:
+      - echo Build completed on `date`
+      - echo pushing to repo
+      # update the following line with the URI of your own ECR repository
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - echo Writing image definitions file...
+      - printf '{"ImageURI":"%s"}' $REPOSITORY_URI:$IMAGE_TAG > imageDetail.json
+      - aws ecs describe-task-definition --output json --task-definition $TASK_DEFINITION_NAME --query taskDefinition > template1.json
+      - jq --arg TASK_DEFINITION_NAME "$TASK_DEFINITION_NAME" ".containerDefinitions | map((select(.name == \"$TASK_DEFINITION_NAME\") | .image) |= \"<IMAGE1_NAME>\") | {\"containerDefinitions\":.}" template1.json > template2.json
+      - jq -s '.[0] * .[1]' template1.json template2.json > taskdef.json
+
+artifacts:
+  files:
+    - 'image*.json'
+    - 'appspec.yaml'
+    - 'taskdef.json'
+  secondary-artifacts:
+    DefinitionArtifact:
+      files:
+        - appspec.yaml
+        - taskdef.json
+    ImageArtifact:
+      files:
+        - imageDetail.json

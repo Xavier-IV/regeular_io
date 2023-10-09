@@ -1,0 +1,16 @@
+version: "3.1"
+name: regeular
+
+services:
+  web:
+    environment:
+      - REGEULAR_DATABASE_HOST=${REGEULAR_DATABASE_HOST}
+      - REGEULAR_DATABASE_USERNAME=${REGEULAR_DATABASE_USERNAME}
+      - REGEULAR_DATABASE_PASSWORD=${REGEULAR_DATABASE_PASSWORD}
+      - RAILS_ENV=production
+      - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
+    build:
+      context: ../../../../
+      dockerfile: ./deploy/docker/environment/distribution/Dockerfile
+    ports:
+      - "3000:3000"
