@@ -1,7 +1,9 @@
 <h1 align="center">Regülar.io</h1>
 
 <p align="center">
-  <img src="https://github.com/Xavier-IV/regeular_io/assets/14009259/a53f27e8-5647-46b5-bf6f-f2b309b84502" alt="regeular-logo" width="120px" height="120px"/>
+  <br>
+  <img src="https://github.com/Xavier-IV/regeular_io/assets/14009259/a733db1e-ffbc-4e7f-87ed-105f13443ae4" alt="regeular-logo" width="120px" height="120px"/>
+  <br>
   <br>
   <em>Keep track of your regular customer, reward them and<br/>grow your business!</em>
   <br>
