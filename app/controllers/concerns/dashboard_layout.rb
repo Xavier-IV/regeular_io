@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DashboardLayout
   extend ActiveSupport::Concern
 

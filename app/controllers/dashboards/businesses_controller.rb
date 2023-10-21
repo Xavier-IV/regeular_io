@@ -34,4 +34,3 @@ class Dashboards::BusinessesController < ApplicationController
                                      :name)
   end
 end
-
