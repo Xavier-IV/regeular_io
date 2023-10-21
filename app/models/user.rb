@@ -10,9 +10,14 @@ class User < ApplicationRecord
 
   enum role: { anonymous: 0, customer: 1, business: 2 }
 
+  has_many :reviews, dependent: :destroy
   belongs_to :business, optional: true
 
   has_one_attached :avatar
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 
   def self.from_omniauth(access_token)
     data = access_token.info

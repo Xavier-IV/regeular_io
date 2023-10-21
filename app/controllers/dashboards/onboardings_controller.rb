@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 module Dashboards
-  class OnboardingsController < DashboardsController
-    layout 'business/onboarding'
-
+  class OnboardingsController < ApplicationController
+    include DashboardLayout
     include Wicked::Wizard
 
     steps :onboard_company_name, :onboard_company_location, :onboard_complete

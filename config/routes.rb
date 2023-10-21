@@ -59,11 +59,17 @@ Rails.application.routes.draw do
         resources :reviews
       end
 
+      resources :customers
+      namespace :customers do
+        scope ':id' do
+          resources :reviews
+        end
+      end
+
       resources :rewards
       resources :qrs
       # resources :products # Feature on hold
       resources :rewards
-      resources :reviews
       resources :regulars
 
       resource :onboarding

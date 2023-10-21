@@ -1,10 +1,7 @@
 # frozen_string_literal: true
 
 class Dashboards::ProductsController < ApplicationController
-  include Pundit::Authorization
-
-  before_action :authenticate_user!
-  layout 'business/dashboard'
+  include DashboardLayout
 
   def index
     @products = current_user.business.products

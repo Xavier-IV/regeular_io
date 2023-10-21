@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_07_131433) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_21_123052) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -113,7 +113,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_07_131433) do
     t.uuid "business_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.uuid "user_id"
     t.index ["business_id"], name: "index_reviews_on_business_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "states", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -163,6 +165,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_07_131433) do
   add_foreign_key "cities", "states"
   add_foreign_key "qr_codes", "businesses"
   add_foreign_key "reviews", "businesses"
+  add_foreign_key "reviews", "users"
   add_foreign_key "states", "countries"
   add_foreign_key "users", "businesses"
 end

@@ -1,0 +1,2 @@
+module Dashboards::CustomersHelper
+end

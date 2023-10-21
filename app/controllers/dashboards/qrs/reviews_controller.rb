@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class Dashboards::Qrs::ReviewsController < DashboardsController
+class Dashboards::Qrs::ReviewsController < ApplicationController
+  include DashboardLayout
+
   def index
     @qr = (current_user.business.qr_code_review.presence || current_user.business.create_qr_code_review)
 

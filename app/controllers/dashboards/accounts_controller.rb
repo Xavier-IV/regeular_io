@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class Dashboards::AccountsController < DashboardsController
+class Dashboards::AccountsController < ApplicationController
+  include DashboardLayout
+
   def show
     @user = current_user
   end

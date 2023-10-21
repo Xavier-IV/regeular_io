@@ -11,7 +11,12 @@ class Business < ApplicationRecord
   has_one :qr_code_bank, class_name: 'QrCode::Bank', dependent: :destroy
   has_one :qr_code_review, class_name: 'QrCode::Review', dependent: :destroy
 
-  has_many :reviews, dependent: :destroy
+  has_many :reviews, dependent: :destroy, class_name: 'Review'
+  has_many :reviewers, -> { distinct }, through: :reviews, source: :user, class_name: 'User'
 
   scope :listed, -> { joins(:listing_attachment).distinct.joins(:logo_attachment).distinct }
+
+  def anon_reviews
+    reviews.where(user_id: nil)
+  end
 end

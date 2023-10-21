@@ -57,7 +57,7 @@
             <div class="flex gap-2 items-center justify-center">
               <%- User.omniauth_providers.each do |provider| %>
                 <%= button_to omniauth_authorize_path(User, provider), method: :post, data: { turbo: false },
-                              class: 'border border-gray-300 px-4 py-3 flex items-center justify-between rounded-md gap-4 fill-blue-400' do %>
+                              class: 'border border-gray-300 px-4 py-3 flex bg-white items-center justify-between rounded-md gap-4 fill-blue-400' do %>
                   <%= image_tag "logos/#{omniauth_logo(provider)}", class: 'border-none drops-shadow-none shadow-none w-4 fill-blue-400', alt: 'Your Image' %>
                   <p><%= "#{omniauth_name(provider)}" %></p>
                 <% end %>

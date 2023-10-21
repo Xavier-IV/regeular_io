@@ -10,6 +10,11 @@ class QrCodes::ReviewsController < QrCodesController
   def create
     business = Business.find_by(id: review_params[:business_id])
     @rating = business.reviews.create(rating: review_params[:rating], description: review_params[:description])
+    if current_user.present?
+      @rating.user = current_user
+      @rating.save
+    end
+
     redirect_to qr_codes_review_path(id: @rating.id)
   end
 

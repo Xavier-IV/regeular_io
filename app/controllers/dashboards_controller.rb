@@ -13,7 +13,9 @@ class DashboardsController < ApplicationController
     @reviews = 0
     return unless @business.present? && @business.reviews.present?
 
-    @reviews = @business.reviews.count
+    @reviewers = current_user.business.reviewers
+    @anon_reviews = current_user.business.anon_reviews
+    @reviews = @reviewers.count + @anon_reviews.count
   end
 
   private
