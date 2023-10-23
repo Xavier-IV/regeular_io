@@ -13,6 +13,9 @@ class DashboardsController < ApplicationController
     @reviews = 0
     return unless @business.present? && @business.reviews.present?
 
+    @regulars = @business.reviewers.regular
+    @regulars_total = ActiveRecord::Base.connection.exec_query(@regulars.to_sql).count
+
     @reviewers = current_user.business.reviewers
     @anon_reviews = current_user.business.anon_reviews
     @reviews = @reviewers.count + @anon_reviews.count
