@@ -10,8 +10,8 @@ class QrCodes::ReviewsController < QrCodesController
   def create
     business = Business.find_by(id: review_params[:business_id])
     @rating = business.reviews.create(rating: review_params[:rating], description: review_params[:description])
-    if current_user.present?
-      @rating.user = current_user
+    if current_client.present?
+      @rating.user = current_client
       @rating.save
     end
 

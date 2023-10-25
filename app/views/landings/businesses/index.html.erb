@@ -3,21 +3,21 @@
 <div class="relative bg-cover bg-center h-[440px] px-20 py-40" style="background-image: url('/assets/hero_bg.png')">
   <div class="absolute inset-0 w-full lg:max-w-6xl 2xl:max-w-7xl mx-auto h-fit flex justify-end z-10 px-4 md:px-10 py-4">
     <div class="h-fit w-fit flex items-center">
-      <% if user_signed_in? %>
+      <% if client_signed_in? %>
         <%= link_to dashboards_path, class: 'overflow-hidden flex gap-1 items-center border rounded-lg font-regular', style: 'background: rgba(255, 255, 255, 0.2);
 box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 backdrop-filter: blur(3px);
 -webkit-backdrop-filter: blur(3px);' do %>
           <span class="px-4 py-2">Go to Dashboard</span>
-          <% if current_user.avatar.present? && current_user.avatar.attached? %>
+          <% if current_client.avatar.present? && current_client.avatar.attached? %>
             <div class="w-10 h-10 bg-white rounded-md overflow-hidden">
-              <%= image_tag rails_blob_url(current_user.avatar), class: 'object-cover w-full h-full' %>
+              <%= image_tag rails_blob_url(current_client.avatar), class: 'object-cover w-full h-full' %>
             </div>
           <% end %>
         <% end %>
       <% else %>
-        <%= link_to 'Login', new_user_session_path, class: 'bg-white px-4 py-2' %>
-        <%= link_to 'Register', new_user_registration_path, class: 'bg-white px-4 py-2' %>
+        <%= link_to 'Login', new_client_session_path, class: 'bg-white px-4 py-2' %>
+        <%= link_to 'Register', new_client_registration_path, class: 'bg-white px-4 py-2' %>
       <% end %>
     </div>
   </div>
@@ -30,7 +30,7 @@ backdrop-filter: blur(3px);
       </p>
     </div>
     <div class="flex flex-col md:flex-row gap-2 items-start justify-start w-full">
-      <%= link_to 'Track Regular Customers', new_user_registration_path, class: 'px-3 py-3 md:px-5 md:py-3 border-none bg-purple-600 text-white rounded-md' %>
+      <%= link_to 'Track Regular Customers', new_client_registration_path, class: 'px-3 py-3 md:px-5 md:py-3 border-none bg-purple-600 text-white rounded-md' %>
       <%= link_to 'See how it works', "#learn-more", class: 'px-3 py-3 md:px-5 md:py-3 border border-purple-300 bg-white text-gray-800 rounded-md' %>
     </div>
   </div>

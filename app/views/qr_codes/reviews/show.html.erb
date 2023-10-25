@@ -1,20 +1,18 @@
-<div class="flex flex-col gap-4 py-10 mt-16 md:py-16 overflow-scroll no-scrollbar">
+<div class="flex flex-col gap-4 py-10 md:py-16 overflow-scroll no-scrollbar">
   <div class="flex flex-col justify-center items-center gap-4">
-    <% if user_signed_in? %>
-      <p>Welcome, <%= current_user.first_name %>!</p>
+    <% if customer_signed_in? %>
+      <p>Welcome, <%= current_customer.first_name %>!</p>
     <% else %>
-      <%- if Devise.mappings[:user].omniauthable? %>
-        <div class="flex gap-2 items-center justify-center">
-          <%- User.omniauth_providers.each do |provider| %>
-            <%= button_to omniauth_authorize_path(User, provider), method: :post, data: { turbo: false },
-                          class: 'border border-gray-300 bg-white px-4 py-3 flex items-center justify-between rounded-sm gap-4 fill-blue-400' do %>
-              <%= image_tag "logos/#{omniauth_logo(provider)}", class: 'border-none drops-shadow-none shadow-none w-4 fill-blue-400', alt: 'Your Image' %>
-              <p><%= "#{omniauth_name(provider)}" %></p>
-            <% end %>
+      <div class="flex gap-2 items-center justify-center">
+        <% [:google_oauth2, :twitter].each do |provider| %>
+          <%= button_to "/auth/#{provider}?role=customers", method: :post, data: { turbo: false },
+                        class: 'border border-gray-300 px-4 py-3 flex items-center justify-between rounded-sm gap-4 fill-blue-400' do %>
+            <%= image_tag "logos/#{omniauth_logo(provider)}", class: 'border-none drops-shadow-none shadow-none w-4 fill-blue-400', alt: 'Your Image' %>
+            <p><%= "#{omniauth_name(provider)}" %></p>
           <% end %>
-        </div>
-        <p class="text-sm text-gray-500">Easily sign in to keep track of your reviews!</p>
-      <% end %>
+        <% end %>
+      </div>
+      <p class="text-sm text-gray-500">Easily sign in to keep track of your reviews!</p>
     <% end %>
   </div>
 
@@ -46,7 +44,14 @@
     <div class="px-6 py-4 border border-purple-500 text-purple-500 rounded-2xl font-bold text-2xl">
       5
     </div>
-    <p>more reviews to become regular customer.</p>
-    <p><strong>See Benefit</strong></p>
+    <p class="text-center">more reviews to become regular customer.</p>
+    <div class="flex flex-col items-center">
+      <div class="flex gap-1 items-center">
+        <p class="text-lg"><strong>Regülar Customer Benefit</strong></p>
+        <% unless customer_signed_in? %>
+          <i class="lni lni-lock-alt"></i>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>

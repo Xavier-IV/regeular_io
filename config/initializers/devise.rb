@@ -274,14 +274,6 @@ Devise.setup do |config|
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
 
   # https://github.com/zquestz/omniauth-google-oauth2
-  config.omniauth :google_oauth2,
-                  Rails.application.credentials.dig(:google, :oauth, :client_id),
-                  Rails.application.credentials.dig(:google, :oauth, :client_secret),
-                  {}
-  config.omniauth :twitter,
-                  Rails.application.credentials.dig(:twitter, :oauth, :client_id),
-                  Rails.application.credentials.dig(:twitter, :oauth, :client_secret),
-                  {}
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

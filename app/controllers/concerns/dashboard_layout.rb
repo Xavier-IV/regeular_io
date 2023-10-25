@@ -6,7 +6,7 @@ module DashboardLayout
   included do
     include Pundit::Authorization
 
-    before_action :authenticate_user!
+    before_action :authenticate_client!
     layout 'business/dashboard'
   end
 end

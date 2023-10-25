@@ -1,13 +1,15 @@
+# frozen_string_literal: true
+
 module Omniauthable
   extend ActiveSupport::Concern
 
   class_methods do
-    def from_omniauth(access_token)
+    def from_omniauth(access_token, resource)
       data = access_token.info
-      user = User.where(email: data['email']).first
+      user = resource.where(email: data['email']).first
 
       unless user
-        user = User.create(
+        user = resource.create(
           first_name: data['first_name'] || data['name'], # Use 'name' for Twitter if 'first_name' isn't available
           last_name: data['last_name'],
           email: data['email'],

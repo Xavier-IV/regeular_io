@@ -4,15 +4,15 @@ class Dashboards::BusinessesController < ApplicationController
   include DashboardLayout
 
   def edit
-    @business = current_user.business
+    @business = current_client.business
     @states = Common::Country.find_by(name: 'Malaysia').states
-    @cities = @states.find_by(name: current_user.business.state).cities || []
+    @cities = @states.find_by(name: current_client.business.state).cities || []
   end
 
   def update
-    @business = current_user.business
+    @business = current_client.business
     @states = Common::Country.find_by(name: 'Malaysia').states
-    @cities = @states.find_by(name: current_user.business.state).cities || []
+    @cities = @states.find_by(name: current_client.business.state).cities || []
 
     return render :edit if params[:business].blank?
 
