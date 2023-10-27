@@ -1,5 +1,35 @@
 <% if @business.present? %>
-  <div class="flex flex-col gap-4 py-10 mt-10 md:mt-16 md:py-16 overflow-scroll no-scrollbar">
+  <div class="flex flex-col gap-4 py-10 md:py-16 overflow-scroll no-scrollbar">
+    <!--Auth-->
+    <div class="flex flex-col justify-center items-center gap-4 px-5">
+      <div class="w-full flex flex-col items-center justify-center">
+        <% if customer_signed_in? %>
+          <p>Welcome, <%= current_customer.first_name %>!</p>
+        <% end %>
+
+        <% unless customer_signed_in? %>
+          <p class="text-gray-400 text-sm md:text-normal">Quickly register or sign in to see benefit.</p>
+        <% end %>
+      </div>
+
+      <div class="flex flex-col justify-center items-center gap-4">
+        <% unless customer_signed_in? %>
+          <div class="flex gap-2 items-center justify-center">
+            <div class="flex gap-2 items-center justify-center">
+              <% [:google_oauth2, :twitter].each do |provider| %>
+                <%= button_to "/auth/#{provider}?role=customers", method: :post, data: { turbo: false },
+                              class: 'border border-gray-300 px-4 py-3 flex items-center justify-between rounded-sm gap-4 fill-blue-400' do %>
+                  <%= image_tag "logos/#{omniauth_logo(provider)}", class: 'border-none drops-shadow-none shadow-none w-4 fill-blue-400', alt: 'Your Image' %>
+                  <p><%= "#{omniauth_name(provider)}" %></p>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <!--Review-->
     <div class="w-full h-fit grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto px-4 md:px-10 md:px-0">
       <div
         style="box-shadow: 0px 4px 10px rgba(131, 105, 221, 0.50);"
@@ -20,6 +50,7 @@
               <% end %>
               <%= f.hidden_field :rating, value: 0, data: { 'qr--rating-target': "ratingInput" } %>
               <%= f.hidden_field :business_id, value: @business.id %>
+              <%= f.hidden_field :qr_code_id, value: @qr.id %>
             </div>
 
             <div class="mt-4 w-full">
@@ -33,38 +64,12 @@
       </div>
     </div>
 
-    <div class="flex flex-col justify-center items-center gap-4 mt-4 px-5">
-      <div class="w-full flex flex-col items-center justify-center">
-        <% if user_signed_in? %>
-          <p>Welcome, <%= current_user.first_name %>!</p>
-        <% end %>
-
-        <div class="flex gap-1 items-center">
-          <p class="text-lg"><strong>Regular Customer Benefit</strong></p>
-          <% unless user_signed_in? %>
-            <i class="lni lni-lock-alt"></i>
-          <% end %>
-        </div>
-
-        <% unless user_signed_in? %>
-          <p class="text-gray-400">Quickly register or sign in to see benefit.</p>
-        <% end %>
-      </div>
-
-      <div class="flex flex-col justify-center items-center gap-4">
-        <% unless user_signed_in? %>
-          <%- if Devise.mappings[:user].omniauthable? %>
-            <div class="flex gap-2 items-center justify-center">
-              <%- User.omniauth_providers.each do |provider| %>
-                <%= button_to omniauth_authorize_path(User, provider), method: :post, data: { turbo: false },
-                              class: 'border border-gray-300 px-4 py-3 flex bg-white items-center justify-between rounded-md gap-4 fill-blue-400' do %>
-                  <%= image_tag "logos/#{omniauth_logo(provider)}", class: 'border-none drops-shadow-none shadow-none w-4 fill-blue-400', alt: 'Your Image' %>
-                  <p><%= "#{omniauth_name(provider)}" %></p>
-                <% end %>
-              <% end %>
-            </div>
-
-          <% end %>
+    <!--Benefits-->
+    <div class="flex flex-col items-center">
+      <div class="flex gap-1 items-center">
+        <p class="text-lg"><strong>Regülar Customer Benefit</strong></p>
+        <% unless customer_signed_in? %>
+          <i class="lni lni-lock-alt"></i>
         <% end %>
       </div>
     </div>

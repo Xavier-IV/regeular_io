@@ -4,15 +4,15 @@ class Dashboards::ProductsController < ApplicationController
   include DashboardLayout
 
   def index
-    @products = current_user.business.products
+    @products = current_client.business.products
   end
 
   def new
-    @product = current_user.business.products.build
+    @product = current_client.business.products.build
   end
 
   def create
-    @product = current_user.business.products.create(product_params)
+    @product = current_client.business.products.create(product_params)
     @product.image.attach(params[:business_product][:image]) if params[:business_product][:image]
 
     if @product.persisted? && @product.name.present?
@@ -37,8 +37,6 @@ class Dashboards::ProductsController < ApplicationController
 
     @product.update(product_params)
     @product.image.attach(params[:business_product][:image]) if params[:business_product][:image]
-
-    Rails.logger.debug params
 
     if @product.persisted?
       redirect_to dashboards_product_path(@product), notice: 'Record updated.'

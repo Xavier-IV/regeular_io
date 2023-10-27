@@ -1,29 +1,25 @@
 <div class="flex flex-col gap-4 my-10 md:my-10 px-10 md:px-0">
-  <h1 class="text-lg font-semibold">Registered Customers (<%= @reviewers.count %>)</h1>
+  <h1 class="text-lg font-semibold">Registered Customers (<%= @reviewers_count %>)</h1>
   <div class="h-2"></div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
     <% @reviewers.each do |reviewer| %>
-      <%= link_to dashboards_customers_reviews_path(id: reviewer.id), class: 'flex flex-col gap-2 border rounded-md p-4 px-6 bg-white shadow-lg' do %>
-        <div class="flex justify-between items-center">
-          <h2 class="text-lg font-semibold"><%= reviewer.first_name %> <%= reviewer.last_name %> </h2>
-          <span class="text-sm text-gray-400">
-            (<%= reviewer.reviews.count %> Reviews)
+      <%= link_to dashboards_customers_reviews_path(id: reviewer['id']), class: "flex min-h-[160px] h-full flex-col gap-2 border rounded-md p-4 px-6 shadow-lg #{reviewer['is_regular'] ? 'bg-purple-500 text-white' : 'bg-white'}" do %>
+        <div class="flex items-center justify-between">
+          <div class="flex gap-2">
+            <% (1..5).each do |rating_value| %>
+              <%= render(Shared::Review::StarComponent.new(role: rating_value > reviewer['average_rating'].ceil ? :default : :star )) %>
+            <% end %>
+          </div>
+          <span class="text-sm">
+            (<%= reviewer['reviews_count'] %> Reviews, ~<%= reviewer['average_rating'].round(1) %>)
           </span>
         </div>
 
-        <div class="flex gap-2">
-          <% (1..5).each do |rating_value| %>
-            <%= render(Shared::Review::StarComponent.new(role: rating_value > reviewer.reviews.first.rating ? :default : :star )) %>
-          <% end %>
-        </div>
-        <p><%= reviewer.reviews.max_by(&:created_at).description %></p>
+        <h2 class="text-lg font-semibold"><%= reviewer['first_name'] %> <%= reviewer['last_name'] %> </h2>
+        <p><%= reviewer['latest_description'] %></p>
 
       <% end %>
-
-      <%#= render(::Dashboard::Review::ReviewCardComponent.new(rating: review.rating, description: review.description)) %>
-    <% end.empty? and begin %>
-      <p>No reviews yet</p>
     <% end %>
   </div>
 

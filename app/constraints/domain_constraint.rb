@@ -8,7 +8,6 @@ class DomainConstraint
     end
     @domains.push('127.0.0.1')
     @domains.push('localhost')
-    Rails.logger.debug @domains
   end
 
   def matches?(request)

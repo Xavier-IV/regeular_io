@@ -6,7 +6,7 @@
       <%= render "devise/shared/error_messages", resource: resource %>
 
       <p class="mt-4">Be sure to check your spam box as well.</p>
-      <%= f.hidden_field :email, value: (current_user.pending_reconfirmation? ? current_user.unconfirmed_email : current_user.email) %>
+      <%= f.hidden_field :email, value: (current_client.pending_reconfirmation? ? current_client.unconfirmed_email : current_client.email) %>
 
       <div class="actions mt-6">
         <button

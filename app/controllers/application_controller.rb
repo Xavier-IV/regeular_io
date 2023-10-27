@@ -16,6 +16,8 @@ class ApplicationController < ActionController::Base
   end
 
   def store_user_location!
-    store_location_for(:user, request.fullpath)
+    current_domain = request.hostname
+    is_business = current_domain == Rails.application.credentials.dig(:host, :business)
+    store_location_for(is_business ? :client : :customer, request.fullpath)
   end
 end

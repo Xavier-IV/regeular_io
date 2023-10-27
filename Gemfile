@@ -119,3 +119,5 @@ gem 'view_component', '~> 3.6'
 gem 'brakeman', '~> 6.0'
 
 gem 'bundle-audit', '~> 0.1.0'
+
+gem 'activerecord-session_store', '~> 2.1'

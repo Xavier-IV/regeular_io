@@ -8,26 +8,21 @@ Rails.application.routes.draw do
   get '/states', to: 'geographies#states', defaults: { format: :json }
   get '/cities', to: 'geographies#cities', defaults: { format: :json }
 
-  # ====> Authentication
-  # Handle routing for authentication
-  devise_for :users, controllers: {
-    registrations: 'users/registrations',
-    confirmations: 'users/confirmations',
-    sessions: 'users/sessions',
-    unlocks: 'users/unlocks',
-    passwords: 'users/passwords',
-    omniauth_callbacks: 'users/omniauth_callbacks'
-  }
-
-  authenticated :user do
-    root 'landings#index', as: :root_authenticated
-  end
+  get '/auth/twitter/callback' => 'omniauth_sessions#twitter'
+  get '/auth/google_oauth2/callback' => 'omniauth_sessions#google_oauth2'
 
   # ====> Customer
   constraints host: Rails.application.credentials.dig(:host, :review) do
     default_url_options({ host: Rails.application.credentials.dig(:host, :review) }.tap do |options|
       options[:port] = 3000 if Rails.env.development?
     end)
+
+    devise_for :customers, controllers: {
+      registrations: 'customers/registrations',
+      sessions: 'customers/sessions',
+      unlocks: 'customers/unlocks',
+      passwords: 'customers/passwords'
+    }
 
     # Food Reviewers Landing Page
     get '/foods', to: 'landings/foods#index', as: :food_root
@@ -45,12 +40,20 @@ Rails.application.routes.draw do
       options[:port] = 3000 if Rails.env.development?
     end)
 
+    devise_for :clients, controllers: {
+      registrations: 'clients/registrations',
+      confirmations: 'dashboards/confirmations',
+      sessions: 'clients/sessions',
+      unlocks: 'clients/unlocks',
+      passwords: 'clients/passwords'
+    }
+
     # Business Landing Page
     get '/home', to: 'landings/businesses#index', as: :business_root
 
     resources :dashboards, only: :index
     namespace :dashboards do
-      devise_scope :user do
+      devise_scope :client do
         resources :confirmations
       end
 

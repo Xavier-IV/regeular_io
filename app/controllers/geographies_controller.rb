@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class GeographiesController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_client!
 
   def states
     states = Common::Country.find_by(name: params[:country]).states.order(name: :asc)

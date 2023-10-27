@@ -1,11 +1,17 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+_fixture:
+  model_class: Review
 
-one:
+review_one:
+  customer: customer_one
   rating: 1
-  description: MyText
+  description: The food is awesome!
   business: one
+  qr_code_id: qr_code_review_one
 
-two:
+review_two:
+  customer: customer_two
   rating: 1
-  description: MyText
+  description: The food is awesome too!
   business: two
+  qr_code_id: qr_code_review_two

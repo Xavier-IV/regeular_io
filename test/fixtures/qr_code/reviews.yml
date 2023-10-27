@@ -5,12 +5,10 @@
 # below each fixture, per the syntax in the comments below
 #
 
-review_one:
+qr_code_review_one:
   type: 'QrCode::Review'
   scanned_times: 1
-  business: one
 
-review_two:
+qr_code_review_two:
   type: 'QrCode::Review'
   scanned_times: 1
-  business: two

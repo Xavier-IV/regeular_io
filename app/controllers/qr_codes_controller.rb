@@ -10,6 +10,14 @@ class QrCodesController < ApplicationController
     @qr.scanned_times += 1
     @qr.save
 
+    # Everytime someone scanned the code, replace to a new QR codes
+    # to avoid spamming.
+    new_qr = @qr.business.qr_code_review.create
+    Turbo::StreamsChannel.broadcast_replace_to([@qr.business, 'qr_codes_review'],
+                                               target: 'codes',
+                                               locals: { qr_code: new_qr },
+                                               partial: 'dashboards/qrs/reviews/review')
+
     case @qr.type
     when 'QrCode::Bank'
       redirect_to qr_codes_bank_path(reference: params[:reference])
