@@ -1,21 +1,21 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  registration_id: MyString1
-  address_line_1: MyString
-  address_line_2: MyString
-  city: MyString
-  state: MyString
-  postcode: MyString
-  country: MyString
+  name: Restoran Nasi Ayam
+  registration_id: SA02319031
+  address_line_1: AddressLine1
+  address_line_2: AddressLine2
+  city: Alor Gajah
+  state: Melaka
+  postcode: 78000
+  country: Malaysia
 
 two:
-  name: MyString
-  registration_id: MyString2
-  address_line_1: MyString
-  address_line_2: MyString
-  city: MyString
-  state: MyString
-  postcode: MyString
-  country: MyString
+  name: Restoran Kuih Udang
+  registration_id: SA02319032
+  address_line_1: AddressLine1
+  address_line_2: AddressLine2
+  city: Alor Gajah
+  state: Melaka
+  postcode: 78000
+  country: Malaysia
