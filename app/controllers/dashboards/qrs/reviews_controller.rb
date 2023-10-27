@@ -4,23 +4,8 @@ class Dashboards::Qrs::ReviewsController < ApplicationController
   include DashboardLayout
 
   def index
-    @qr = (current_client.business.qr_code_review.presence || current_client.business.create_qr_code_review)
-
+    @qr = current_client.business.qr_code_review.create
     @path = qr_code_url(reference: @qr.id)
-    qrcode = RQRCode::QRCode.new(@path)
-
-    @svg = qrcode.as_svg(
-      color: 'FFFFFF',
-      shape_rendering: 'crispEdges',
-      standalone: true,
-      module_size: 10,
-      use_path: true,
-      viewbox: true,
-      svg_attributes: {
-        width: '100%',
-        height: '100%'
-      }
-    )
   end
 
   def new; end

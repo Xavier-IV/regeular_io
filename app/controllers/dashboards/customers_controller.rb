@@ -40,7 +40,7 @@ class Dashboards::CustomersController < ApplicationController
     @reviewers = ActiveRecord::Base.connection.execute(
       ApplicationRecord.sanitize_sql([query, params])
     )
-    @reviewers_count = 0
+    @reviewers_count = ActiveRecord::Base.connection.exec_query(ApplicationRecord.sanitize_sql([query, params])).count
     @anon_reviews = current_client.business.anon_reviews
   end
 end

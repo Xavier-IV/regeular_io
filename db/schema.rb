@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_25_150857) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_27_105051) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -103,7 +103,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_25_150857) do
     t.integer "scanned_times", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.uuid "business_id", null: false
+    t.uuid "business_id"
     t.index ["business_id"], name: "index_qr_codes_on_business_id"
   end
 
@@ -114,7 +114,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_25_150857) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "user_id"
+    t.uuid "qr_code_id"
     t.index ["business_id"], name: "index_reviews_on_business_id"
+    t.index ["qr_code_id"], name: "index_reviews_on_qr_code_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
@@ -140,6 +142,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_25_150857) do
     t.string "encrypted_password", default: "", null: false
     t.string "first_name", default: "", null: false
     t.string "last_name", default: "", null: false
+    t.string "role", default: "anonymous"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -158,7 +161,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_25_150857) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "business_id"
-    t.text "roles", default: [], array: true
     t.string "type"
     t.index ["business_id"], name: "index_users_on_business_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
@@ -175,6 +177,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_25_150857) do
   add_foreign_key "cities", "states"
   add_foreign_key "qr_codes", "businesses"
   add_foreign_key "reviews", "businesses"
+  add_foreign_key "reviews", "qr_codes"
   add_foreign_key "reviews", "users"
   add_foreign_key "states", "countries"
   add_foreign_key "users", "businesses"

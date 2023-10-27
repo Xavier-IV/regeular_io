@@ -2,16 +2,25 @@
 
 class QrCodes::ReviewsController < QrCodesController
   def new
-    @rating = Review.new
-    @qr = QrCode.find_by(id: params[:reference])
+    @qr = QrCode::Review.find(params[:reference])
+    @rating = Review.find_by(qr_code_id: @qr.id)
+    return redirect_to qr_codes_review_path(id: @rating.id) if @rating.present?
+
+    @rating = Review.new(qr_code_id: @qr.id)
     @business = @qr&.business
   end
 
   def create
     business = Business.find_by(id: review_params[:business_id])
-    @rating = business.reviews.create(rating: review_params[:rating], description: review_params[:description])
-    if current_client.present?
-      @rating.user = current_client
+    qr_code = QrCode::Review.find(review_params[:qr_code_id])
+    @rating = Review.find_by(qr_code_id: qr_code.id)
+
+    return redirect_to qr_codes_review_path(id: @rating.id) if @rating.present?
+
+    @rating = business.reviews.create(rating: review_params[:rating], description: review_params[:description],
+                                      qr_code_id: qr_code.id)
+    if current_customer.present?
+      @rating.customer = current_customer
       @rating.save
     end
 
@@ -19,12 +28,13 @@ class QrCodes::ReviewsController < QrCodesController
   end
 
   def show
+    Rails.logger.debug params
     @review = Review.find(params[:id])
   end
 
   private
 
   def review_params
-    params.require(:review).permit(:rating, :description, :business_id)
+    params.require(:review).permit(:rating, :description, :business_id, :qr_code_id)
   end
 end

@@ -12,7 +12,7 @@
             <% end %>
           </div>
           <span class="text-sm">
-            (<%= reviewer['reviews_count'] %> Reviews, ~<%= reviewer['average_rating'] %>)
+            (<%= reviewer['reviews_count'] %> Reviews, ~<%= reviewer['average_rating'].round(1) %>)
           </span>
         </div>
 

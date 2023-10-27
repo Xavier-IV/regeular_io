@@ -50,6 +50,7 @@
               <% end %>
               <%= f.hidden_field :rating, value: 0, data: { 'qr--rating-target': "ratingInput" } %>
               <%= f.hidden_field :business_id, value: @business.id %>
+              <%= f.hidden_field :qr_code_id, value: @qr.id %>
             </div>
 
             <div class="mt-4 w-full">
