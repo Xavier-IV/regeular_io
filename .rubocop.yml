@@ -22,12 +22,14 @@ Metrics/BlockLength:
     - 'config/environments/*'
     - 'config/routes.rb'
     - 'lib/tasks/*'
+    - 'app/models/concerns/omniauthable.rb'
 
 Metrics/CyclomaticComplexity:
   Exclude:
     - 'bin/*'
     - 'app/controllers/dashboards_controller.rb'
     - 'app/controllers/dashboards/businesses_controller.rb'
+    - 'app/controllers/omniauth_sessions_controller.rb'
 
 Metrics/MethodLength:
   Enabled: false
@@ -41,6 +43,7 @@ Metrics/PerceivedComplexity:
     - 'bin/*'
     - 'app/controllers/dashboards_controller.rb'
     - 'app/controllers/dashboards/businesses_controller.rb'
+    - 'app/controllers/omniauth_sessions_controller.rb'
 
 Style/Documentation:
   Enabled: false

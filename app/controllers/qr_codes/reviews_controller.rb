@@ -28,7 +28,6 @@ class QrCodes::ReviewsController < QrCodesController
   end
 
   def show
-    Rails.logger.debug params
     @review = Review.find(params[:id])
   end
 

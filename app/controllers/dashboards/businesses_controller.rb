@@ -5,6 +5,7 @@ class Dashboards::BusinessesController < ApplicationController
 
   def edit
     @business = current_client.business
+    authorize @business
     @states = Common::Country.find_by(name: 'Malaysia').states
     @cities = @states.find_by(name: current_client.business.state).cities || []
   end

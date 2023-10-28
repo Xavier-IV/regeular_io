@@ -3,8 +3,17 @@
 class OmniauthSessionsController < ApplicationController
   def google_oauth2
     role = request.env['omniauth.params']['role']
+    purpose = request.env['omniauth.params']['purpose']
+    existing_user_id = request.env['omniauth.params']['user_id']
+
     resource = role == 'clients' ? Client : Customer
     redirect_url = role == 'clients' ? new_client_registration_url : new_customer_registration_url
+
+    if role == 'clients' && purpose == 'link' && existing_user_id
+      linked_omniauth = User.link_omniauth(request.env['omniauth.auth'], request.env['omniauth.params'], resource)
+      flash[:success] = 'Succesfully linked with Google!'
+      return redirect_to dashboards_account_path if linked_omniauth.persisted?
+    end
 
     @user = User.from_omniauth(request.env['omniauth.auth'], resource)
 
@@ -19,10 +28,20 @@ class OmniauthSessionsController < ApplicationController
 
   def twitter
     role = request.env['omniauth.params']['role']
+    purpose = request.env['omniauth.params']['purpose']
+    existing_user_id = request.env['omniauth.params']['user_id']
+
     resource = role == 'clients' ? Client : Customer
     redirect_url = role == 'clients' ? new_client_registration_url : new_customer_registration_url
 
+    if role == 'clients' && purpose == 'link' && existing_user_id
+      linked_omniauth = User.link_omniauth(request.env['omniauth.auth'], request.env['omniauth.params'], resource)
+      flash[:success] = 'Succesfully linked with Twitter!'
+      return redirect_to dashboards_account_path if linked_omniauth.persisted?
+    end
+
     @user = User.from_omniauth(request.env['omniauth.auth'], resource)
+
     if @user.persisted?
       flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Twitter'
       sign_in_and_redirect @user, event: :authentication

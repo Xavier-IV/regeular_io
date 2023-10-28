@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Dashboards::OnboardingsController < ApplicationController
+  before_action :authenticate_client!
+
   include Wicked::Wizard
 
   steps :onboard_company_name, :onboard_company_location, :onboard_complete
@@ -28,7 +30,8 @@ class Dashboards::OnboardingsController < ApplicationController
         flash[:alert] = 'Business name cannot be empty'
         redirect_to_next(:onboard_company_name)
       else
-        current_client.create_business!(name: params[:business][:name])
+        current_client.create_business(name: params[:business][:name])
+        current_client.save
         redirect_to_next(:onboard_company_location)
       end
     when :onboard_company_location
