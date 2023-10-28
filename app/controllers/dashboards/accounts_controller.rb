@@ -12,7 +12,7 @@ class Dashboards::AccountsController < ApplicationController
   end
 
   def update
-    current_client.avatar.attach(params[:user][:avatar]) if params[:user][:avatar]
+    current_client.avatar.attach(params[:client][:avatar]) if params[:client][:avatar]
 
     if current_client.update(user_params)
       redirect_to dashboards_account_path, notice: 'Record updated.'
@@ -24,6 +24,6 @@ class Dashboards::AccountsController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name)
+    params.require(:client).permit(:first_name, :last_name)
   end
 end

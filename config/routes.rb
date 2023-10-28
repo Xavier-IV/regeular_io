@@ -25,12 +25,19 @@ Rails.application.routes.draw do
     }
 
     # Food Reviewers Landing Page
-    get '/foods', to: 'landings/foods#index', as: :food_root
+    get '/r', to: 'landings/foods#index', as: :food_root
 
     resource :qr_code, only: :show
     namespace :qr_codes do
       resource :bank
       resource :review, only: %i[new create show]
+    end
+
+    namespace :customers do
+      resource :dashboard
+      namespace :dashboards do
+        resource :account
+      end
     end
   end
 

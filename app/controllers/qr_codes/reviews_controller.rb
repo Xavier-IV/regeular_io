@@ -15,7 +15,7 @@ class QrCodes::ReviewsController < QrCodesController
     qr_code = QrCode::Review.find(review_params[:qr_code_id])
     @rating = Review.find_by(qr_code_id: qr_code.id)
 
-    return redirect_to qr_codes_review_path(id: @rating.id) if @rating.present?
+    return redirect_to qr_codes_review_path(id: @rating.id), notice: 'Review was already submitted.' if @rating.present?
 
     @rating = business.reviews.create(rating: review_params[:rating], description: review_params[:description],
                                       qr_code_id: qr_code.id)
