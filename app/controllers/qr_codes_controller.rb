@@ -12,10 +12,11 @@ class QrCodesController < ApplicationController
 
     # Everytime someone scanned the code, replace to a new QR codes
     # to avoid spamming.
-    new_qr = @qr.business.qr_code_review.create
+    replace_qr = @qr.business.qr_code_review.find_by(scanned_times: 0)
+    replace_qr = @qr.business.qr_code_review.create if replace_qr.blank?
     Turbo::StreamsChannel.broadcast_replace_to([@qr.business, 'qr_codes_review'],
                                                target: 'codes',
-                                               locals: { qr_code: new_qr },
+                                               locals: { qr_code: replace_qr },
                                                partial: 'dashboards/qrs/reviews/review')
 
     case @qr.type

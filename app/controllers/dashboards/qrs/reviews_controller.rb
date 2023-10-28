@@ -4,7 +4,8 @@ class Dashboards::Qrs::ReviewsController < ApplicationController
   include DashboardLayout
 
   def index
-    @qr = current_client.business.qr_code_review.create
+    @qr = current_client.business.qr_code_review.find_by(scanned_times: 0)
+    @qr = current_client.business.qr_code_review.create if @qr.blank?
     @path = qr_code_url(reference: @qr.id)
   end
 
