@@ -15,9 +15,11 @@ services:
       retries: 10
   web:
     environment:
+      - REGEULAR_DATABASE_HOST=${REGEULAR_DATABASE_HOST}
       - REGEULAR_DATABASE_USERNAME=${REGEULAR_DATABASE_USERNAME}
       - REGEULAR_DATABASE_PASSWORD=${REGEULAR_DATABASE_PASSWORD}
-      - REGEULAR_DATABASE_HOST=db
+      - REDIS_URL=${REDIS_URL}
+      - RAILS_ENV=${RAILS_ENV}
     build:
       context: ../../../../
       dockerfile: ./deploy/docker/environment/development/Dockerfile
