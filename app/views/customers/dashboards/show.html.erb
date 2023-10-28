@@ -1,7 +1,7 @@
 <div class="flex flex-col gap-4 my-10 md:my-10 px-10 md:px-0">
   <h1 class="font-bold text-2xl">Welcome<%= ", #{current_customer.full_name}" if current_customer.full_name.present? %></h1>
 
-  <div class="mt-10">
+  <div class="mt-10 flex flex-col gap-4">
     <% current_customer.reviews.each do |review| %>
       <div class="flex flex-col gap-2 border rounded-md p-4 px-6 bg-white shadow-lg">
         <p class="text-gray-400">Location - <%= review.business.name %></p>
