@@ -7,13 +7,16 @@ class User < ApplicationRecord
          :recoverable, :rememberable,
          :confirmable, :lockable, :trackable
 
-  validates :email, presence: true, uniqueness: { scope: :type },
+  validates :email, presence: true, uniqueness: { scope: :type, case_sensitive: true },
                     format: { with: URI::MailTo::EMAIL_REGEXP, message: 'Invalid email format' }
-  validates :password, presence: true, length: { minimum: 6 }
+
+  # https://github.com/heartcombo/devise/blob/main/lib/devise/models/validatable.rb
+  validates :password, presence: { if: :password_required? }
   validates :password, confirmation: { if: :password_required? }
+  validates :password, length: { within: (6..128), allow_blank: true }
 
   has_one_attached :avatar
-  has_many :omniauths, dependent: :destroy, inverse_of: :user
+  has_many :omniauths, dependent: :destroy
 
   # Client
   belongs_to :business, optional: true
@@ -37,6 +40,8 @@ class User < ApplicationRecord
   end
 
   def full_name
+    return nil if first_name.blank? && last_name.blank?
+
     "#{first_name} #{last_name}"
   end
 

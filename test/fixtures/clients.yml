@@ -7,9 +7,11 @@
 client_one:
   first_name: ClientName1
   email: client1@test.com
+  type: Client
 # column: value
 #
 client_two:
   first_name: ClientName2
   email: client2@test.com
+  type: Client
 # column: value

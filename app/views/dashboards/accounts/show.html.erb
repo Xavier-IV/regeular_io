@@ -6,7 +6,7 @@
         ) do |form| %>
       <% if @user.avatar.present? && @user.avatar.attached? %>
         <label
-          for="user_avatar"
+          for="client_avatar"
           data-action="mouseenter->dashboard--file-upload#mouseEnterUploaded mouseleave->dashboard--file-upload#mouseLeaveUploaded"
           data-dashboard--file-upload-target="logoUploadContainer"
           class="relative dashboard-glass cursor-pointer w-full h-full  overflow-hidden rounded-2xl border flex flex-col items-center justify-center gap-2 text-[#7731D0]">
@@ -42,7 +42,7 @@
         <label
           data-action="mouseenter->dashboard--file-upload#mouseEnter mouseleave->dashboard--file-upload#mouseLeave click->dashboard--file-upload#mouseClick"
           data-dashboard--file-upload-target="logoUploadContainer"
-          for="user_avatar" class="dashboard-glass cursor-pointer w-full h-full border border-[#7731D0] border-dashed rounded-2xl py-14 flex flex-col items-center justify-center gap-2 text-[#7731D0]">
+          for="client_avatar" class="dashboard-glass cursor-pointer w-full h-full border border-[#7731D0] border-dashed rounded-2xl py-14 flex flex-col items-center justify-center gap-2 text-[#7731D0]">
           <div
             data-dashboard--file-upload-target="logoCta"
             class="flex flex-col gap-1 items-center">

@@ -8,7 +8,6 @@
       <div id="codes" class="flex flex-col items-center">
         <div class="w-52 md:w-60 h-full p-4 text-center">
           <%= raw generate_qr(qr_code_url(reference: @qr.id)) %>
-          <%= @qr.id.truncate(10) %>
         </div>
         <p class="print:hidden"><%= link_to 'Go to link', qr_code_url(reference: @qr.id) if Rails.env.development? %></p>
       </div>
