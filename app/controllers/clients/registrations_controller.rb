@@ -8,7 +8,7 @@ class Clients::RegistrationsController < Devise::RegistrationsController
     if verify_recaptcha(action: 'register')
       super
     else
-      self.resource = resource_class.new(sign_up_params)
+      self.resource = Client.new(sign_up_params)
       respond_with_navigational(resource) { render :new }
     end
   end

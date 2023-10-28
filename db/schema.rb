@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_28_094120) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_28_112402) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -105,7 +105,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_28_094120) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.uuid "user_id", null: false
-    t.index ["provider", "uid"], name: "index_omniauths_on_provider_and_uid", unique: true
+    t.string "user_type"
+    t.index ["provider", "uid", "user_id"], name: "index_omniauths_on_provider_and_uid_and_user_id", unique: true
     t.index ["user_id"], name: "index_omniauths_on_user_id"
   end
 

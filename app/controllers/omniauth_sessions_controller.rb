@@ -15,7 +15,7 @@ class OmniauthSessionsController < ApplicationController
       return redirect_to dashboards_account_path if linked_omniauth.persisted?
     end
 
-    @user = User.from_omniauth(request.env['omniauth.auth'], resource)
+    @user = User.from_omniauth(request.env['omniauth.auth'], request.env['omniauth.params'], resource)
 
     if @user.persisted?
       flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Google'
@@ -40,7 +40,7 @@ class OmniauthSessionsController < ApplicationController
       return redirect_to dashboards_account_path if linked_omniauth.persisted?
     end
 
-    @user = User.from_omniauth(request.env['omniauth.auth'], resource)
+    @user = User.from_omniauth(request.env['omniauth.auth'], request.env['omniauth.params'], resource)
 
     if @user.persisted?
       flash[:notice] = I18n.t 'devise.omniauth_callbacks.success', kind: 'Twitter'
