@@ -32,9 +32,6 @@ class Dashboards::OnboardingsController < ApplicationController
       else
         current_client.create_business(name: params[:business][:name])
         current_client.save
-        Rails.logger.debug current_client.to_json
-        Rails.logger.debug current_client.business.to_json
-        Rails.logger.debug 'HERE TOO!'
         redirect_to_next(:onboard_company_location)
       end
     when :onboard_company_location
@@ -48,8 +45,6 @@ class Dashboards::OnboardingsController < ApplicationController
   end
 
   def update
-    Rails.logger.debug current_client.business
-    Rails.logger.debug 'HEY HERE!'
     case step
     when :onboard_company_name
       current_client.business.update(name: params[:business][:name])
