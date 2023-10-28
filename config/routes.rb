@@ -45,7 +45,8 @@ Rails.application.routes.draw do
       confirmations: 'dashboards/confirmations',
       sessions: 'clients/sessions',
       unlocks: 'clients/unlocks',
-      passwords: 'clients/passwords'
+      passwords: 'clients/passwords',
+      invitations: 'clients/invitations'
     }
 
     # Business Landing Page
@@ -69,6 +70,7 @@ Rails.application.routes.draw do
         end
       end
 
+      resources :teams, only: %i[index]
       resources :rewards
       resources :qrs
       # resources :products # Feature on hold

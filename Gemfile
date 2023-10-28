@@ -121,3 +121,5 @@ gem 'brakeman', '~> 6.0'
 gem 'bundle-audit', '~> 0.1.0'
 
 gem 'activerecord-session_store', '~> 2.1'
+
+gem 'devise_invitable', '~> 2.0'

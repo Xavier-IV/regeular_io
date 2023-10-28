@@ -1,0 +1,28 @@
+<div>
+  <div class="flex gap-2 items-center">
+    <h2 class="text-xl font-bold pl-0.5">Team Member</h2>
+
+    <%= link_to new_client_invitation_path, class: 'p-2 text-sm rounded-md w-fit bg-sky-500 font-bold text-white flex items-center gap-2' do %>
+      <i class="lni lni-plus "></i>
+    <% end %>
+  </div>
+
+  <div class="flex flex-col gap-2 mt-10">
+    <%- @team.each do |member| %>
+      <div class="px-4 py-2 bg-white border rounded-md">
+        <div class="flex justify-between items-center">
+          <div class="flex gap-2 items-center">
+            <% if member.invitation_accepted_at || member.role == 'owner' %>
+              <i class="lni lni-checkmark-circle text-sm text-green-500" title="Active"></i>
+            <% else %>
+              <i class="lni lni-checkmark-circle text-sm text-orange-300" title="Pending accepting invitation"></i>
+            <% end %>
+            <p><%= member.email %> <span class="text-gray-400"><%= member.role.humanize %></span></p>
+          </div>
+          <p class="text-gray-400"><%= member.full_name %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+</div>

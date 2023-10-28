@@ -91,6 +91,36 @@
       </div>
 
     </div>
+
+    <div
+      class="order-1 md:order-2 w-full col-span-2 md:col-start-2 rounded-2xl h-[200px] p-6 flex flex-col justify-start gap-2 bg-gradient-to-l from-[#4CA2C7] to-[#5570D0] rounded-[20px] shadow text-white">
+      <div class="flex justify-between items-start">
+        <div class="flex flex-col justify-between items-start">
+          <div class="flex gap-4 items-center">
+            <h1 class="text-2xl text-white">Linked Social Account</h1>
+          </div>
+          <div class="flex flex-col">
+            <div class="flex gap-2 items-center justify-center pt-10">
+              <% [:google_oauth2, :twitter].each do |provider| %>
+                <%- if current_client.omniauth_accounts.include?(provider.to_s) %>
+                  <button class="border bg-white border-gray-300 bg-white text-black px-4 py-3 flex items-center justify-between rounded-sm gap-4 fill-blue-400">
+                    <%= image_tag "logos/#{omniauth_logo(provider)}", class: 'border-none drops-shadow-none shadow-none w-4 fill-blue-400', alt: 'Your Image' %>
+                    <p><%= "#{omniauth_name(provider)}" %></p>
+                  </button>
+                <% else %>
+                  <%= button_to "/auth/#{provider}?role=clients&purpose=link&user_id=#{current_client.id}", method: :post, data: { turbo: false },
+                                class: "border bg-white border-gray-300 opacity-50 text-black px-4 py-3 flex items-center justify-between rounded-sm gap-4 fill-blue-400" do %>
+                    <%= image_tag "logos/#{omniauth_logo(provider)}", class: 'border-none drops-shadow-none shadow-none w-4 fill-blue-400', alt: 'Your Image' %>
+                    <p><%= "#{omniauth_name(provider)}" %></p>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
   </div>
   <div class="h-20"></div>
 </div>
