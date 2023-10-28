@@ -18,12 +18,9 @@ class Customers::Dashboards::AccountsController < ApplicationController
     @user = current_customer
     current_customer.avatar.attach(params[:customer][:avatar]) if params[:customer][:avatar]
 
-    Rails.logger.debug user_params
-    Rails.logger.debug '>>>'
     if current_customer.update_without_password(user_params)
       redirect_to customers_dashboards_account_path, notice: 'Record updated.'
     else
-      Rails.logger.debug current_customer.errors.to_json
       render :show, status: :unprocessable_entity, alert: 'Unable to update.'
     end
   end
