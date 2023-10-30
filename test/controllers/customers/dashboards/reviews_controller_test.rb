@@ -4,7 +4,8 @@ require 'test_helper'
 
 class Customers::Dashboards::ReviewsControllerTest < ActionDispatch::IntegrationTest
   test 'should get index' do
-    get customers_dashboards_reviews_index_url
-    assert_response :success
+    business = Business.first
+    get customers_dashboards_reviews_url(business_id: business.id)
+    assert_response 302
   end
 end

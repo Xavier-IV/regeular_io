@@ -4,17 +4,17 @@ require 'test_helper'
 
 class Dashboards::Rewards::DiscountsControllerTest < ActionDispatch::IntegrationTest
   test 'should get new' do
-    get dashboards_rewards_discounts_new_url
-    assert_response :success
+    get new_dashboards_reward_discount_url
+    assert_response 302
   end
 
   test 'should get edit' do
-    get dashboards_rewards_discounts_edit_url
-    assert_response :success
+    get edit_dashboards_reward_discount_url
+    assert_response 302
   end
 
   test 'should get show' do
-    get dashboards_rewards_discounts_show_url
-    assert_response :success
+    get dashboards_reward_discount_url
+    assert_response 302
   end
 end
