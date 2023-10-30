@@ -23,5 +23,7 @@ module Regeular
     config.generators do |g|
       g.orm :active_record, primary_key_type: :uuid
     end
+
+    config.active_model.i18n_customize_full_message = true
   end
 end

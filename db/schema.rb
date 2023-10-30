@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_28_112402) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_30_115125) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -70,6 +70,25 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_28_112402) do
     t.index ["business_id"], name: "index_business_products_on_business_id"
   end
 
+  create_table "business_rewards", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "kind"
+    t.float "value"
+    t.uuid "created_by_id", null: false
+    t.uuid "updated_by_id", null: false
+    t.boolean "is_active"
+    t.datetime "deactivated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "business_id"
+    t.string "value_type"
+    t.float "capped_amount"
+    t.float "min_order_amount"
+    t.index ["business_id"], name: "index_business_rewards_on_business_id"
+    t.index ["created_by_id"], name: "index_business_rewards_on_created_by_id"
+    t.index ["kind", "business_id"], name: "index_business_rewards_on_kind_and_business_id", unique: true
+    t.index ["updated_by_id"], name: "index_business_rewards_on_updated_by_id"
+  end
+
   create_table "businesses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "registration_id"
@@ -96,6 +115,38 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_28_112402) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "customer_progresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "business_id", null: false
+    t.float "rating_average", default: 0.0, null: false
+    t.integer "rating_count", default: 0, null: false
+    t.integer "rating_pending", default: 0, null: false
+    t.string "level"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_id"], name: "index_customer_progresses_on_business_id"
+    t.index ["user_id"], name: "index_customer_progresses_on_user_id"
+  end
+
+  create_table "customer_rewards", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "kind"
+    t.float "value"
+    t.datetime "given_at"
+    t.datetime "claimed_at"
+    t.integer "likeness"
+    t.uuid "business_reward_id", null: false
+    t.uuid "business_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "user_id"
+    t.string "value_type"
+    t.float "min_order_amount"
+    t.float "capped_amount"
+    t.index ["business_id"], name: "index_customer_rewards_on_business_id"
+    t.index ["business_reward_id"], name: "index_customer_rewards_on_business_reward_id"
+    t.index ["user_id"], name: "index_customer_rewards_on_user_id"
   end
 
   create_table "omniauths", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -194,7 +245,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_28_112402) do
   add_foreign_key "business_banks", "banks"
   add_foreign_key "business_banks", "businesses"
   add_foreign_key "business_products", "businesses"
+  add_foreign_key "business_rewards", "businesses"
+  add_foreign_key "business_rewards", "users", column: "created_by_id"
+  add_foreign_key "business_rewards", "users", column: "updated_by_id"
   add_foreign_key "cities", "states"
+  add_foreign_key "customer_progresses", "businesses"
+  add_foreign_key "customer_progresses", "users"
+  add_foreign_key "customer_rewards", "business_rewards"
+  add_foreign_key "customer_rewards", "businesses"
+  add_foreign_key "customer_rewards", "users"
   add_foreign_key "omniauths", "users"
   add_foreign_key "qr_codes", "businesses"
   add_foreign_key "reviews", "businesses"

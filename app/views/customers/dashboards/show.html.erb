@@ -1,25 +1,31 @@
 <div class="flex flex-col gap-4 my-10 md:my-10 px-10 md:px-0">
-  <h1 class="font-bold text-2xl">Welcome<%= ", #{current_customer.full_name}" if current_customer.full_name.present? %></h1>
+  <h1 class="font-bold text-2xl">Welcome<%= ", #{current_customer.first_name}!" if current_customer.first_name.present? %></h1>
 
-  <div class="mt-10 flex flex-col gap-4">
-    <% current_customer.reviews.each do |review| %>
-      <div class="flex flex-col gap-2 border rounded-md p-4 px-6 bg-white shadow-lg">
-        <p class="text-gray-400">Location - <%= review.business.name %></p>
-        <div class="flex gap-2">
-          <% (1..5).each do |rating_value| %>
-            <%= render(Shared::Review::StarComponent.new(role: rating_value > review.rating ? :default : :star)) %>
+  <%- if current_customer.customer_progresses.present? %>
+    <div class="mt-10 flex flex-col gap-4">
+      <h2 class="text-lg font-bold">Progress & Rewards</h2>
+      <p class="text-gray-500 text-sm">See how far you're progressing and claim your rewards!</p>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <% current_customer.customer_progresses.each do |progress| %>
+          <div class="px-4 py-8 border rounded-md bg-white">
+            <%= progress.business.name %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="mt-10 flex flex-col gap-4">
+      <h2 class="text-lg font-bold">Reviews</h2>
+      <p class="text-gray-500 text-sm">Keep track of your past reviews.</p>
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <% current_customer.customer_progresses.each do |progress| %>
+          <%= link_to customers_dashboards_reviews_path(business_id: progress.business_id), class: 'px-4 py-8 border rounded-md bg-white' do %>
+            <%= progress.business.name %>
           <% end %>
-        </div>
-        <p><%= review.description %></p>
+        <% end %>
       </div>
-    <% end.empty? and begin %>
-      <div class="flex flex-col items-center justify-center bg-white border border-slate-200 py-10 rounded-lg gap-4">
-        <div class="w-40 opacity-80 mb-10">
-          <%= image_tag 'undraw/reviews.svg', class: 'w-5/6 md:w-4/6 md:w-full h-full p-2', alt: 'QR Code' %>
-        </div>
-        <p class="text-gray-400">You have no reviews yet.</p>
-        <%= link_to 'Browse merchants', food_root_path, target: '_blank', class: 'text-purple-400' %>
-      </div>
-    <% end %>
-  </div>
+    </div>
+  <% else %>
+    <%= render 'customers/dashboards/empty' %>
+  <% end %>
 </div>

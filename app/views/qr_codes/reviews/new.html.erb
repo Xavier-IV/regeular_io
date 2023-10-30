@@ -65,14 +65,7 @@
     </div>
 
     <!--Benefits-->
-    <div class="flex flex-col items-center">
-      <div class="flex gap-1 items-center">
-        <p class="text-lg"><strong>Regülar Customer Benefit</strong></p>
-        <% unless customer_signed_in? %>
-          <i class="lni lni-lock-alt"></i>
-        <% end %>
-      </div>
-    </div>
+    <%= render partial: 'qr_codes/reviews/benefit' %>
   </div>
 
 <% else %>

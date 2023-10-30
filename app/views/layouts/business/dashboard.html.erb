@@ -30,13 +30,13 @@
     <img src='/assets/mesh.png' class="overflow-hidden object-cover w-screen h-screen" alt="">
   </div>
   <div class="absolute w-screen h-screen overflow-scroll no-scrollbar">
-    <div class=" w-full h-full mx-auto max-w-3xl flex flex-col">
+    <div class="w-full h-full mx-auto max-w-3xl flex flex-col mb-20">
       <div class="print:hidden flex justify-between gap-3 my-4 px-10 md:px-0">
         <%= link_to dashboards_path, class: 'rounded-md w-fit text-2xl text-gray-800 flex items-center justify-center cursor-pointer p-1' do %>
           <i class="lni lni-home"></i>
         <% end %>
         <div class="flex gap-4">
-          <%= link_to dashboards_rewards_path, class: 'w-12 h-12 rounded-md bg-white border flex items-center justify-center' do %>
+          <%= link_to dashboards_reward_path, class: 'w-12 h-12 rounded-md bg-white border flex items-center justify-center' do %>
             <i class="lni lni-offer text-2xl font-light stroke-gray-100 text-gray-500"></i>
           <% end %>
           <%= link_to dashboards_qrs_path, class: 'w-12 h-12 rounded-md bg-white border' do %>

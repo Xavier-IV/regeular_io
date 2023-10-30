@@ -15,6 +15,10 @@ class Business < ApplicationRecord
   has_many :reviews, dependent: :destroy, class_name: 'Review'
   has_many :reviewers, -> { distinct }, through: :reviews, source: :customer, class_name: 'User'
 
+  # Gratifications
+  has_many :customer_progresses, class_name: 'Customer::Progress', dependent: :destroy, inverse_of: false
+  has_many :business_rewards, class_name: 'Business::Reward', dependent: :destroy
+
   scope :listed, -> { joins(:listing_attachment).distinct.joins(:logo_attachment).distinct }
 
   def anon_reviews

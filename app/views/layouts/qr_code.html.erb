@@ -6,7 +6,7 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <link rel="manifest" crossorigin="use-credentials" href="/manifest.json" />
+  <link rel="manifest" crossorigin="use-credentials" href="/manifest.json"/>
   <%= favicon_link_tag 'favicon.ico' %>
 
   <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet"/>
@@ -31,6 +31,37 @@
   </div>
   <div class="absolute w-screen h-screen overflow-scroll no-scrollbar">
     <div class=" w-full h-full mx-auto max-w-3xl flex flex-col">
+      <%- if customer_signed_in? %>
+        <div class="print:hidden flex justify-between gap-3 my-4 px-10 md:px-0">
+          <%= link_to customers_dashboard_path, class: 'rounded-md w-fit text-2xl text-gray-800 flex items-center justify-center cursor-pointer p-1' do %>
+            <i class="lni lni-home"></i>
+          <% end %>
+          <div class="flex gap-4">
+            <div class="w-12 h-12 relative">
+              <div
+                class="absolute w-12 h-12 rounded-full bg-gray-400 cursor-pointer z-10 overflow-hidden">
+                <% if current_customer.avatar.present? && current_customer.avatar.attached? %>
+                  <%= image_tag url_for(current_customer.avatar), id: 'profile_avatar_filled', data: { action: 'click->dashboard--profile-tray#toggle' } %>
+                <% else %>
+                  <div
+                    id="profile_avatar"
+                    data-action="click->dashboard--profile-tray#toggle"
+                    class="w-40 h-40 bg-gray-400"></div>
+                <% end %>
+              </div>
+              <div
+                data-dashboard--profile-tray-target="menu"
+                class="hidden absolute w-fit h-fit py-2 bg-white z-20 border top-0 right-0 mt-14 rounded-md flex flex-col text-center">
+                <%= link_to "Account", customers_dashboards_account_path, class: 'p-4 py-2 hover:bg-gray-200 px-10 w-full' %>
+                <%= link_to "Listing", food_root_url(host: Rails.application.credentials.dig(:host, :review)), class: 'p-4 py-2 hover:bg-gray-200 px-10 w-full', target: '_blank' %>
+                <hr class="my-2">
+                <%= button_to "Logout", destroy_customer_session_path, method: :delete, class: 'p-4 py-2 hover:bg-gray-200 px-10 w-full' %>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
       <%= yield %>
     </div>
   </div>
