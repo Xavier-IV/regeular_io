@@ -26,6 +26,8 @@ class Review < ApplicationRecord
 
     progress.save
 
+    progress.gain_exp
+
     return unless (progress.rating_count % 5).zero?
 
     rewards = self.business.business_rewards

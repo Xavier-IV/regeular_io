@@ -11,5 +11,5 @@ class Business::Reward < ApplicationRecord
   validates :value, presence: true
   validates :value_type, presence: true, if: -> { value.present? }
   validates :capped_amount, presence: true, if: -> { value_type == 'percentage' && kind == 'Discount' }
-  validates :min_order_amount, presence: true, if: -> { kind == 'Discount' }
+  validates :min_order_amount, presence: true
 end

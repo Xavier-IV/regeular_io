@@ -1,0 +1,25 @@
+<div
+  data-modal-target="modal"
+  id="modal" class="hidden">
+  <div class="fixed top-0 right-0 h-screen w-screen bg-black opacity-40 z-20"></div>
+  <div class="fixed top-0 right-0 h-screen w-screen z-30 flex items-center justify-center">
+    <div class="bg-white rounded-lg overflow-hidden mx-10">
+      <div
+        id="modal-title"
+        class="px-10 py-2 min-w-[360px] flex items-center justify-center gap-2">
+        <h3 class="text-lg text-gray-800"><%= @title %></h3>
+        <i class="lni lni-lock-alt"></i>
+      </div>
+      <hr>
+      <div id="modal-content" class="px-10 py-10 flex flex-col gap-2">
+        <%= content %>
+      </div>
+      <div id="modal-action" class="border-t flex gap-2 items-center justify-center">
+        <button
+          data-action="modal#closeModal"
+          class="w-full h-full py-3 hover:text-white hover:bg-purple-600">Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

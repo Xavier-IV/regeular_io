@@ -28,6 +28,7 @@ constraints host: Rails.application.credentials.dig(:host, :review) do
       resource :account
 
       scope ':business_id' do
+        resource :reward
         resources :reviews
       end
     end

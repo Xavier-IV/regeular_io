@@ -1,0 +1,29 @@
+<div class="flex flex-col items-center justify-center bg-white border border-slate-200 py-10 rounded-lg gap-4 p-10 text-center">
+  <div class="w-40 opacity-60 mb-10">
+    <%= image_tag 'undraw/empty_rewards.svg', class: 'w-5/6 md:w-4/6 md:w-full h-full p-2', alt: 'Empty rewards' %>
+  </div>
+
+  <div
+    data-controller="modal"
+    class="modal-groups">
+    <button
+      data-action="modal#openModal"
+      class="w-fit px-4 py-2 border bg-purple-500 rounded-md text-white">
+      See Next Level Rewards
+    </button>
+    <%= render(ModalComponent.new(title: "Next Level Rewards")) do |component| %>
+      <%- @business.business_rewards.each do |reward| %>
+        <div class="p-4 bg-sky-500 text-white rounded-sm">
+          <h4 class="font-semibold"><%= reward_name(reward) %> off</h4>
+          <p><small class="text-sky-200">With minimum order of <%= number_to_currency(reward.min_order_amount, locale: :ms) %></small></p>
+          <p><small class="text-sky-200">Capped to <%= number_to_currency(reward.capped_amount, locale: :ms) %></small></p>
+        </div>
+      <% end %>
+      <div class="h-10"></div>
+      <p class="text-gray-400 text-sm">Review more at this merchant to earn their rewards!</p>
+    <% end %>
+  </div>
+
+  <p class="text-gray-400">You have no rewards yet.</p>
+  <p class="text-gray-300 text-sm">Review more at <%= @business.name %> to earn rewards</p>
+</div>

@@ -1,0 +1,32 @@
+<div class="flex flex-col gap-4 my-10 md:my-10 px-10 md:px-0">
+  <h1 class="text-2xl font-bold text-gray-600"><%= @business.name %></h1>
+  <p class="text-sm text-gray-500">Here's your current reward based on your level and regularity.</p>
+
+  <div class="p-8 flex gap-4 border rounded-lg">
+    <div class="w-full flex flex-col gap-4 items-center justify-center text-sm mt-2">
+      <%= image_tag "icons/level_#{@progress.level + 1}.svg", class: 'w-20', alt: 'Level 2 badge' %>
+      <div class="w-3/6 h-2 bg-gray-200 rounded-full overflow-hidden mt-1">
+        <%- if @progress.level < 4 %>
+          <div class="h-full bg-purple-400 rounded-full" style="width: <%= @progress.experience > 0 ? @progress.experience.to_f/5 * 100 : 5 %>%;"></div>
+        <% else %>
+          <div class="h-full w-full bg-orange-400 rounded-full"></div>
+        <% end %>
+      </div>
+      <%- if @progress.level < 4 %>
+        <p class="text-sm text-gray-400"><%= 5 - @progress.experience %> more reviews to next level</p>
+      <% else %>
+        <p class="text-sm text-gray-400">Max Level</p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mt-10 flex flex-col gap-4">
+    <h2 class="text-lg text-gray-500 font-semibold">Rewards</h2>
+    <%- @rewards.each do |reward| %>
+      <p><%= reward.value %></p>
+    <% end.empty? and begin %>
+      <%= render 'customers/dashboards/rewards/empty' %>
+    <% end %>
+
+  </div>
+</div>

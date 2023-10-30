@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_30_115125) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_30_212259) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -123,9 +123,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_30_115125) do
     t.float "rating_average", default: 0.0, null: false
     t.integer "rating_count", default: 0, null: false
     t.integer "rating_pending", default: 0, null: false
-    t.string "level"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "experience", default: 0
+    t.integer "level", default: 0
     t.index ["business_id"], name: "index_customer_progresses_on_business_id"
     t.index ["user_id"], name: "index_customer_progresses_on_user_id"
   end
