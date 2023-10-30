@@ -21,6 +21,7 @@ Metrics/BlockLength:
   Exclude:
     - 'config/environments/*'
     - 'config/routes.rb'
+    - 'config/routes/*'
     - 'lib/tasks/*'
     - 'app/models/concerns/omniauthable.rb'
 

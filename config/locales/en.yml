@@ -30,4 +30,20 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    errors:
+      models:
+        business/reward:
+          attributes:
+            kind:
+              format: "%{message}"
+              taken: "This type of reward exists."
+            value:
+              format: "%{message}"
+              blank: "Reward amount can't be empty."
+            value_type:
+              format: "%{message}"
+              blank: "Choose either Percentage or Fixed discount."
+            business_id:
+              format: "%{message}"
+              blank: "Business can't be blank."

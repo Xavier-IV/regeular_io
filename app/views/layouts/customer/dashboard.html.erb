@@ -26,9 +26,6 @@
   <%= render 'shared/flash' %>
 </div>
 <div class="relative w-screen h-screen md:overflow-hidden">
-  <div class="absolute w-full h-screen">
-    <img src='/assets/mesh.png' class="overflow-hidden object-cover w-screen h-screen" alt="">
-  </div>
   <div class="absolute w-screen h-screen overflow-scroll no-scrollbar">
     <div class=" w-full h-full mx-auto max-w-3xl flex flex-col">
       <div class="print:hidden flex justify-between gap-3 my-4 px-10 md:px-0">
@@ -60,7 +57,9 @@
           </div>
         </div>
       </div>
-      <%= yield %>
+      <div class="pb-20">
+        <%= yield %>
+      </div>
     </div>
   </div>
 </div>
