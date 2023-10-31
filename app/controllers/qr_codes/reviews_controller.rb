@@ -10,12 +10,16 @@ class QrCodes::ReviewsController < QrCodesController
 
     @rating = Review.new(qr_code_id: @qr.id)
     @business = @qr&.business
+    @rewards = @business.business_rewards
+    @customer_progress = current_customer.customer_progresses.find_by(business: @business) if customer_signed_in?
   end
 
   def create
     business = Business.find_by(id: review_params[:business_id])
     qr_code = QrCode::Review.find(review_params[:qr_code_id])
     @rating = Review.find_by(qr_code_id: qr_code.id)
+
+    # TODO: Ratelimit by 15 mins
 
     return redirect_to qr_codes_review_path(id: @rating.id), notice: 'Review was already submitted.' if @rating.present?
 
@@ -37,6 +41,9 @@ class QrCodes::ReviewsController < QrCodesController
 
   def show
     @review = Review.find(params[:id])
+    @business = @review.business
+    @rewards = @business.business_rewards
+    @customer_progress = current_customer.customer_progresses.find_by(business: @business) if customer_signed_in?
   end
 
   private

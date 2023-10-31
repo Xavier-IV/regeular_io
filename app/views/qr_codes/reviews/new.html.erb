@@ -1,23 +1,22 @@
 <% if @business.present? %>
   <div class="flex flex-col gap-4 py-10 md:py-16 overflow-scroll no-scrollbar">
     <!--Auth-->
-    <div class="flex flex-col justify-center items-center gap-4 px-5">
-      <div class="w-full flex flex-col items-center justify-center">
+    <div class="flex flex-col justify-center items-center px-5">
+      <div class="flex flex-col justify-center items-center">
         <% if customer_signed_in? %>
-          <p>Welcome, <%= current_customer.full_name || current_customer.email %>!</p>
-        <% end %>
-
-        <% unless customer_signed_in? %>
-          <p class="text-gray-400 text-sm md:text-normal">Quickly register or sign in to see benefit.</p>
+          <p>Welcome, <%= current_customer.first_name %>!</p>
         <% end %>
       </div>
 
       <div class="flex flex-col justify-center items-center gap-4">
         <% unless customer_signed_in? %>
+          <p class="text-gray-400 text-sm md:text-normal">Quickly register or sign in to see benefit.</p>
+        <% end %>
+        <% unless customer_signed_in? %>
           <div class="flex gap-2 items-center justify-center">
             <div class="flex gap-2 items-center justify-center">
               <% [:google_oauth2, :twitter].each do |provider| %>
-                <%= button_to "/auth/#{provider}?role=customers", method: :post, data: { turbo: false },
+                <%= button_to "/auth/#{provider}?role=customers&redirect_to=#{request.original_url}", method: :post, data: { turbo: false },
                               class: 'border border-gray-300 px-4 py-3 flex items-center justify-between rounded-sm gap-4 fill-blue-400' do %>
                   <%= image_tag "logos/#{omniauth_logo(provider)}", class: 'border-none drops-shadow-none shadow-none w-4 fill-blue-400', alt: 'Your Image' %>
                   <p><%= "#{omniauth_name(provider)}" %></p>
@@ -34,8 +33,9 @@
       <div
         style="box-shadow: 0px 4px 10px rgba(131, 105, 221, 0.50);"
         class="col-span-3 order-2 py-10 md:py-20 md:order-4 w-full h-fit py-10 md:py-20 bg-gradient-to-l from-violet-500 to-indigo-500 rounded-2xl shadow flex flex-col items-center justify-center text-white gap-4">
-        <div class="w-full flex flex-col gap-2 px-6 items-center text-center text-black">
-          <h2 class="text-3xl font-bold text-white">How's the food?</h2>
+        <div class="w-full flex flex-col gap-2 px-6 items-center text-center text-white">
+          <h2 class="text-3xl font-bold text-white">How would you rate?</h2>
+          <p><small><%= @business.name %></small></p>
           <div class="flex gap-1 w-full">
             <div class="h-[1px] w-full bg-purple-400 my-4 rounded-full drop-shadow-lg"></div>
           </div>
@@ -65,7 +65,20 @@
     </div>
 
     <!--Benefits-->
-    <%= render partial: 'qr_codes/reviews/benefit' %>
+    <div class="flex flex-col gap-4 px-10 py-6 bg-white rounded-2xl border mx-4 md:mx-10">
+      <div class="flex flex-col justify-center items-center gap-4 px-10">
+        <div class="flex flex-col items-center">
+          <div class="flex gap-1 items-center">
+            <p class="text-lg"><strong>Regülar Customer Benefit</strong></p>
+            <% unless customer_signed_in? %>
+              <i class="lni lni-lock-alt"></i>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <%= render partial: 'qr_codes/reviews/progress' %>
+      <%= render partial: 'qr_codes/reviews/benefit' %>
+    </div>
   </div>
 
 <% else %>

@@ -1,18 +1,20 @@
 <div class="flex flex-col gap-4 py-10 md:py-16 overflow-scroll no-scrollbar">
-  <div class="flex flex-col justify-center items-center gap-4">
+  <div class="flex flex-col justify-center items-center">
     <% if customer_signed_in? %>
       <p>Welcome, <%= current_customer.first_name %>!</p>
     <% else %>
-      <div class="flex gap-2 items-center justify-center">
-        <% [:google_oauth2, :twitter].each do |provider| %>
-          <%= button_to "/auth/#{provider}?role=customers&purpose=link_review_anonymous&review_id=#{@review.id}", method: :post, data: { turbo: false },
-                        class: 'border border-gray-300 px-4 py-3 flex items-center justify-between rounded-sm gap-4 fill-blue-400' do %>
-            <%= image_tag "logos/#{omniauth_logo(provider)}", class: 'border-none drops-shadow-none shadow-none w-4 fill-blue-400', alt: 'Your Image' %>
-            <p><%= "#{omniauth_name(provider)}" %></p>
+      <div class="flex flex-col gap-4">
+        <p class="text-sm text-gray-500">Easily sign in now so you don't lose your progress!</p>
+        <div class="flex gap-2 items-center justify-center">
+          <% [:google_oauth2, :twitter].each do |provider| %>
+            <%= button_to "/auth/#{provider}?role=customers&purpose=link_review_anonymous&review_id=#{@review.id}&redirect_to=#{request.original_url}", method: :post, data: { turbo: false },
+                          class: 'border border-gray-300 px-4 py-3 flex items-center justify-between rounded-sm gap-4 fill-blue-400' do %>
+              <%= image_tag "logos/#{omniauth_logo(provider)}", class: 'border-none drops-shadow-none shadow-none w-4 fill-blue-400', alt: 'Your Image' %>
+              <p><%= "#{omniauth_name(provider)}" %></p>
+            <% end %>
           <% end %>
-        <% end %>
+        </div>
       </div>
-      <p class="text-sm text-gray-500">Easily sign in to keep track of your reviews!</p>
     <% end %>
   </div>
 
@@ -34,24 +36,28 @@
           <% end %>
         </div>
         <div class="h-4"></div>
-        <p class="text-white">"<%= @review.description if @review.description.present? %>"</p>
+
+        <%- if @review.description.present? %>
+          <p class="text-white">"<%= @review.description %>"</p>
+        <% end %>
+
         <div class="md:h-2"></div>
       </div>
     </div>
   </div>
 
-  <div class="flex flex-col justify-center items-center gap-4 mt-4 px-10">
-    <div class="px-6 py-4 border border-purple-500 text-purple-500 rounded-2xl font-bold text-2xl">
-      5
-    </div>
-    <p class="text-center">more reviews to become regular customer.</p>
-    <div class="flex flex-col items-center">
-      <div class="flex gap-1 items-center">
-        <p class="text-lg"><strong>Regülar Customer Benefit</strong></p>
-        <% unless customer_signed_in? %>
-          <i class="lni lni-lock-alt"></i>
-        <% end %>
+  <div class="flex flex-col gap-4 px-10 py-6 bg-white rounded-2xl border mx-4 md:mx-10">
+    <div class="flex flex-col justify-center items-center gap-4 px-10">
+      <div class="flex flex-col items-center">
+        <div class="flex gap-1 items-center">
+          <p class="text-lg"><strong>Regülar Customer Benefit</strong></p>
+          <% unless customer_signed_in? %>
+            <i class="lni lni-lock-alt"></i>
+          <% end %>
+        </div>
       </div>
     </div>
+    <%= render partial: 'qr_codes/reviews/progress' %>
+    <%= render partial: 'qr_codes/reviews/benefit' %>
   </div>
 </div>
