@@ -8,6 +8,7 @@ class Review < ApplicationRecord
 
   scope :anon, -> { where(user_id: nil) }
   scope :by_business, ->(business_id) { where(business_id:) }
+  scope :latest, -> { order(created_at: :desc).first }
 
   after_create :update_customer_progress, :update_business_statistic
 
