@@ -15,41 +15,13 @@ class QrCodes::ReviewsController < QrCodesController
   end
 
   def create
-    business = Business.find_by(id: review_params[:business_id])
-    qr_code = QrCode::Review.find(review_params[:qr_code_id])
-    @rating = Review.find_by(qr_code_id: qr_code.id)
+    find_business_and_qr_code
 
-    # TODO: Ratelimit by 15 mins
+    return rate_limit_redirect if rate_limit_exceeded?
 
-    if Rails.env.production?
-      if customer_signed_in?
-        latest_review = current_customer.reviews.order(created_at: :desc).first
-        time_limit = 10.minutes
-      else
-        latest_review = business.reviews.where(user_id: nil).order(created_at: :desc).first
-        time_limit = 5.seconds
-      end
+    return redirect_to_existing_review if @rating.present?
 
-      if latest_review && (Time.zone.now - latest_review.created_at) <= time_limit
-        flash[:notice] = customer_signed_in? ? 'Please wait 10 minutes.' : 'Please wait 5 seconds.'
-        return redirect_to new_qr_codes_review_path(reference: qr_code.id), status: :unprocessable_entity
-      end
-    end
-
-    return redirect_to qr_codes_review_path(id: @rating.id), notice: 'Review was already submitted.' if @rating.present?
-
-    @rating = business.reviews.build(rating: review_params[:rating],
-                                     description: review_params[:description],
-                                     qr_code_id: qr_code.id)
-    @rating.customer = current_customer if current_customer.present?
-    @rating.save
-
-    replace_qr = business.qr_code_review.find_by(scanned_times: 0)
-    replace_qr = business.qr_code_review.create if replace_qr.blank?
-    Turbo::StreamsChannel.broadcast_replace_to([business, 'qr_codes_review'],
-                                               target: 'codes',
-                                               locals: { qr_code: replace_qr },
-                                               partial: 'dashboards/qrs/reviews/review')
+    create_and_broadcast_review
 
     redirect_to qr_codes_review_path(id: @rating.id)
   end
@@ -65,5 +37,56 @@ class QrCodes::ReviewsController < QrCodesController
 
   def review_params
     params.require(:review).permit(:rating, :description, :business_id, :qr_code_id)
+  end
+
+  def find_business_and_qr_code
+    @business = Business.find_by(id: review_params[:business_id])
+    @qr_code = QrCode::Review.find(review_params[:qr_code_id])
+    @rating = Review.find_by(qr_code_id: @qr_code.id)
+  end
+
+  def rate_limit_redirect
+    if customer_signed_in?
+      flash_message = 'Please wait 10 minutes.'
+      10.minutes
+    else
+      flash_message = 'Please wait 5 seconds.'
+      5.seconds
+    end
+
+    flash[:notice] = flash_message
+    redirect_to new_qr_codes_review_path(reference: @qr_code.id), status: :unprocessable_entity
+  end
+
+  def rate_limit_exceeded?
+    return false unless Rails.env.production?
+
+    latest_review = if customer_signed_in?
+                      current_customer.reviews.order(created_at: :desc).first
+                    else
+                      @business.reviews.where(user_id: nil).order(created_at: :desc).first
+                    end
+    latest_review && (Time.zone.now - latest_review.created_at) <= time_limit
+  end
+
+  def redirect_to_existing_review
+    redirect_to qr_codes_review_path(id: @rating.id), notice: 'Review was already submitted.'
+  end
+
+  def create_and_broadcast_review
+    @rating = @business.reviews.build(
+      rating: review_params[:rating],
+      description: review_params[:description],
+      qr_code_id: @qr_code.id
+    )
+    @rating.customer = current_customer if current_customer.present?
+    @rating.save
+
+    replace_qr = @business.qr_code_review.find_by(scanned_times: 0)
+    replace_qr = @business.qr_code_review.create if replace_qr.blank?
+    Turbo::StreamsChannel.broadcast_replace_to([@business, 'qr_codes_review'],
+                                               target: 'codes',
+                                               locals: { qr_code: replace_qr },
+                                               partial: 'dashboards/qrs/reviews/review')
   end
 end
