@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_30_212259) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_01_165948) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -89,6 +89,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_30_212259) do
     t.index ["updated_by_id"], name: "index_business_rewards_on_updated_by_id"
   end
 
+  create_table "business_statistics", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "business_id", null: false
+    t.integer "total_regular"
+    t.integer "total_customer"
+    t.float "regular_rating_average"
+    t.float "customer_rating_average"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_id"], name: "index_business_statistics_on_business_id"
+  end
+
   create_table "businesses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "registration_id"
@@ -100,7 +111,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_30_212259) do
     t.string "country"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["registration_id"], name: "index_businesses_on_registration_id", unique: true
   end
 
   create_table "cities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -249,6 +259,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_30_212259) do
   add_foreign_key "business_rewards", "businesses"
   add_foreign_key "business_rewards", "users", column: "created_by_id"
   add_foreign_key "business_rewards", "users", column: "updated_by_id"
+  add_foreign_key "business_statistics", "businesses"
   add_foreign_key "cities", "states"
   add_foreign_key "customer_progresses", "businesses"
   add_foreign_key "customer_progresses", "users"

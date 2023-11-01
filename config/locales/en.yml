@@ -31,19 +31,29 @@
 
 en:
   activerecord:
+    models:
+      customer/progress: progress
+    attributes:
+      business/reward:
+        value: 'Reward amount'
     errors:
       models:
         business/reward:
           attributes:
             kind:
               format: "%{message}"
-              taken: "This type of reward exists."
+              taken: "This type of reward exists"
             value:
-              format: "%{message}"
-              blank: "Reward amount can't be empty."
+              name: 'Reward amount'
+              blank: "can't be empty"
+              not_an_integer: "must be without decimal"
+            capped_amount:
+              name: 'Reward amount'
+              blank: "can't be empty"
+              not_an_integer: "must be without decimal"
             value_type:
               format: "%{message}"
-              blank: "Choose either Percentage or Fixed discount."
+              blank: "Choose either Percentage or Fixed discount"
             business_id:
               format: "%{message}"
-              blank: "Business can't be blank."
+              blank: "Business can't be blank"

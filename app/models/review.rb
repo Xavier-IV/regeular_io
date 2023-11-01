@@ -8,10 +8,41 @@ class Review < ApplicationRecord
 
   scope :anon, -> { where(user_id: nil) }
   scope :by_business, ->(business_id) { where(business_id:) }
+  scope :latest, -> { order(created_at: :desc).first }
 
-  after_create :update_customer_progress
+  after_create :update_customer_progress, :update_business_statistic
 
   private
+
+  def update_business_statistic
+    business = self.business
+
+    statistic = Business::Statistic.find_or_create_by(business:)
+
+    cust_ratings = self.class.where(business_id: business.id).map(&:rating)
+    cust_rating_average = cust_ratings.reduce(:+).to_f / cust_ratings.length
+    cust_rating_count = cust_ratings.size
+
+    statistic.customer_rating_average = ((cust_rating_average * cust_rating_count) + rating) / (cust_rating_count + 1)
+    statistic.total_customer = cust_rating_count + 1
+
+    if user_id.present?
+      # Calculate regular rating
+      regular_user_ids = business.customer_progresses.where('level > ?', 0).select('user_id')
+
+      if regular_user_ids.present?
+        regular_ratings = self.class
+                              .where(business_id: business.id)
+                              .where(user_id: regular_user_ids).map(&:rating)
+        regular_rating_average = regular_ratings.reduce(:+).to_f / regular_ratings.length
+        regular_rating_count = regular_ratings.size
+
+        statistic.regular_rating_average = ((regular_rating_average * regular_rating_count) + rating) / (regular_rating_count + 1)
+        statistic.total_regular = regular_user_ids.count
+      end
+    end
+    statistic.save
+  end
 
   def update_customer_progress
     business = self.business

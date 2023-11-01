@@ -1,12 +1,12 @@
-<div class="flex flex-col items-center">
-  <div class="flex gap-1 items-center">
-    <p class="text-lg"><strong>Regülar Customer Benefit</strong></p>
-    <% unless customer_signed_in? %>
-      <i class="lni lni-lock-alt"></i>
+<div class="flex flex-col w-full items-center px-10 gap-2 text-gray-500 text-center">
+  <%- if @rewards.present? %>
+    <%- unless customer_signed_in? %>
+      <p>Wait, this merchant has rewards! 👀</p>
+      <p>Quickly sign in to unlock and potentially claim merchant's rewards.</p>
+    <% else %>
+      <%- @rewards.each do |reward| %>
+        <p>1. Earn discount of <%= reward_name(reward) %> off when you become regular customer for every 5 receipts.</p>
+      <% end %>
     <% end %>
-  </div>
-</div>
-
-<div class="flex flex-col w-full items-start px-10">
-  <p>1. Earn discount of 20% off when you become regular customer for every 5 receipts.</p>
+  <% end %>
 </div>

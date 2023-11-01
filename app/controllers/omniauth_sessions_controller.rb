@@ -28,11 +28,11 @@ class OmniauthSessionsController < ApplicationController
       anon_omniauth = User.from_omniauth(request.env['omniauth.auth'], request.env['omniauth.params'], resource)
       review = Review.find(review_id)
       if review.user_id.blank?
-        flash[:success] = 'Welcome! Your review is stored in your account.'
+        flash[:success] = 'Your review is now linked to your account.'
         review.user_id = anon_omniauth.id
         review.save
       else
-        flash[:success] = 'Review is already owned.'
+        flash[:success] = 'Review is already owned by someone else.'
       end
 
       return sign_in_and_redirect anon_omniauth, event: :authentication
@@ -56,6 +56,7 @@ class OmniauthSessionsController < ApplicationController
     target_path = stored_location_for(resource_or_scope)
     target_path = dashboards_path if current_domain == Rails.application.credentials.dig(:host, :business)
     target_path = root_path if current_domain == Rails.application.credentials.dig(:host, :review)
+    target_path = request.env['omniauth.params']['redirect_to'] if request.env['omniauth.params']['redirect_to']
 
     target_path
   end

@@ -7,8 +7,14 @@ class Customer::Progress < ApplicationRecord
 
   after_update :update_leveling
 
+  def exp_to_next_level
+    return 0 if level == 4
+
+    5 - experience
+  end
+
   def gain_exp
-    return unless experience < 5 && level < 5
+    return unless experience < 5 && level < 4
 
     update(experience: experience + 1)
   end
@@ -16,7 +22,7 @@ class Customer::Progress < ApplicationRecord
   private
 
   def update_leveling
-    return unless experience >= 5 && level < 5
+    return unless experience >= 5 && level < 4
 
     update(experience: 0, level: level + 1)
   end

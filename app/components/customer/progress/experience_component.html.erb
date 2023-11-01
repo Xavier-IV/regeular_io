@@ -1,0 +1,7 @@
+<div class="w-40 h-2 bg-gray-200 rounded-full overflow-hidden mt-1">
+  <%- if @customer_progress.level < 4 %>
+    <div class="h-full bg-purple-400 rounded-full" style="width: <%= @customer_progress.experience > 0 ? @customer_progress.experience.to_f/5 * 100 : 5 %>%;"></div>
+  <% else %>
+    <div class="h-full w-full bg-orange-400 rounded-full"></div>
+  <% end %>
+</div>
