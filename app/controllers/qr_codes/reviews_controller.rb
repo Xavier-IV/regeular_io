@@ -21,6 +21,21 @@ class QrCodes::ReviewsController < QrCodesController
 
     # TODO: Ratelimit by 15 mins
 
+    if Rails.env.production?
+      if customer_signed_in?
+        latest_review = current_customer.reviews.order(created_at: :desc).first
+        time_limit = 10.minutes
+      else
+        latest_review = business.reviews.where(user_id: nil).order(created_at: :desc).first
+        time_limit = 5.seconds
+      end
+
+      if latest_review && (Time.zone.now - latest_review.created_at) <= time_limit
+        flash[:notice] = customer_signed_in? ? 'Please wait 10 minutes.' : 'Please wait 5 seconds.'
+        return redirect_to new_qr_codes_review_path(reference: qr_code.id), status: :unprocessable_entity
+      end
+    end
+
     return redirect_to qr_codes_review_path(id: @rating.id), notice: 'Review was already submitted.' if @rating.present?
 
     @rating = business.reviews.build(rating: review_params[:rating],

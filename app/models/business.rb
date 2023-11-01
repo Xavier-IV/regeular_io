@@ -2,6 +2,7 @@
 
 class Business < ApplicationRecord
   has_one :business_bank, dependent: :destroy
+  has_one :business_statistic, class_name: 'Business::Statistic', dependent: :destroy
 
   has_many :clients, dependent: :destroy
   has_many :products, class_name: 'Business::Product', dependent: :destroy
@@ -21,7 +22,31 @@ class Business < ApplicationRecord
 
   scope :listed, -> { joins(:listing_attachment).distinct.joins(:logo_attachment).distinct }
 
+  scope :most_regular, lambda { |truthy|
+                         if truthy
+                           includes(:business_statistic).order('business_statistics.regular_rating_average DESC NULLS LAST')
+                         end
+                       }
+  scope :most_rating, lambda { |truthy|
+                        if truthy
+                          includes(:business_statistic).order('business_statistics.customer_rating_average DESC NULLS LAST')
+                        end
+                      }
+  scope :with_state, ->(state) { where(state:) if state.present? }
+  scope :with_city, ->(city) { where(city:) if city.present? }
+
+  after_create :prepare_statistic
+  after_update :prepare_statistic
+
+  validates :registration_id, uniqueness: true, presence: true, if: -> { registration_id.present? }
+
   def anon_reviews
     reviews.where(user_id: nil)
+  end
+
+  private
+
+  def prepare_statistic
+    Business::Statistic.find_or_create_by(business_id: id)
   end
 end

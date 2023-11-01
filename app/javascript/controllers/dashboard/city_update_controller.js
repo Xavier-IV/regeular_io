@@ -7,7 +7,7 @@ export default class extends Controller {
     defaultOption() {
         const option = document.createElement("option");
         option.value = '';
-        option.textContent = 'Select a city...';
+        option.textContent = 'City...';
         this.citySelectTarget.appendChild(option);
         this.citySelectTarget.disabled = false;
     }

@@ -21,7 +21,7 @@
                    }%>
 
       <%= f.label :amount, class: 'text-blue-200 text-sm' %>
-      <%= f.text_field :value, data: {
+      <%= f.text_field :value, value: model.value.to_i, data: {
         action: 'keyup->dashboard--reward#handleChange',
         'dashboard--reward-target': 'value'
       }, autocomplete: 'off' %>
@@ -52,9 +52,9 @@
 
     <div class="flex flex-col col-span-2 md:col-span-1 gap-2">
       <%= f.label :capped_amount, class: 'text-blue-200 text-sm' %>
-      <%= f.text_field :capped_amount, data: {
+      <%= f.number_field :capped_amount, data: {
         action: 'keyup->dashboard--reward#handleCappedAmount',
-      }, autocomplete: 'off' %>
+      }, autocomplete: 'off', pattern: "\d*" %>
     </div>
   </div>
 

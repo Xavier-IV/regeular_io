@@ -1,6 +1,7 @@
 <%= content_for(:title, 'Regülar: Food') %>
 
-<div class="relative bg-cover bg-center h-[440px] py-20" style="background-image: url('/assets/hero_bg.png')">
+<div
+  class="relative bg-cover bg-center h-[440px] py-20" style="background-image: url('/assets/hero_bg.png')">
   <div class="absolute inset-0 w-full h-fit flex justify-end z-10 px-8 py-4">
     <div class="h-fit w-fit flex gap-8">
       <% if customer_signed_in? %>
@@ -56,24 +57,50 @@ backdrop-filter: blur(3px);
 
 <% if Rails.env.development? %>
   <div class="flex gap-1 w-full max-w-6xl mx-auto px-10">
-    <div class="flex md:flex-row flex-col gap-4">
+    <div class="flex flex-col flex-col gap-4">
       <div class="flex gap-1">
-        <button class="px-4 py-1 border rounded-full bg-white hover:bg-black hover:text-white flex items-center gap-2">
+        <%= link_to food_root_path(most: 'regular', state: params[:state], city: params[:city]), class: "px-4 py-1 border rounded-full #{params[:most].present? && params[:most] == 'regular' ? 'bg-black text-white' : 'bg-white'} hover:bg-black hover:text-white flex items-center gap-2" do %>
           Most <span class="text-purple-600 flex items-center"><i class="lni lni-star-fill"></i></span>
-        </button>
-        <button class="px-4 py-1 border rounded-full bg-white hover:bg-black hover:text-white flex items-center gap-2">
+        <% end %>
+        <%= link_to food_root_path(most: 'rating', state: params[:state], city: params[:city]), class: "px-4 py-1 border rounded-full hover:bg-black #{params[:most].present? && params[:most] == 'rating' ? 'bg-black text-white' : 'bg-white'} hover:text-white flex items-center gap-2" do %>
           Most <span class="text-yellow-400 flex items-center"><i class="lni lni-star-fill"></i></span>
-        </button>
+        <% end %>
+        <%- if params[:most].present? %>
+          <%= link_to food_root_path, class: "px-2 rounded-full flex items-center gap-2" do %>
+            <i class="lni lni-cross-circle"></i> Reset
+          <% end %>
+        <% end %>
       </div>
-      <div class="flex gap-1">
-        <select id="state" class="px-4 py-1 border-gray-300 rounded-full bg-white hover:bg-black hover:text-white flex items-center gap-2 w-[140px] justify-between">
-          <option selected>State...</option>
-          <option value="alor_gajah">Melaka</option>
-        </select>
-        <select id="city" class="px-4 py-1 border-gray-300 rounded-full bg-white hover:bg-black hover:text-white flex items-center gap-2 w-[140px] justify-between">
-          <option selected>City...</option>
-          <option value="alor_gajah">Alor Gajah</option>
-        </select>
+      <div
+        data-controller="dashboard--city-update"
+        class="flex gap-1">
+        <%= collection_select(:state, :name, @states, :name, :name,
+                              {
+                                selected: params[:state],
+                                include_blank: 'State...'
+                              },
+                              {
+                                class: "px-4 py-1 border-gray-300 rounded-full #{params[:state].present? ? 'bg-black text-white' : 'bg-white'} hover:bg-black hover:text-white flex items-center gap-2 min-w-[140px] pr-4 w-fit justify-between",
+                                data: {
+                                  controller: 'customer--landing',
+                                  action: 'customer--landing#changeState',
+                                  'customer--landing-target': 'stateSelect'
+                                }
+                              }) %>
+
+        <%= collection_select(:city, :name, @cities, :name, :name,
+                              {
+                                selected: params[:city],
+                                include_blank: 'City...'
+                              },
+                              {
+                                class: "px-4 py-1 border-gray-300 rounded-full #{params[:city].present? ? 'bg-black text-white' : 'bg-white'} hover:bg-black hover:text-white flex items-center gap-2 min-w-[160px] w-fit pr-10 justify-between",
+                                data: {
+                                  controller: 'customer--landing',
+                                  action: 'customer--landing#changeCity',
+                                  'dashboard--city-update-target': 'citySelect'
+                                }
+                              }) %>
       </div>
     </div>
   </div>
@@ -98,15 +125,17 @@ backdrop-filter: blur(3px);
           <div class="flex flex-col w-full h-full col-span-2 lg:col-span-3 lg:col-start-1 items-end lg:items-start">
             <div class="flex h-full lg:items-end items-start">
               <div class="flex gap-1">
-                <% if Rails.env.development? %>
+                <%- if business.business_statistic.regular_rating_average.present? %>
                   <div class="px-3 py-0.5 bg-white w-fit h-fit rounded-full text-sm gap-2 regular-customer-pill">
-                  <span class="text-purple-600 flex items-center gap-2 font-bold"><i class="lni lni-star-fill"></i>
-                    4.2
-                  </span>
+                      <span class="text-purple-600 flex items-center gap-2 font-bold"><i class="lni lni-star-fill"></i>
+                        <%= number_with_precision(business.business_statistic.regular_rating_average, precision: 1) %>
+                      </span>
                   </div>
+                <% end %>
+                <%- if business.business_statistic.customer_rating_average.present? %>
                   <div class="px-3 py-0.5 bg-white w-fit h-fit rounded-full text-sm gap-2 flex text-gray-600">
                     <span class="text-yellow-400 flex items-center gap-2"><i class="lni lni-star-fill"></i></span>
-                    3.9
+                    <%= number_with_precision(business.business_statistic.customer_rating_average, precision: 1) %>
                   </div>
                 <% end %>
               </div>
@@ -122,20 +151,20 @@ backdrop-filter: blur(3px);
           <h2 class="text-2xl font-bold"><%= business.name %></h2>
           <p class="text-gray-400 text-sm">10 AM - 10 PM</p>
         </div>
-        <% if Rails.env.development? %>
-          <div class="text-sm">
-            <div class="gap-2 items-center hidden lg:flex">
+        <div class="text-sm">
+          <div class="gap-2 items-center hidden lg:flex">
+            <%- if business.business_statistic.total_regular.present? %>
               <span class="text-purple-600 flex items-center w-fit"><i class="lni lni-star-fill"></i></span>
-              <p>20 regular customers</p>
-            </div>
-            <div class="gap-2 items-center hidden lg:flex">
-              <span class="text-yellow-400 flex items-center w-fit"><i class="lni lni-star-fill"></i></span>
-              140 unique customers
-            </div>
-            <div class="h-2"></div>
-            <button class="underline text-sm text-gray-400 hidden lg:block">See all reviews</button>
+              <p><%= business.business_statistic.total_regular %> regular customers</p>
+            <% end %>
           </div>
-        <% end %>
+          <div class="gap-2 items-center hidden lg:flex">
+            <%- if business.business_statistic.total_customer.present? %>
+              <span class="text-yellow-400 flex items-center w-fit"><i class="lni lni-star-fill"></i></span>
+              <%= business.business_statistic.total_customer %> customers
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   <% end %>

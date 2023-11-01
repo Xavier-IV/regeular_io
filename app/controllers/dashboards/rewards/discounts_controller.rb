@@ -42,7 +42,7 @@ class Dashboards::Rewards::DiscountsController < ApplicationController
       flash[:notice] = 'Reward updated.'
       redirect_to dashboards_reward_path
     else
-      flash.now[:alert] = @reward.errors.full_messages.join('. ')
+      flash.now[:alert] = @reward.errors.full_messages.join(', ')
       render :edit, status: :unprocessable_entity
     end
   end

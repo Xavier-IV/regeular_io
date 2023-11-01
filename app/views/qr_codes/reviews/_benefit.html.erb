@@ -4,7 +4,9 @@
       <p>Wait, this merchant has rewards! 👀</p>
       <p>Quickly sign in to unlock and potentially claim merchant's rewards.</p>
     <% else %>
-      <p>1. Earn discount of 20% off when you become regular customer for every 5 receipts.</p>
+      <%- @rewards.each do |reward| %>
+        <p>1. Earn discount of <%= reward_name(reward) %> off when you become regular customer for every 5 receipts.</p>
+      <% end %>
     <% end %>
   <% end %>
 </div>

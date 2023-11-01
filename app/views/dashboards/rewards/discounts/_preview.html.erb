@@ -12,7 +12,7 @@
       <h2
         data-dashboard--reward-target="output"
       >
-        <%= model.value %>
+        <%= model.value_type == 'fixed' ? model.value : model.value.to_i %>
       </h2>
 
       <span

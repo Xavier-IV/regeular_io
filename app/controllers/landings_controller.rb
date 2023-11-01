@@ -6,7 +6,7 @@ class LandingsController < ApplicationController
     business = Rails.application.credentials.dig(:host, :business)
 
     mappings = {
-      customer => food_root_path,
+      customer => food_root_path(most: 'regular'),
       business => business_root_path
     }
 

@@ -64,6 +64,8 @@ Layout/LineLength:
   Exclude:
     - 'bin/*'
     - 'db/seeds.rb'
+    - 'app/models/review.rb'
+    - 'app/models/business.rb'
 
 Rails/LexicallyScopedActionFilter:
   Enabled: false
