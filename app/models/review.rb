@@ -48,7 +48,11 @@ class Review < ApplicationRecord
     business = self.business
     customer_id = user_id
 
-    ratings = self.class.where(business_id: business.id).map(&:rating)
+    return if customer_id.blank?
+
+    ratings = self.class.where(business_id: business.id)
+                  .where(user_id: customer_id)
+                  .map(&:rating)
     rating_average = ratings.reduce(:+).to_f / ratings.length
 
     progress = Customer::Progress.find_or_create_by(user_id: customer_id, business:)
