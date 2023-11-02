@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 module Dashboards::Qrs::ReviewsHelper
-  def generate_qr(path)
+  def generate_qr(path, color: 'FFFFFF')
     qrcode = RQRCode::QRCode.new(path)
 
     qrcode.as_svg(
-      color: 'FFFFFF',
+      color:,
       shape_rendering: 'crispEdges',
       standalone: true,
       module_size: 10,

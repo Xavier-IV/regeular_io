@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_01_165948) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_02_075247) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -155,8 +155,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_01_165948) do
     t.string "value_type"
     t.float "min_order_amount"
     t.float "capped_amount"
+    t.uuid "qr_code_id"
     t.index ["business_id"], name: "index_customer_rewards_on_business_id"
     t.index ["business_reward_id"], name: "index_customer_rewards_on_business_reward_id"
+    t.index ["qr_code_id"], name: "index_customer_rewards_on_qr_code_id"
     t.index ["user_id"], name: "index_customer_rewards_on_user_id"
   end
 
@@ -265,6 +267,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_01_165948) do
   add_foreign_key "customer_progresses", "users"
   add_foreign_key "customer_rewards", "business_rewards"
   add_foreign_key "customer_rewards", "businesses"
+  add_foreign_key "customer_rewards", "qr_codes"
   add_foreign_key "customer_rewards", "users"
   add_foreign_key "omniauths", "users"
   add_foreign_key "qr_codes", "businesses"

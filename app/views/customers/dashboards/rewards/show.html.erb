@@ -11,10 +11,14 @@
   </div>
 
   <div class="mt-10 flex flex-col gap-4">
-    <h2 class="text-lg text-gray-500 font-semibold">Rewards</h2>
-    <%- @rewards.each do |reward| %>
-      <p><%= reward.value %></p>
-    <% end.empty? and begin %>
+    <h2 class="text-lg text-gray-500 font-semibold">Rewards (<%= @rewards.count %>)</h2>
+    <%- if @rewards.present? %>
+      <div class="grid grid-cols-2 gap-4">
+        <%- @rewards.each do |reward| %>
+          <%= render partial: 'customers/dashboards/rewards/reward', locals: { reward: } %>
+        <% end %>
+      </div>
+    <% else %>
       <%= render 'customers/dashboards/rewards/empty' %>
     <% end %>
 
