@@ -65,20 +65,22 @@
     </div>
 
     <!--Benefits-->
-    <div class="flex flex-col gap-4 px-10 py-6 bg-white rounded-2xl border mx-4 md:mx-10">
-      <div class="flex flex-col justify-center items-center gap-4 px-10">
-        <div class="flex flex-col items-center">
-          <div class="flex gap-1 items-center">
-            <p class="text-lg"><strong>Regülar Customer Benefit</strong></p>
-            <% unless customer_signed_in? %>
-              <i class="lni lni-lock-alt"></i>
-            <% end %>
+    <%- if @rewards.present? %>
+      <div class="flex flex-col gap-4 px-10 py-6 bg-white rounded-2xl border mx-4 md:mx-10">
+        <div class="flex flex-col justify-center items-center gap-4 px-10">
+          <div class="flex flex-col items-center">
+            <div class="flex gap-1 items-center">
+              <p class="text-lg text-center"><strong>Regülar Customer Benefit</strong></p>
+              <% unless customer_signed_in? %>
+                <i class="lni lni-lock-alt"></i>
+              <% end %>
+            </div>
           </div>
         </div>
+        <%= render partial: 'qr_codes/reviews/progress' %>
+        <%= render partial: 'qr_codes/reviews/benefit' %>
       </div>
-      <%= render partial: 'qr_codes/reviews/progress' %>
-      <%= render partial: 'qr_codes/reviews/benefit' %>
-    </div>
+    <% end %>
   </div>
 
 <% else %>
