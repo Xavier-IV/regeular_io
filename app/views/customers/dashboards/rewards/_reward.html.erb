@@ -1,0 +1,54 @@
+<div
+  data-controller="modal"
+  class="modal-groups">
+  <div
+    data-action="click->modal#openModal"
+    class="<%= reward.claimed_at.present? ? 'opacity-20' : '' %> cursor-pointer w-full h-fit min-h-[220px] py-8 bg-gradient-to-l from-violet-500 to-indigo-500 rounded-2xl shadow flex flex-col items-center justify-center text-white gap-4"
+    style='box-shadow: 0px 4px 10px rgba(131, 105, 221, 0.50);'>
+    <div
+      class="flex flex-col items-center gap-4">
+      <p>Earn</p>
+      <div
+        class="text-4xl md:text-6xl font-bold flex items-center gap-2">
+      <span
+        data-dashboard--reward-target="prefix"
+        class="text-sm"><%= reward.value_type == 'fixed' ? 'RM' : '' %></span>
+
+        <h2
+          data-dashboard--reward-target="output"
+        >
+          <%= reward.value_type == 'fixed' ? reward.value : reward.value.to_i %>
+        </h2>
+
+        <span
+          data-dashboard--reward-target="suffix"
+          class="text-sm"><%= reward.value_type == 'percentage' ? '%' : '' %></span>
+      </div>
+      <p class="text-sm">Discount</p>
+    </div>
+
+    <div
+      data-dashboard--reward-target="capPreview"
+      class="w-full flex flex-col items-center text-center gap-4 <%= reward.value_type == 'percentage' ? '' : 'hidden' %>">
+      <hr class="border-purple-400 w-full">
+      <p class="text-purple-300">Capped at RM
+        <span data-dashboard--reward-target="cappedAmount"><%= reward.capped_amount %></span></p>
+    </div>
+  </div>
+  <%- if reward.claimed_at.blank? %>
+    <%= render(ModalComponent.new(title: "Claim Reward")) do |component| %>
+      <% component.with_header_icon do %>
+        <i class="lni lni-lock-alt"></i>
+      <% end %>
+      <div class="text-gray-500 text-center flex flex-col gap-4 items-center justify-center">
+        <div class="w-52 md:w-60 h-full p-4 text-center flex items-center justify-center">
+          <%= raw generate_qr(qr_code_url(reference: reward.qr_code_reward.id), color: '111827') if reward.qr_code_reward.present? %>
+        </div>
+        <p>Get <%= reward_name(reward) %> off with minimum order
+          of <%= number_to_currency(reward.min_order_amount, locale: :ms) %>.
+          <br/>Capped at <%= number_to_currency(reward.capped_amount, locale: :ms) %></p>
+        <p class="text-gray-400">To claim this reward, share this QR code to the merchant.</p>
+      </div>
+    <% end %>
+  <% end %>
+</div>

@@ -61,6 +61,7 @@ class Review < ApplicationRecord
 
     return unless (progress.rating_count % 5).zero?
 
+    qr_code = self.business.qr_code_reward.create
     rewards = self.business.business_rewards
     rewards.each do |reward|
       Customer::Reward.create(
@@ -72,7 +73,8 @@ class Review < ApplicationRecord
         business:,
         user_id:,
         min_order_amount: reward.min_order_amount,
-        capped_amount: reward.capped_amount
+        capped_amount: reward.capped_amount,
+        qr_code_id: qr_code.id
       )
     end
   end

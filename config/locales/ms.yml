@@ -3,7 +3,7 @@ ms:
     currency:
       format:
         # %u represents the currency symbol, %n represents the number
-        format: "%u %n"
+        format: "%u%n"
         unit: "RM"
         separator: "."
         delimiter: ","

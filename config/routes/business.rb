@@ -43,6 +43,7 @@ constraints host: Rails.application.credentials.dig(:host, :business) do
     resource :reward do
       scope module: 'rewards' do
         resource :discount
+        resource :consume
       end
     end
 

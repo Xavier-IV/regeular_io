@@ -1,0 +1,77 @@
+<div class="flex flex-col gap-4 my-10 md:my-20 px-10 md:px-0">
+  <%- unless @customer_reward.claimed_at.present? %>
+    <div>
+      <h2 class="text-xl font-bold pl-0.5">Accept Rewards?</h2>
+      <p class="text-sm text-gray-500">The customer would like to claim this reward. You can accept this during their
+        checkout.</p>
+    </div>
+
+    <div class="mt-10">
+      <div
+        data-controller="modal"
+        class="modal-groups flex flex-col gap-4">
+        <div
+          data-action="click->modal#openModal"
+          class='cursor-pointer w-full h-fit min-h-[220px] py-8 bg-gradient-to-l from-violet-500 to-indigo-500 rounded-2xl shadow flex flex-col items-center justify-center text-white gap-4'
+          style='box-shadow: 0px 4px 10px rgba(131, 105, 221, 0.50);'>
+          <div
+            class="flex flex-col items-center gap-4">
+            <p>Give</p>
+            <div
+              class="text-4xl md:text-6xl font-bold flex items-center gap-2">
+              <span class="text-sm"><%= @customer_reward.value_type == 'fixed' ? 'RM' : '' %></span>
+
+              <h2>
+                <%= @customer_reward.value_type == 'fixed' ? @customer_reward.value : @customer_reward.value.to_i %>
+              </h2>
+
+              <span
+                class="text-sm"><%= @customer_reward.value_type == 'percentage' ? '%' : '' %></span>
+            </div>
+            <p class="text-sm">Discount</p>
+          </div>
+
+          <div
+            class="w-full flex flex-col items-center text-center gap-4 <%= @customer_reward.value_type == 'percentage' ? '' : 'hidden' %>">
+            <hr class="border-purple-400 w-full">
+            <p class="text-purple-300">Capped at RM
+              <span><%= @customer_reward.capped_amount %></span></p>
+          </div>
+        </div>
+        <p class="text-center">Click the coupon to Apply.</p>
+        <%= render(ModalComponent.new(title: "Claim Reward")) do |component| %>
+          <div class="flex flex-col gap-2 text-gray-500">
+            <p>Your checklist:</p>
+            <ul class="list-disc list-inside">
+              <li>Minimum order of minimum <%= number_to_currency(@customer_reward.min_order_amount, locale: :ms) %>.
+              </li>
+              <li>Discount value of <%= reward_name(@customer_reward) %></li>
+              <li>Capped at maximum amount
+                of <%= number_to_currency(@customer_reward.capped_amount, locale: :ms) %></li>
+            </ul>
+          </div>
+
+          <% component.with_primary_action do %>
+            <%= form_for @customer_reward, url: dashboards_reward_consume_path,
+                         method: :put,
+                         html: {
+                           class: 'w-full h-full flex'
+                         } do |f| %>
+              <%= f.hidden_field :id %>
+              <%= f.submit 'Accept', class: 'cursor-pointer w-full h-full py-3 text-purple-600 hover:text-white hover:bg-purple-600' %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% else %>
+    <div
+      style="box-shadow: 0px 4px 10px rgba(131, 105, 221, 0.50);"
+      class="col-span-3 order-2 py-20 md:py-20 md:order-4 w-full h-fit py-10 md:py-20 bg-gradient-to-l from-violet-500 to-indigo-500 rounded-2xl shadow flex flex-col items-center justify-center text-white gap-4">
+      <div class="w-full flex flex-col gap-2 px-6 items-center text-center">
+        <p>Reward was already consumed.</p>
+        <p class="text-purple-300">Try a different reward instead.</p>
+      </div>
+    </div>
+  <% end %>
+</div>

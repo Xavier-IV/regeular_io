@@ -1,0 +1,39 @@
+<div class="flex flex-col gap-4 my-10 md:my-20 px-10 md:px-0">
+  <div>
+    <h2 class="text-xl font-bold pl-0.5">Applied succesfully!</h2>
+    <p class="text-sm text-gray-500">
+      You can now begin deducting the amount from the user receipt accordingly.
+    </p>
+  </div>
+
+  <div class="mt-10">
+    <div
+      data-action="click->modal#openModal"
+      class='w-full h-fit min-h-[220px] py-8 bg-gradient-to-l from-violet-500 to-indigo-500 rounded-2xl shadow flex flex-col items-center justify-center text-white gap-4'
+      style='box-shadow: 0px 4px 10px rgba(131, 105, 221, 0.50);'>
+      <div
+        class="flex flex-col items-center gap-4">
+        <p>Give</p>
+        <div
+          class="text-4xl md:text-6xl font-bold flex items-center gap-2">
+          <span class="text-sm"><%= @customer_reward.value_type == 'fixed' ? 'RM' : '' %></span>
+
+          <h2>
+            <%= @customer_reward.value_type == 'fixed' ? @customer_reward.value : @customer_reward.value.to_i %>
+          </h2>
+
+          <span
+            class="text-sm"><%= @customer_reward.value_type == 'percentage' ? '%' : '' %></span>
+        </div>
+        <p class="text-sm">Discount</p>
+      </div>
+
+      <div
+        class="w-full flex flex-col items-center text-center gap-4 <%= @customer_reward.value_type == 'percentage' ? '' : 'hidden' %>">
+        <hr class="border-purple-400 w-full">
+        <p class="text-purple-300">Capped at RM
+          <span><%= @customer_reward.capped_amount %></span></p>
+      </div>
+    </div>
+  </div>
+</div>
