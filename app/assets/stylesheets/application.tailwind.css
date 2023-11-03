@@ -51,7 +51,7 @@
 }
 
 #auths > h2 {
-    @apply text-2xl text-center mb-10;
+    @apply text-2xl text-center mb-4;
 }
 
 #auths #error_explanation {
