@@ -1,10 +1,12 @@
-<%= content_for(:title, 'Regülar: Food') %>
+<%= content_for(:title, 'Regülar') %>
 
 <div
   class="relative bg-cover bg-center h-[440px] py-20" style="background-image: url('/assets/hero_bg.png')">
   <div class="absolute inset-0 w-full h-fit flex justify-end z-10 px-8 py-4">
-    <div class="h-fit w-fit flex gap-8">
+    <div class="h-fit w-fit flex gap-8 items-center">
       <% if customer_signed_in? %>
+        <%= link_to 'For Business', business_root_url(host: Rails.application.credentials.dig(:host, :business)), target: '_blank', class: 'bg-white p-1' %>
+
         <%= link_to 'Dashboard', customers_dashboard_path, class: 'p-1 border px-4 py-2 rounded-md', style: 'background: rgba(255, 255, 255, 0.2);
 box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 backdrop-filter: blur(3px);
@@ -19,16 +21,17 @@ backdrop-filter: blur(3px);
   </div>
   <div class="absolute inset-0 flex gap-10 flex-col items-center justify-center py-20 px-10 text-center">
     <div class="flex flex-col gap-2 items-center">
-      <h1 class="text-4xl font-bold text-center bg-white w-fit">Regülar: Food</h1>
-      <p class="text-gray-600 bg-white">Find the best food around, with <strong class="text-purple-600">genuine</strong>
-        review</p>
+      <h1 class="text-4xl font-bold text-center bg-white w-fit">Regülar</h1>
+      <p class="text-gray-600 bg-white">Find the best merchant around you, with
+        <strong class="text-purple-600">genuine</strong>
+        reviews</p>
     </div>
     <p class="text-gray-600 bg-white">
       <%= link_to business_root_url(host: Rails.application.credentials.dig(:host, :business)), target: '_blank' do %>
         <u>Want to add your business for free?</u>
       <% end %>
     </p>
-    <% if Rails.env.development? %>
+    <% if false %>
       <div class="w-full h-fit rounded-lg border px-8 py-4 max-w-lg bg-white flex gap-4 items-center text-gray-400">
         <i class="lni lni-search-alt"></i> Western
       </div>
@@ -36,7 +39,7 @@ backdrop-filter: blur(3px);
   </div>
 </div>
 
-<% if Rails.env.development? %>
+<% if false %>
   <div class="px-10 w-full">
     <div class="flex gap-1 w-full md:justify-center overflow-x-scroll rounded-full no-scrollbar">
       <button class="px-4 py-1 bg-green-600 text-white rounded-full flex-none">
@@ -55,57 +58,55 @@ backdrop-filter: blur(3px);
   <div class="h-20"></div>
 <% end %>
 
-<% if Rails.env.development? %>
-  <div class="flex gap-1 w-full max-w-6xl mx-auto px-10">
-    <div class="flex flex-col flex-col gap-4">
-      <div class="flex gap-1">
-        <%= link_to food_root_path(most: 'regular', state: params[:state], city: params[:city]), class: "px-4 py-1 border rounded-full #{params[:most].present? && params[:most] == 'regular' ? 'bg-black text-white' : 'bg-white'} hover:bg-black hover:text-white flex items-center gap-2" do %>
-          Most <span class="text-purple-600 flex items-center"><i class="lni lni-star-fill"></i></span>
+<div class="flex gap-1 w-full max-w-6xl mx-auto px-10">
+  <div class="flex flex-col flex-col gap-4">
+    <div class="flex gap-1">
+      <%= link_to food_root_path(most: 'regular', state: params[:state], city: params[:city]), class: "px-4 py-1 border rounded-full #{params[:most].present? && params[:most] == 'regular' ? 'bg-black text-white' : 'bg-white'} hover:bg-black hover:text-white flex items-center gap-2" do %>
+        Most <span class="text-purple-600 flex items-center"><i class="lni lni-star-fill"></i></span>
+      <% end %>
+      <%= link_to food_root_path(most: 'rating', state: params[:state], city: params[:city]), class: "px-4 py-1 border rounded-full hover:bg-black #{params[:most].present? && params[:most] == 'rating' ? 'bg-black text-white' : 'bg-white'} hover:text-white flex items-center gap-2" do %>
+        Most <span class="text-yellow-400 flex items-center"><i class="lni lni-star-fill"></i></span>
+      <% end %>
+      <%- if params[:most].present? %>
+        <%= link_to food_root_path, class: "px-2 rounded-full flex items-center gap-2" do %>
+          <i class="lni lni-cross-circle"></i> Reset
         <% end %>
-        <%= link_to food_root_path(most: 'rating', state: params[:state], city: params[:city]), class: "px-4 py-1 border rounded-full hover:bg-black #{params[:most].present? && params[:most] == 'rating' ? 'bg-black text-white' : 'bg-white'} hover:text-white flex items-center gap-2" do %>
-          Most <span class="text-yellow-400 flex items-center"><i class="lni lni-star-fill"></i></span>
-        <% end %>
-        <%- if params[:most].present? %>
-          <%= link_to food_root_path, class: "px-2 rounded-full flex items-center gap-2" do %>
-            <i class="lni lni-cross-circle"></i> Reset
-          <% end %>
-        <% end %>
-      </div>
-      <div
-        data-controller="dashboard--city-update"
-        class="flex gap-1">
-        <%= collection_select(:state, :name, @states, :name, :name,
-                              {
-                                selected: params[:state],
-                                include_blank: 'State...'
-                              },
-                              {
-                                class: "px-4 py-1 border-gray-300 rounded-full #{params[:state].present? ? 'bg-black text-white' : 'bg-white'} hover:bg-black hover:text-white flex items-center gap-2 min-w-[140px] pr-4 w-fit justify-between",
-                                data: {
-                                  controller: 'customer--landing',
-                                  action: 'customer--landing#changeState',
-                                  'customer--landing-target': 'stateSelect'
-                                }
-                              }) %>
+      <% end %>
+    </div>
+    <div
+      data-controller="dashboard--city-update"
+      class="flex gap-1">
+      <%= collection_select(:state, :name, @states, :name, :name,
+                            {
+                              selected: params[:state],
+                              include_blank: 'State...'
+                            },
+                            {
+                              class: "px-4 py-1 border-gray-300 rounded-full #{params[:state].present? ? 'bg-black text-white' : 'bg-white'} hover:bg-black hover:text-white flex items-center gap-2 min-w-[140px] pr-4 w-fit justify-between",
+                              data: {
+                                controller: 'customer--landing',
+                                action: 'customer--landing#changeState',
+                                'customer--landing-target': 'stateSelect'
+                              }
+                            }) %>
 
-        <%= collection_select(:city, :name, @cities, :name, :name,
-                              {
-                                selected: params[:city],
-                                include_blank: 'City...'
-                              },
-                              {
-                                class: "px-4 py-1 border-gray-300 rounded-full #{params[:city].present? ? 'bg-black text-white' : 'bg-white'} hover:bg-black hover:text-white flex items-center gap-2 min-w-[160px] w-fit pr-10 justify-between",
-                                data: {
-                                  controller: 'customer--landing',
-                                  action: 'customer--landing#changeCity',
-                                  'dashboard--city-update-target': 'citySelect'
-                                }
-                              }) %>
-      </div>
+      <%= collection_select(:city, :name, @cities, :name, :name,
+                            {
+                              selected: params[:city],
+                              include_blank: 'City...'
+                            },
+                            {
+                              class: "px-4 py-1 border-gray-300 rounded-full #{params[:city].present? ? 'bg-black text-white' : 'bg-white'} hover:bg-black hover:text-white flex items-center gap-2 min-w-[160px] w-fit pr-10 justify-between",
+                              data: {
+                                controller: 'customer--landing',
+                                action: 'customer--landing#changeCity',
+                                'dashboard--city-update-target': 'citySelect'
+                              }
+                            }) %>
     </div>
   </div>
-  <div class="h-20"></div>
-<% end %>
+</div>
+<div class="h-20"></div>
 
 <div class="grid grid-cols-1 md:grid-cols-2 px-10 gap-10 w-full max-w-6xl mx-auto ">
   <% @businesses.each do |business| %>
@@ -168,22 +169,25 @@ backdrop-filter: blur(3px);
       </div>
     </div>
   <% end %>
+  <%- if @businesses.present? %>
+    <p class="text-sm text-gray-400">You've reached the end.</p>
+  <% end %>
 </div>
 
 <div class="h-10"></div>
-<div class="flex flex-col items-center justify-center text-gray-300">
-  <p>You've reached the end.</p>
+<div class="flex flex-col items-center justify-center text-gray-4 00">
   <div class="h-2"></div>
   <%= link_to business_root_url(host: Rails.application.credentials.dig(:host, :business)), target: '_blank' do %>
     <u>Add your business. It's free!</u>
   <% end %>
 </div>
 <div class="h-20"></div>
-<% if Rails.env.development? %>
+
+<% if false %>
   <footer class="w-full bg-black text-white">
     <div class="w-full h-fit max-w-6xl text-white mx-auto py-20 grid grid-cols-2 md:grid-cols-4 gap-4 px-10">
       <div>
-        <h2 class="text-xl font-bold">Regülar: Food</h2>
+        <h2 class="text-xl font-bold">Regülar</h2>
         <div class="h-4"></div>
         <p>For business</p>
         <p>For reviewers</p>
@@ -194,3 +198,5 @@ backdrop-filter: blur(3px);
     </div>
   </footer>
 <% end %>
+
+<div class="h-20"></div>
