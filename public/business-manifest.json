@@ -1,6 +1,6 @@
 {
-  "name": "Regeular: Business",
-  "short_name": "Regeular Business",
+  "name": "Regülar: Business",
+  "short_name": "Regülar Business",
   "id": "/?source=pwa",
   "start_url": "/dashboards?source=pwa",
   "scope": "/",
