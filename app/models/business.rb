@@ -27,6 +27,8 @@ class Business < ApplicationRecord
                               .joins(:clients)
                               .where(clients: { role: 'owner' })
                               .where.not(clients: { confirmed_at: nil })
+                              .where.not(approved_at: nil)
+
   }
 
   scope :most_regular, lambda { |truthy|
