@@ -1,0 +1,63 @@
+<%= content_for(:title, 'Regülar: How it works') %>
+
+<div
+  class="relative bg-cover bg-center h-[400px] py-20" style="background-image: url('/assets/hero_bg.png')">
+  <%= render 'landings/customers/navbar' %>
+  <div class="absolute inset-0 flex gap-10 flex-col items-center justify-center py-20 px-10 text-center">
+    <div class="flex flex-col gap-2 items-center">
+      <h1 class="text-4xl font-bold text-center bg-white w-fit">How It Works</h1>
+      <p class="text-gray-600 bg-white">Understand how our ecosystem can benefit you.</p>
+    </div>
+  </div>
+</div>
+
+<div class="flex flex-col items-center justify-center mb-40 shadow-md py-10 border-y gap-4">
+  <div data-controller="modal">
+    <button
+      data-action="click->modal#openModal"
+      class="px-4 py-2 bg-orange-500 text-white rounded-md text-lg">Play Review Game
+    </button>
+
+    <%= render(ModalComponent.new(title: "Reward Game", opened: params[:experience].present?)) do %>
+      <%= turbo_frame_tag dom_id(@rating) do %>
+        <div class="h-[400px] overflow-y-scroll pb-4">
+          <div class="py-2 bg-black">
+            <p class="text-white px-4 text-center">Guide: Submit dummy reviews to increase level</p>
+          </div>
+
+          <%= render partial: 'landings/customers/game_progress' %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <p class="text-gray-400 text-sm">Play this simulation to see how it works!</p>
+</div>
+
+<div class="flex flex-col gap- w-full max-w-2xl mx-auto px-10 text-center items-center justify-center mt-20">
+  <div class="w-full bg-white p-10 border rounded-3xl flex flex-col items-center justify-center gap-4 text-gray-700">
+    <div class="w-5/6 -mt-20 md:w-3/6 md:-mt-32">
+      <img src='/assets/previews/benefits_customer.png' class="w-full" alt="">
+    </div>
+    <h1 class="text-2xl font-bold mt-10">Collect Benefits,<br/>Earn Rewards</h1>
+    <p class="mt-4">As a customer, we get to enjoy consuming products. Be it food, drinks, services and more.</p>
+    <p>It is even better when you're rewarded for continuously supporting the merchants.</p>
+  </div>
+</div>
+
+<div class="flex flex-col gap- w-full max-w-2xl mx-auto px-10 text-center items-center justify-center mt-40">
+  <div class="w-full bg-white p-10 border rounded-3xl flex flex-col items-center justify-center gap-4 text-gray-700">
+    <div class="w-32 -mt-20 md:w-40 md:-mt-20">
+      <img src='/assets/previews/writing_review_levels.png' class="w-full" alt="">
+    </div>
+    <h1 class="text-2xl font-bold mt-10">Write Reviews,<br/>Level Up</h1>
+    <p class="mt-4">Good merchant has wonderful reviews. Reviews are important for new customer to learn about quality
+      of services and products.</p>
+
+    <p>What's even better is, you can be a part of the journey!</p>
+
+    <p>Be on the lookout for merchant with rewards, you'll never know what you rewards you can get.</p>
+  </div>
+</div>
+
+
+<div class="h-20"></div>

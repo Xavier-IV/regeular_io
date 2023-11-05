@@ -40,7 +40,7 @@
       <% component.with_header_icon do %>
         <i class="lni lni-lock-alt"></i>
       <% end %>
-      <div class="text-gray-500 text-center flex flex-col gap-4 items-center justify-center">
+      <div class="text-gray-500 text-center flex flex-col gap-4 items-center justify-center p-4">
         <div class="w-52 md:w-60 h-full p-4 text-center flex items-center justify-center">
           <%= raw generate_qr(qr_code_url(reference: reward.qr_code_reward.id), color: '111827') if reward.qr_code_reward.present? %>
         </div>

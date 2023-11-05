@@ -1,0 +1,38 @@
+<div class="absolute inset-0 w-full h-fit flex justify-end z-10 px-8 py-4 bg-white border-b">
+  <div class="h-fit w-full flex gap-6 items-center flex justify-between md:justify-end">
+    <div
+      data-controller="nav"
+      class="relative md:hidden">
+      <button data-action="nav#toggle"><i class="lni lni-menu"></i></button>
+      <div
+        data-nav-target="content"
+        class="hidden absolute top-8 -left-4 border rounded-lg flex flex-col bg-white w-[200px] divide-y h-fit">
+        <%= link_to 'Browse', customer_root_path, class: 'px-10 py-3 hover:bg-gray-200' %>
+        <%= link_to 'How It Works', how_it_works_path, class: 'px-10 py-3 hover:bg-gray-200' %>
+        <%= link_to business_root_url(host: Rails.application.credentials.dig(:host, :business)), target: '_blank', class: 'px-10 py-3 hover:bg-gray-200 gap-2' do %>
+          For Business <i class="lni lni-arrow-top-right text-gray-300 pt-1"></i>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="flex gap-4 items-center">
+      <div class="hidden md:flex gap-6 items-center">
+        <%= link_to 'Browse', customer_root_path %>
+        <%= link_to 'How It Works', how_it_works_path %>
+        <%= link_to business_root_url(host: Rails.application.credentials.dig(:host, :business)), target: '_blank' do %>
+          For Business <i class="lni lni-arrow-top-right text-gray-300"></i>
+        <% end %>
+      </div>
+
+      <% if customer_signed_in? %>
+        <%= link_to 'Dashboard', customers_dashboard_path, class: 'p-1 border px-4 py-2 rounded-md', style: 'background: rgba(255, 255, 255, 0.2);
+box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+backdrop-filter: blur(3px);
+-webkit-backdrop-filter: blur(3px);' %>
+      <% else %>
+        <%= link_to 'Login', new_customer_session_path, class: 'font-bold bg-white p-1' %>
+        <%= link_to 'Register', new_customer_registration_path, class: 'font-bold bg-white p-1' %>
+      <% end %>
+    </div>
+  </div>
+</div>
