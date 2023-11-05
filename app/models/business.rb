@@ -31,15 +31,11 @@ class Business < ApplicationRecord
   }
 
   scope :most_regular, lambda { |truthy|
-                         if truthy
-                           includes(:business_statistic).order('business_statistics.regular_rating_average DESC NULLS LAST')
-                         end
-                       }
+    includes(:business_statistic).order('business_statistics.regular_rating_average DESC NULLS LAST') if truthy
+  }
   scope :most_rating, lambda { |truthy|
-                        if truthy
-                          includes(:business_statistic).order('business_statistics.customer_rating_average DESC NULLS LAST')
-                        end
-                      }
+    includes(:business_statistic).order('business_statistics.customer_rating_average DESC NULLS LAST') if truthy
+  }
   scope :with_state, ->(state) { where(state:) if state.present? }
   scope :with_city, ->(city) { where(city:) if city.present? }
 
@@ -47,6 +43,10 @@ class Business < ApplicationRecord
   after_update :prepare_statistic
 
   validates :registration_id, uniqueness: true, presence: true, if: -> { registration_id.present? }
+
+  def reviewable
+    approved_at.present? && owner.confirmed_at.present? && created_at < 1.day.ago
+  end
 
   def anon_reviews
     reviews.where(user_id: nil)
