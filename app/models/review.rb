@@ -24,7 +24,7 @@ class Review < ApplicationRecord
     cust_rating_count = cust_ratings.size
 
     statistic.customer_rating_average = ((cust_rating_average * cust_rating_count) + rating) / (cust_rating_count + 1)
-    statistic.total_customer = cust_rating_count + 1
+    statistic.total_customer = cust_rating_count
 
     if user_id.present?
       # Calculate regular rating
