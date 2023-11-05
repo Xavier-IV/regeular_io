@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_05_084719) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_05_112858) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -169,7 +169,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_05_084719) do
     t.text "info"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.uuid "user_id", null: false
+    t.uuid "user_id"
     t.string "user_type"
     t.index ["provider", "uid", "user_id"], name: "index_omniauths_on_provider_and_uid_and_user_id", unique: true
     t.index ["user_id"], name: "index_omniauths_on_user_id"
@@ -217,8 +217,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_05_084719) do
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "first_name", default: "", null: false
-    t.string "last_name", default: "", null: false
+    t.string "first_name", default: ""
+    t.string "last_name", default: ""
     t.string "role", default: "anonymous"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
