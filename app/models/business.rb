@@ -45,7 +45,7 @@ class Business < ApplicationRecord
   validates :registration_id, uniqueness: true, presence: true, if: -> { registration_id.present? }
 
   def reviewable
-    approved_at.present? && owner.confirmed_at.present? && created_at < 1.day.ago
+    approved_at.present? && owner.confirmed_at.present? && created_at < 1.hour.ago
   end
 
   def anon_reviews

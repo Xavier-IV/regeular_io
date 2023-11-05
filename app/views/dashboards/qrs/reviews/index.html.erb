@@ -42,8 +42,8 @@
           <p>Approved account</p>
         </div>
         <div class="flex gap-4 items-start">
-          <span class="<%= @business.created_at < 1.day.ago ? 'text-green-500' : 'text-gray-400' %> pt-1 flex items-center"><i class="lni lni-checkmark-circle"></i></span>
-          <p>Account created at least 1 day</p>
+          <span class="<%= @business.created_at < 1.hour.ago ? 'text-green-500' : 'text-gray-400' %> pt-1 flex items-center"><i class="lni lni-checkmark-circle"></i></span>
+          <p>Account created at least for 1 hour</p>
         </div>
       </div>
     </div>
