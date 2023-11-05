@@ -22,7 +22,12 @@ class Business < ApplicationRecord
   has_many :customer_rewards, class_name: 'Customer::Reward', dependent: :destroy, inverse_of: false
   has_many :business_rewards, class_name: 'Business::Reward', dependent: :destroy
 
-  scope :listed, -> { joins(:listing_attachment).distinct.joins(:logo_attachment).distinct }
+  scope :listed, lambda {
+    joins(:listing_attachment).distinct.joins(:logo_attachment).distinct
+                              .joins(:clients)
+                              .where(clients: { role: 'owner' })
+                              .where.not(clients: { confirmed_at: nil })
+  }
 
   scope :most_regular, lambda { |truthy|
                          if truthy
@@ -44,6 +49,10 @@ class Business < ApplicationRecord
 
   def anon_reviews
     reviews.where(user_id: nil)
+  end
+
+  def owner
+    clients.find_by(role: 'owner')
   end
 
   private

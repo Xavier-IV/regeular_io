@@ -152,7 +152,6 @@ backdrop-filter: blur(3px);
       <div class="p-4 items-start hidden lg:flex flex-col justify-between">
         <div class="">
           <h2 class="text-2xl font-bold"><%= business.name %></h2>
-          <p class="text-gray-400 text-sm">10 AM - 10 PM</p>
         </div>
         <div class="text-sm">
           <div class="gap-2 items-center hidden lg:flex">
@@ -181,12 +180,14 @@ backdrop-filter: blur(3px);
       <% end %>
     </div>
   <% end %>
+</div>
+
+<div class="flex items-center justify-center mt-10">
   <%- if @businesses.present? %>
     <p class="text-sm text-gray-400">You've reached the end.</p>
   <% end %>
 </div>
 
-<div class="h-10"></div>
 <%- if @businesses.present? %>
   <div class="flex flex-col items-center justify-center text-gray-4 00">
     <div class="h-2"></div>
