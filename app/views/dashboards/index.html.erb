@@ -1,13 +1,13 @@
 <%- unless current_client.confirmed? %>
-<div class="w-full px-10 md:px-0">
-  <div id="announcement" class="flex w-full p-2 text-center justify-center bg-green-200 text-green-800 rounded-md">
-    <p>Check your email for
-      verification. <%= link_to "Resend?", new_dashboards_confirmation_path(email: current_client.email), class: 'text-blue-600', method: :get %></p>
+  <div class="w-full px-10 md:px-0">
+    <div id="announcement" class="flex w-full p-2 text-center justify-center bg-green-200 text-green-800 rounded-md">
+      <p>Check your email for
+        verification. <%= link_to "Resend?", new_dashboards_confirmation_path(email: current_client.email), class: 'text-blue-600', method: :get %></p>
+    </div>
   </div>
-</div>
 <% end %>
 
-<div class="flex flex-col gap-4 my-10 md:my-20">
+<div class="flex flex-col gap-4 mt-10 md:mt-20">
   <div class="w-full h-fit grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto px-10 md:px-0">
     <%= form_with(model: @business, url: dashboards_business_path(@business), local: true, method: :put,
                   data: { controller: 'dashboard--file-upload' },
@@ -188,5 +188,27 @@
       <p class="text-sm">Customers</p>
     <% end %>
   </div>
-  <div class="h-20"></div>
 </div>
+
+<%- if @business.logo.blank? || @business.listing.blank? || @business.owner.confirmed_at.blank? %>
+  <div class="mb-20">
+    <div class="border rounded-2xl bg-white p-6 md:p-10 my-10 mx-10 md:mx-0 flex flex-col gap-4">
+      <p>To get listed:</p>
+      <div class="flex flex-col gap-2">
+        <div class="flex gap-4 items-center">
+          <span class="<%= @business.owner.confirmed_at.present? ? 'text-green-500' : 'text-gray-400' %> flex items-center"><i class="lni lni-checkmark-circle"></i></span>
+          <p>Verified email</p>
+        </div>
+        <div class="flex gap-4 items-center">
+          <span class="<%= @business.logo.present? && @business.logo.attached? ? 'text-green-500' : 'text-gray-400' %> flex items-center"><i class="lni lni-checkmark-circle"></i></span>
+          <p>Company Logo</p>
+        </div>
+        <div class="flex gap-4 items-start">
+          <span class="<%= @business.listing.present? && @business.listing.attached? ? 'text-green-500' : 'text-gray-400' %> pt-1 flex items-center"><i class="lni lni-checkmark-circle"></i></span>
+          <p>Listing image of one of your product (i.e. foods, drinks, services, etc)</p>
+        </div>
+      </div>
+      <p class="text-gray-400">If you don't have a logo yet, you can easily use any image of your store front.</p>
+    </div>
+  </div>
+<% end %>

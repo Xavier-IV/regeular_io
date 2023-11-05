@@ -58,55 +58,57 @@ backdrop-filter: blur(3px);
   <div class="h-20"></div>
 <% end %>
 
-<div class="flex gap-1 w-full max-w-6xl mx-auto px-10">
-  <div class="flex flex-col flex-col gap-4">
-    <div class="flex gap-1">
-      <%= link_to food_root_path(most: 'regular', state: params[:state], city: params[:city]), class: "px-4 py-1 border rounded-full #{params[:most].present? && params[:most] == 'regular' ? 'bg-black text-white' : 'bg-white'} hover:bg-black hover:text-white flex items-center gap-2" do %>
-        Most <span class="text-purple-600 flex items-center"><i class="lni lni-star-fill"></i></span>
-      <% end %>
-      <%= link_to food_root_path(most: 'rating', state: params[:state], city: params[:city]), class: "px-4 py-1 border rounded-full hover:bg-black #{params[:most].present? && params[:most] == 'rating' ? 'bg-black text-white' : 'bg-white'} hover:text-white flex items-center gap-2" do %>
-        Most <span class="text-yellow-400 flex items-center"><i class="lni lni-star-fill"></i></span>
-      <% end %>
-      <%- if params[:most].present? %>
-        <%= link_to food_root_path, class: "px-2 rounded-full flex items-center gap-2" do %>
-          <i class="lni lni-cross-circle"></i> Reset
+<%- if @businesses.present? %>
+  <div class="flex gap-1 w-full max-w-6xl mx-auto px-10">
+    <div class="flex flex-col flex-col gap-4">
+      <div class="flex gap-1">
+        <%= link_to food_root_path(most: 'regular', state: params[:state], city: params[:city]), class: "px-4 py-1 border rounded-full #{params[:most].present? && params[:most] == 'regular' ? 'bg-black text-white' : 'bg-white'} hover:bg-black hover:text-white flex items-center gap-2" do %>
+          Most <span class="text-purple-600 flex items-center"><i class="lni lni-star-fill"></i></span>
         <% end %>
-      <% end %>
-    </div>
-    <div
-      data-controller="dashboard--city-update"
-      class="flex gap-1">
-      <%= collection_select(:state, :name, @states, :name, :name,
-                            {
-                              selected: params[:state],
-                              include_blank: 'State...'
-                            },
-                            {
-                              class: "px-4 py-1 border-gray-300 rounded-full #{params[:state].present? ? 'bg-black text-white' : 'bg-white'} hover:bg-black hover:text-white flex items-center gap-2 min-w-[140px] pr-4 w-fit justify-between",
-                              data: {
-                                controller: 'customer--landing',
-                                action: 'customer--landing#changeState',
-                                'customer--landing-target': 'stateSelect'
-                              }
-                            }) %>
+        <%= link_to food_root_path(most: 'rating', state: params[:state], city: params[:city]), class: "px-4 py-1 border rounded-full hover:bg-black #{params[:most].present? && params[:most] == 'rating' ? 'bg-black text-white' : 'bg-white'} hover:text-white flex items-center gap-2" do %>
+          Most <span class="text-yellow-400 flex items-center"><i class="lni lni-star-fill"></i></span>
+        <% end %>
+        <%- if params[:most].present? %>
+          <%= link_to food_root_path, class: "px-2 rounded-full flex items-center gap-2" do %>
+            <i class="lni lni-cross-circle"></i> Reset
+          <% end %>
+        <% end %>
+      </div>
+      <div
+        data-controller="dashboard--city-update"
+        class="flex gap-1">
+        <%= collection_select(:state, :name, @states, :name, :name,
+                              {
+                                selected: params[:state],
+                                include_blank: 'State...'
+                              },
+                              {
+                                class: "px-4 py-1 border-gray-300 rounded-full #{params[:state].present? ? 'bg-black text-white' : 'bg-white'} hover:bg-black hover:text-white flex items-center gap-2 min-w-[140px] pr-4 w-fit justify-between",
+                                data: {
+                                  controller: 'customer--landing',
+                                  action: 'customer--landing#changeState',
+                                  'customer--landing-target': 'stateSelect'
+                                }
+                              }) %>
 
-      <%= collection_select(:city, :name, @cities, :name, :name,
-                            {
-                              selected: params[:city],
-                              include_blank: 'City...'
-                            },
-                            {
-                              class: "px-4 py-1 border-gray-300 rounded-full #{params[:city].present? ? 'bg-black text-white' : 'bg-white'} hover:bg-black hover:text-white flex items-center gap-2 min-w-[160px] w-fit pr-10 justify-between",
-                              data: {
-                                controller: 'customer--landing',
-                                action: 'customer--landing#changeCity',
-                                'dashboard--city-update-target': 'citySelect'
-                              }
-                            }) %>
+        <%= collection_select(:city, :name, @cities, :name, :name,
+                              {
+                                selected: params[:city],
+                                include_blank: 'City...'
+                              },
+                              {
+                                class: "px-4 py-1 border-gray-300 rounded-full #{params[:city].present? ? 'bg-black text-white' : 'bg-white'} hover:bg-black hover:text-white flex items-center gap-2 min-w-[160px] w-fit pr-10 justify-between",
+                                data: {
+                                  controller: 'customer--landing',
+                                  action: 'customer--landing#changeCity',
+                                  'dashboard--city-update-target': 'citySelect'
+                                }
+                              }) %>
+      </div>
     </div>
   </div>
-</div>
-<div class="h-20"></div>
+  <div class="h-20"></div>
+<% end %>
 
 <div class="grid grid-cols-1 md:grid-cols-2 px-10 gap-10 w-full max-w-6xl mx-auto ">
   <% @businesses.each do |business| %>
@@ -150,7 +152,6 @@ backdrop-filter: blur(3px);
       <div class="p-4 items-start hidden lg:flex flex-col justify-between">
         <div class="">
           <h2 class="text-2xl font-bold"><%= business.name %></h2>
-          <p class="text-gray-400 text-sm">10 AM - 10 PM</p>
         </div>
         <div class="text-sm">
           <div class="gap-2 items-center hidden lg:flex">
@@ -168,19 +169,33 @@ backdrop-filter: blur(3px);
         </div>
       </div>
     </div>
+  <% end.empty? and begin %>
+    <div class="text-center flex col-span-1 md:col-span-2 flex-col items-center justify-center border p-10 bg-white rounded-2xl">
+      <div class="w-60 pl-4 md:pl-0 md:w-80 opacity-40 mb-10">
+        <%= image_tag 'undraw/dreamer.svg', class: 'w-full h-full p-2', alt: 'QR Code' %>
+      </div>
+      <p class="text-gray-500">No business listed yet.</p>
+      <%= link_to business_root_url(host: Rails.application.credentials.dig(:host, :business)), target: '_blank', class: 'no-underline text-purple-500' do %>
+        Be the first to add your business. It's free!
+      <% end %>
+    </div>
   <% end %>
+</div>
+
+<div class="flex items-center justify-center mt-10">
   <%- if @businesses.present? %>
     <p class="text-sm text-gray-400">You've reached the end.</p>
   <% end %>
 </div>
 
-<div class="h-10"></div>
-<div class="flex flex-col items-center justify-center text-gray-4 00">
-  <div class="h-2"></div>
-  <%= link_to business_root_url(host: Rails.application.credentials.dig(:host, :business)), target: '_blank' do %>
-    <u>Add your business. It's free!</u>
-  <% end %>
-</div>
+<%- if @businesses.present? %>
+  <div class="flex flex-col items-center justify-center text-gray-4 00">
+    <div class="h-2"></div>
+    <%= link_to business_root_url(host: Rails.application.credentials.dig(:host, :business)), target: '_blank' do %>
+      <u>Add your business. It's free!</u>
+    <% end %>
+  </div>
+<% end %>
 <div class="h-20"></div>
 
 <% if false %>
