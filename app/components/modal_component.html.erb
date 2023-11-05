@@ -1,17 +1,17 @@
 <div
   data-modal-target="modal"
-  id="modal" class="hidden">
+  id="modal" class="<%= @opened ? '' : 'hidden' %>">
   <div class="fixed top-0 right-0 h-screen w-screen bg-black opacity-40 z-20"></div>
   <div class="fixed top-0 right-0 h-screen w-screen z-30 flex items-center justify-center">
     <div class="bg-white rounded-lg overflow-hidden mx-10">
       <div
         id="modal-title"
-        class="px-10 py-2 min-w-[360px] flex items-center justify-center gap-2">
+        class="px-10 py-2 flex items-center justify-center gap-2">
         <h3 class="text-lg text-gray-800"><%= @title %></h3>
         <%= header_icon %>
       </div>
       <hr>
-      <div id="modal-content" class="px-10 py-10 flex flex-col gap-2">
+      <div id="modal-content" class="flex flex-col gap-2">
         <%= content %>
       </div>
       <div id="modal-action" class="border-t flex divide-x items-center justify-center">

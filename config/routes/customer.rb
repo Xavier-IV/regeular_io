@@ -13,8 +13,10 @@ constraints host: Rails.application.credentials.dig(:host, :review) do
     passwords: 'customers/passwords'
   }
 
-  # Food Reviewers Landing Page
-  get '/r', to: 'landings/foods#index', as: :food_root
+  # Customers Landing Page
+  get '/listings', to: 'landings/customers#index', as: :customer_root
+  get '/how_it_works', to: 'landings/customers#how_it_works'
+  post '/how_it_works', to: 'landings/customers#how_it_works_progress'
 
   resource :qr_code, only: :show
   namespace :qr_codes do

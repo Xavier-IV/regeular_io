@@ -2,23 +2,7 @@
 
 <div
   class="relative bg-cover bg-center h-[440px] py-20" style="background-image: url('/assets/hero_bg.png')">
-  <div class="absolute inset-0 w-full h-fit flex justify-end z-10 px-8 py-4">
-    <div class="h-fit w-fit flex gap-8 items-center">
-      <% if customer_signed_in? %>
-        <%= link_to 'For Business', business_root_url(host: Rails.application.credentials.dig(:host, :business)), target: '_blank', class: 'bg-white p-1' %>
-
-        <%= link_to 'Dashboard', customers_dashboard_path, class: 'p-1 border px-4 py-2 rounded-md', style: 'background: rgba(255, 255, 255, 0.2);
-box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(3px);
--webkit-backdrop-filter: blur(3px);' %>
-      <% else %>
-        <%= link_to 'For Business', business_root_url(host: Rails.application.credentials.dig(:host, :business)), target: '_blank', class: 'bg-white p-1' %>
-
-        <%= link_to 'Login', new_customer_session_path, class: 'font-bold bg-white p-1' %>
-        <%= link_to 'Register', new_customer_registration_path, class: 'font-bold bg-white p-1' %>
-      <% end %>
-    </div>
-  </div>
+  <%= render 'landings/customers/navbar' %>
   <div class="absolute inset-0 flex gap-10 flex-col items-center justify-center py-20 px-10 text-center">
     <div class="flex flex-col gap-2 items-center">
       <h1 class="text-4xl font-bold text-center bg-white w-fit">Regülar</h1>

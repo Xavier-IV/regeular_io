@@ -40,7 +40,7 @@
         </div>
         <p class="text-center">Click the coupon to Apply.</p>
         <%= render(ModalComponent.new(title: "Claim Reward")) do |component| %>
-          <div class="flex flex-col gap-2 text-gray-500">
+          <div class="flex flex-col gap-2 text-gray-500 p-4">
             <p>Your checklist:</p>
             <ul class="list-disc list-inside">
               <li>Minimum order of minimum <%= number_to_currency(@customer_reward.min_order_amount, locale: :ms) %>.
