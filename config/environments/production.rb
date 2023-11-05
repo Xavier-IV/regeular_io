@@ -77,10 +77,13 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
 
   config.action_mailer.smtp_settings = {
-    address: Rails.application.credentials.dig(:aws, :ses, :address),
+    user_name: 'apikey',
+    password: Rails.application.credentials.dig(:sendgrid, :api_key),
+    domain: 'regeular.io',
+    address: 'smtp.sendgrid.net',
     port: 587,
-    user_name: Rails.application.credentials.dig(:aws, :ses, :access_key_id),
-    password: Rails.application.credentials.dig(:aws, :ses, :password)
+    authentication: :plain,
+    enable_starttls_auto: true
   }
 
   config.action_mailer.default_options = {
