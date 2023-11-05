@@ -20,7 +20,7 @@
 
     <%= render(ModalComponent.new(title: "Reward Game", opened: params[:experience].present?)) do %>
       <%= turbo_frame_tag dom_id(@rating) do %>
-        <div class="h-[400px] overflow-y-scroll pb-4">
+        <div class="h-[500px] overflow-y-scroll pb-4">
           <div class="py-2 bg-black">
             <p class="text-white px-4 text-center">Guide: Submit dummy reviews to increase level</p>
           </div>
