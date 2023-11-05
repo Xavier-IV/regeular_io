@@ -6,7 +6,8 @@ class Landings::FoodsController < ApplicationController
       'Malay Cuisine', 'Chinese', 'Seafood', 'Arab',
       'Fast Food', '+20'
     ]
-    @states = Common::State.where(name: Business.distinct.pluck(:state))
+    business_names = Business.listed.distinct.pluck(:state)
+    @states = Common::State.where(name: business_names)
     @cities = if query_params[:state].present?
                 Common::State.find_by(name: query_params[:state])
                              .cities.where(
