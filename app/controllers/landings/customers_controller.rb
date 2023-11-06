@@ -27,8 +27,8 @@ class Landings::CustomersController < ApplicationController
   def how_it_works
     @rating = Review.new
 
-    experience = params[:experience].to_i || 0
-    level = params[:level].to_i || 0
+    experience = query_params[:experience].to_i || 0
+    level = query_params[:level].to_i || 0
 
     @customer_progress = Customer::Progress.new(experience:, level:)
   end
@@ -37,8 +37,8 @@ class Landings::CustomersController < ApplicationController
     @rating = Review.new
     @customer_progress = Customer::Progress.new
 
-    experience = game_params[:experience].to_i
-    level = game_params[:level].to_i || 0
+    experience = query_params[:experience].to_i
+    level = query_params[:level].to_i || 0
 
     experience += 1
 
@@ -55,6 +55,6 @@ class Landings::CustomersController < ApplicationController
   end
 
   def query_params
-    params.permit(:most, :state, :city)
+    params.permit(:most, :state, :city, :experience, :level)
   end
 end

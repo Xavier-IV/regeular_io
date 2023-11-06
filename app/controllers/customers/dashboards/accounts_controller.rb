@@ -16,7 +16,7 @@ class Customers::Dashboards::AccountsController < ApplicationController
 
   def update
     @user = current_customer
-    current_customer.avatar.attach(params[:customer][:avatar]) if params[:customer][:avatar]
+    current_customer.avatar.attach(asset_params[:avatar]) if asset_params[:avatar]
 
     if current_customer.update_without_password(user_params)
       redirect_to customers_dashboards_account_path, notice: 'Record updated.'
@@ -29,5 +29,9 @@ class Customers::Dashboards::AccountsController < ApplicationController
 
   def user_params
     params.require(:customer).permit(:first_name, :last_name)
+  end
+
+  def asset_params
+    params.require(:customer).permit(:avatar)
   end
 end

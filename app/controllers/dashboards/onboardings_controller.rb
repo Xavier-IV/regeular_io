@@ -26,11 +26,11 @@ class Dashboards::OnboardingsController < ApplicationController
   def create
     case step
     when :onboard_company_name
-      if params[:business][:name].blank?
+      if safe_params[:name].blank?
         flash[:alert] = 'Business name cannot be empty'
         redirect_to_next(:onboard_company_name)
       else
-        current_client.create_business(name: params[:business][:name])
+        current_client.create_business(name: safe_params[:name])
         current_client.save
         redirect_to_next(:onboard_company_location)
       end
@@ -47,7 +47,7 @@ class Dashboards::OnboardingsController < ApplicationController
   def update
     case step
     when :onboard_company_name
-      current_client.business.update(name: params[:business][:name])
+      current_client.business.update(name: safe_params[:name])
       redirect_to_next(:onboard_company_location)
     when :onboard_company_location
       if current_client.business.blank?
@@ -55,9 +55,9 @@ class Dashboards::OnboardingsController < ApplicationController
         return redirect_to_next(:onboard_company_location)
       end
 
-      if params[:business][:city].present? &&
-         params[:business][:state].present? &&
-         current_client.business.update(city: params[:business][:city], state: params[:business][:state])
+      if safe_params[:city].present? &&
+         safe_params[:state].present? &&
+         current_client.business.update(city: safe_params[:city], state: safe_params[:state])
         redirect_to_next(:onboard_complete)
       else
         flash[:alert] = 'State and city cannot be empty.'
@@ -65,5 +65,11 @@ class Dashboards::OnboardingsController < ApplicationController
       end
 
     end
+  end
+
+  private
+
+  def safe_params
+    params.require(:business).permit(:name, :city, :state)
   end
 end

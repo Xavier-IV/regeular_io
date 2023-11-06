@@ -4,7 +4,7 @@ class QrCodes::ReviewsController < QrCodesController
   include CustomerHelper
 
   def new
-    @qr = QrCode::Review.find(params[:reference])
+    @qr = QrCode::Review.find(query_params[:reference])
     @rating = Review.find_by(qr_code_id: @qr.id)
     return redirect_to qr_codes_review_path(id: @rating.id) if @rating.present?
 
@@ -27,13 +27,17 @@ class QrCodes::ReviewsController < QrCodesController
   end
 
   def show
-    @review = Review.find(params[:id])
+    @review = Review.find(query_params[:id])
     @business = @review.business
     @rewards = @business.business_rewards
     @customer_progress = current_customer.customer_progresses.find_by(business: @business) if customer_signed_in?
   end
 
   private
+
+  def query_params
+    params.permit(:id, :reference)
+  end
 
   def review_params
     params.require(:review).permit(:rating, :description, :business_id, :qr_code_id)

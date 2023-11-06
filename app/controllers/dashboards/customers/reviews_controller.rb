@@ -4,7 +4,13 @@ class Dashboards::Customers::ReviewsController < ApplicationController
   include DashboardLayout
 
   def index
-    @customer = User.find(params[:id])
+    @customer = User.find(query_params[:id])
     @reviews = @customer.reviews.order(created_at: :desc)
+  end
+
+  private
+
+  def query_params
+    params.permit(:id)
   end
 end
