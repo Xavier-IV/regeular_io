@@ -25,6 +25,13 @@ Metrics/BlockLength:
     - 'lib/tasks/*'
     - 'app/models/concerns/omniauthable.rb'
 
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - staging
+    - development
+    - test
+
 Metrics/CyclomaticComplexity:
   Exclude:
     - 'bin/*'
