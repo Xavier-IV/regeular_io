@@ -23,11 +23,11 @@ class QrCodesController < ApplicationController
 
     case @qr.type
     when 'QrCode::Bank'
-      redirect_to qr_codes_bank_path(reference: params[:reference])
+      redirect_to qr_codes_bank_path(reference: query_params[:reference])
     when 'QrCode::Review'
-      redirect_to new_qr_codes_review_path(reference: params[:reference])
+      redirect_to new_qr_codes_review_path(reference: query_params[:reference])
     when 'QrCode::Reward'
-      redirect_to(edit_dashboards_reward_consume_url(reference: params[:reference],
+      redirect_to(edit_dashboards_reward_consume_url(reference: query_params[:reference],
                                                      host: Rails.application.credentials.dig(:host, :business)),
                   allow_other_host: true)
     end
@@ -36,9 +36,13 @@ class QrCodesController < ApplicationController
   private
 
   def find_qr_code
-    qr_id = params[:reference]
+    qr_id = query_params[:reference]
     @qr = QrCode.find_by(id: qr_id)
 
     nil if @qr.blank?
+  end
+
+  def query_params
+    params.permit(:reference)
   end
 end

@@ -15,10 +15,10 @@ class Dashboards::BusinessesController < ApplicationController
     @states = Common::Country.find_by(name: 'Malaysia').states
     @cities = @states.find_by(name: current_client.business.state).cities || []
 
-    return render :edit if params[:business].blank?
+    return render :edit if business_params.blank?
 
-    @business.logo.attach(params[:business][:logo]) if params[:business] && params[:business][:logo]
-    @business.listing.attach(params[:business][:listing]) if params[:business] && params[:business][:listing]
+    @business.logo.attach(asset_params[:logo]) if business_params.present? && asset_params[:logo]
+    @business.listing.attach(asset_params[:listing]) if business_params.present? && asset_params[:listing]
 
     if @business.update(business_params)
       redirect_to dashboards_path, notice: 'Record updated.'
@@ -32,6 +32,10 @@ class Dashboards::BusinessesController < ApplicationController
 
   def business_params
     params.require(:business).permit(:address_line_1, :address_line_2, :postcode, :city, :state, :registration_id,
-                                     :name)
+                                     :name, :logo, :listing)
+  end
+
+  def asset_params
+    params.require(:business).permit(:logo, :listing)
   end
 end

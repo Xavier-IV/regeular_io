@@ -4,7 +4,7 @@ class Dashboards::Rewards::ConsumesController < ApplicationController
   include DashboardLayout
 
   def edit
-    @qr = QrCode::Reward.find(params[:reference])
+    @qr = QrCode::Reward.find(query_params[:reference])
     @customer_reward = @qr.customer_reward
   end
 
@@ -23,10 +23,14 @@ class Dashboards::Rewards::ConsumesController < ApplicationController
   end
 
   def show
-    @customer_reward = current_client.business.customer_rewards.find(params[:id])
+    @customer_reward = current_client.business.customer_rewards.find(query_params[:id])
   end
 
   private
+
+  def query_params
+    params.permit(:reference)
+  end
 
   def reward_params
     params.require(:customer_reward).permit(:id)

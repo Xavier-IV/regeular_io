@@ -7,6 +7,12 @@ class Customers::Dashboards::ReviewsController < ApplicationController
   layout 'customer/dashboard'
 
   def index
-    @reviews = current_customer.reviews.where(business_id: params[:business_id])
+    @reviews = current_customer.reviews.where(business_id: query_params[:business_id])
+  end
+
+  private
+
+  def query_params
+    params.permit(:business_id)
   end
 end
