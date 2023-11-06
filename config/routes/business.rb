@@ -4,6 +4,7 @@
 constraints host: Rails.application.credentials.dig(:host, :business) do
   default_url_options({ host: Rails.application.credentials.dig(:host, :business) }.tap do |options|
     options[:port] = 3000 if Rails.env.development?
+    options[:protocol] = 'https' if Rails.env.staging? || Rails.env.production?
   end)
 
   devise_for :clients, controllers: {

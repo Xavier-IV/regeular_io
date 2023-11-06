@@ -5,7 +5,7 @@ class BusinessBank < ApplicationRecord
   belongs_to :business
 
   validates :full_name, presence: true,
-                        format: { with: /\A[A-Za-z0-9]+\z/, message: 'only allows letters and numbers' }
+                        format: { with: /\A[a-zA-Z\s'-]+\z/, message: 'only allows letters (space,-,\')' }
   validates :bank_id, presence: true
   validates :account_number, presence: true
 
