@@ -1,36 +1,36 @@
 <div class="flex fixed top-0 right-0 z-50 inset-x-0 max-w-max mx-auto">
   <% if success %>
     <div
-      data-controller="nav"
-      data-nav-target="notification"
+      data-controller="flash"
+      data-flash-target="notification"
       class="text-green-900 bg-green-300 p-2 px-4 justify-end items-center m-4 flex gap-4 rounded-sm rounded-md">
       <p class="notice"><%= success %></p>
       <button
-        data-action="click->nav#closeAll">
+        data-action="click->flash#closeAll">
         <i class="lni lni-cross-circle pt-2"></i>
       </button>
     </div>
   <% end %>
   <% if notice %>
     <div
-      data-controller="nav"
-      data-nav-target="notification"
+      data-controller="flash"
+      data-flash-target="notification"
       class="text-purple-900 bg-purple-300 p-2 px-4 justify-end items-center m-4 flex gap-4 rounded-md">
       <p class="notice"><%= notice %></p>
       <button
-        data-action="click->nav#closeAll">
+        data-action="click->flash#closeAll">
         <i class="lni lni-cross-circle pt-2"></i>
       </button>
     </div>
   <% end %>
   <% if alert %>
     <div
-      data-controller="nav"
-      data-nav-target="notification"
+      data-controller="flash"
+      data-flash-target="notification"
       class="text-orange-900 bg-orange-300 p-2 px-4 justify-end items-center m-4 flex gap-4 rounded-md">
       <p class="alert"><%= alert %></p>
       <button
-        data-action="click->nav#closeAll">
+        data-action="click->flash#closeAll">
         <i class="lni lni-cross-circle pt-2"></i>
       </button>
     </div>
