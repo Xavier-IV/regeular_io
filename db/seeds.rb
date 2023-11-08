@@ -102,3 +102,13 @@ banks_data = [
 banks_data.each do |bank_name|
   Common::Bank.find_or_create_by(name: bank_name)
 end
+
+admin = Admin.find_or_initialize_by(email: Rails.application.credentials[:owner])
+
+if admin.new_record?
+  admin.password = Devise.friendly_token[0, 20]
+  admin.password_confirmation = admin.password
+  admin.skip_confirmation!
+
+  admin.invite! if admin.save
+end
