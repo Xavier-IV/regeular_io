@@ -49,8 +49,7 @@ class Business < ApplicationRecord
 
   validates :registration_id, uniqueness: true, presence: true, if: -> { registration_id.present? }
   validate :close_time_is_greater_than_open_time
-  validates :gmap_link, format: { with: /\Ahttps:\/\/maps\.app\.goo\.gl\/[A-Za-z0-9]+\z/, message: 'has an invalid format' }, allow_blank: true
-
+  validates :gmap_link, format: { with: %r{\Ahttps://maps\.app\.goo\.gl/[A-Za-z0-9]+\z}, message: 'has an invalid format' }, allow_blank: true
 
   def reviewable
     approved_at.present? && owner.confirmed_at.present? && created_at < 1.hour.ago
