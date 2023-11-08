@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'chronic'
+
 class Business < ApplicationRecord
   has_one :business_bank, dependent: :destroy
   has_one :business_statistic, class_name: 'Business::Statistic', dependent: :destroy
@@ -28,6 +30,9 @@ class Business < ApplicationRecord
                               .where(clients: { role: 'owner' })
                               .where.not(clients: { confirmed_at: nil })
                               .where.not(approved_at: nil)
+                              .where.not(gmap_link: nil)
+                              .where.not(open_at: nil)
+                              .where.not(close_at: nil)
   }
 
   scope :most_regular, lambda { |truthy|
@@ -43,6 +48,7 @@ class Business < ApplicationRecord
   after_update :prepare_statistic
 
   validates :registration_id, uniqueness: true, presence: true, if: -> { registration_id.present? }
+  validate :close_time_is_greater_than_open_time
 
   def reviewable
     approved_at.present? && owner.confirmed_at.present? && created_at < 1.hour.ago
@@ -56,7 +62,26 @@ class Business < ApplicationRecord
     clients.find_by(role: 'owner')
   end
 
+  def open?
+    return false if open_at.blank? && close_at.blank?
+
+    current_time = Time.now.getlocal
+    current_date = current_time.to_date
+
+    utc_current_time = Time.utc(current_date.year, current_date.month, current_date.day, current_time.hour, current_time.min, current_time.sec)
+    open_time_today = Time.utc(current_date.year, current_date.month, current_date.day, open_at.hour, open_at.min, open_at.sec)
+    close_time_today = Time.utc(current_date.year, current_date.month, current_date.day, close_at.hour, close_at.min, close_at.sec)
+
+    utc_current_time.between?(open_time_today, close_time_today)
+  end
+
   private
+
+  def close_time_is_greater_than_open_time
+    return unless close_at.present? && open_at.present? && close_at <= open_at
+
+    errors.add(:close_at, 'must be greater than open time')
+  end
 
   def prepare_statistic
     Business::Statistic.find_or_create_by(business_id: id)

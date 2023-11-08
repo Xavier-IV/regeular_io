@@ -132,3 +132,9 @@ ul {
     @apply text-gray-600;
     @apply border-gray-200 hover:bg-gray-100;
 }
+
+.progress-ring__circle {
+    transition: stroke-dashoffset 0.35s;
+    transform: rotate(-90deg);
+    transform-origin: 50% 50%;
+}
