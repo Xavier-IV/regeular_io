@@ -1,0 +1,27 @@
+<div
+  data-controller="component--circular-progress"
+  data-component--circular-progress-percent-value="<%= @percent %>"
+  class="relative w-full h-full">
+  <svg class="w-full h-full" viewBox="0 0 100 100">
+    <circle
+      class="<%= @progress_bg %> stroke-current opacity-20"
+      stroke-width="6"
+      cx="50"
+      cy="50"
+      r="44"
+      fill="transparent"
+    ></circle>
+    <circle
+      data-component--circular-progress-target="circle"
+      class="<%= @progress_color %> progress-ring__circle stroke-current"
+      stroke-width="<%= @stroke_width %>"
+      stroke-linecap="round"
+      cx="50"
+      cy="50"
+      r="<%= @r %>"
+      fill="transparent"
+      stroke-dashoffset="0"
+    ></circle>
+    <text class="<%= @fill_color %>" x="50" y="50" font-family="Verdana" font-size="24" text-anchor="middle" alignment-baseline="middle"><%= @value %></text>
+  </svg>
+</div>

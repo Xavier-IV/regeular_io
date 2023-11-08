@@ -3,6 +3,8 @@
 class Dashboards::BusinessesController < ApplicationController
   include DashboardLayout
 
+  before_action :map_times, only: %i[edit update]
+
   def edit
     @business = current_client.business
     authorize @business
@@ -31,11 +33,29 @@ class Dashboards::BusinessesController < ApplicationController
   private
 
   def business_params
-    params.require(:business).permit(:address_line_1, :address_line_2, :postcode, :city, :state, :registration_id,
+    params.require(:business).permit(:address_line_1, :address_line_2, :postcode, :city, :state,
+                                     :registration_id, :gmap_link,
+                                     :open_at, :close_at,
                                      :name, :logo, :listing)
   end
 
   def asset_params
     params.require(:business).permit(:logo, :listing)
+  end
+
+  def map_times
+    start_time = DateTime.new(2000, 1, 1, 0, 0)
+    end_time = DateTime.new(2000, 1, 1, 23, 30)
+    interval = 30.minutes
+
+    hours_list = []
+
+    current_time = start_time
+    while current_time <= end_time
+      hours_list << [current_time.strftime('%H:%M'), current_time.to_time]
+      current_time += interval
+    end
+
+    @hours = hours_list
   end
 end

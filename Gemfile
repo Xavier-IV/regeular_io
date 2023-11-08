@@ -124,3 +124,5 @@ gem 'bundle-audit', '~> 0.1.0'
 gem 'activerecord-session_store', '~> 2.1'
 
 gem 'devise_invitable', '~> 2.0'
+
+gem 'chronic', '~> 0.10.2'
