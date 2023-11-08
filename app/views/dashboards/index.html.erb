@@ -235,7 +235,7 @@
       </div>
     </div>
   </div>
-<% elsif (@business.logo.present? && @business.listing.present? && @business.owner.confirmed_at.present?) && @business.approved_at.blank? %>
+<% elsif !@not_ready && @business.approved_at.blank? %>
   <div class="mb-20">
     <div class="border rounded-2xl bg-white p-6 md:p-10 my-10 mx-10 md:mx-0 flex flex-col gap-4">
       <p>Thank you! We will review your business within 1-2 days.</p>
