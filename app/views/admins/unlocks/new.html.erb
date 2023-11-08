@@ -12,7 +12,7 @@
     <%= f.submit "Resend unlock instructions" %>
   </div>
 
-  <%= recaptcha_v3(action: 'unlock_account', turbolinks: true) %>
+  <%= recaptcha_v3(action: 'unlock_account', turbolinks: true, site_key: Rails.application.credentials.dig(:recaptcha, :site_key_admin)) %>
 
 <% end %>
 

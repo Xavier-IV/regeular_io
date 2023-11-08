@@ -12,7 +12,7 @@
     <%= f.submit "Send me reset password instructions" %>
   </div>
 
-  <%= recaptcha_v3(action: 'forgot_password', turbolinks: true) %>
+  <%= recaptcha_v3(action: 'forgot_password', turbolinks: true, site_key: Rails.application.credentials.dig(:recaptcha, :site_key_admin)) %>
 
 <% end %>
 

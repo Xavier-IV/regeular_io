@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Admins::InvitationsController < Devise::InvitationsController
-  before_action :authenticate_client!, only: %i[new create destroy]
+  before_action :authenticate_admin!, only: %i[new create destroy]
 
   layout 'admin/auth'
   add_flash_types :success
@@ -18,7 +18,6 @@ class Admins::InvitationsController < Devise::InvitationsController
     # skip sending emails on invite
     super do |user|
       user.role = 'member'
-      user.business_id = current_client.business.id
     end
   end
 end

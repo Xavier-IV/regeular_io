@@ -14,6 +14,6 @@ module AdminLayout
   protected
 
   def pundit_user
-    current_client
+    current_admin
   end
 end

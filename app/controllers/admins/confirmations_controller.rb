@@ -11,7 +11,7 @@ class Admins::ConfirmationsController < Devise::ConfirmationsController
   end
 
   def create
-    if verify_recaptcha(action: 'confirmations')
+    if verify_recaptcha(action: 'confirmations', secret_key: Rails.application.credentials.dig(:recaptcha, :secret_key_admin))
       super
     else
       self.resource = resource_class.new(query_params[:user])

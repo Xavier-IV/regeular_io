@@ -12,7 +12,7 @@
     <%= f.submit "Resend confirmation instructions" %>
   </div>
 
-  <%= recaptcha_v3(action: 'confirmations', turbolinks: true) %>
+  <%= recaptcha_v3(action: 'confirmations', turbolinks: true, site_key: Rails.application.credentials.dig(:recaptcha, :site_key_admin)) %>
 <% end %>
 
 <%= render "admins/shared/links" %>

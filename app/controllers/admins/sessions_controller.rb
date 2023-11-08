@@ -5,7 +5,7 @@ class Admins::SessionsController < Devise::SessionsController
   add_flash_types :success
 
   def create
-    if verify_recaptcha(action: 'login')
+    if verify_recaptcha(action: 'login', secret_key: Rails.application.credentials.dig(:recaptcha, :secret_key_admin))
       super
     else
       self.resource = resource_class.new(sign_in_params)

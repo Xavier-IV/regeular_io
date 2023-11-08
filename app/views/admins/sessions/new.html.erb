@@ -24,7 +24,7 @@
     <%= f.submit "Log in" %>
   </div>
 
-  <%= recaptcha_v3(action: 'login', turbolinks: true) %>
+  <%= recaptcha_v3(action: 'login', turbolinks: true, site_key: Rails.application.credentials.dig(:recaptcha, :site_key_admin)) %>
 <% end %>
 
 <%= render "admins/shared/links" %>

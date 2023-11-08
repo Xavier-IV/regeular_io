@@ -4,7 +4,7 @@ class Admins::PasswordsController < Devise::PasswordsController
   layout 'admin/auth'
 
   def create
-    if verify_recaptcha(action: 'forgot_password')
+    if verify_recaptcha(action: 'forgot_password', secret_key: Rails.application.credentials.dig(:recaptcha, :secret_key_admin))
       super
     else
       self.resource = resource_class.new(query_params[:user])
