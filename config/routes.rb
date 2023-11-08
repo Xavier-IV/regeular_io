@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get '/cities', to: 'geographies#cities', defaults: { format: :json }
 
   draw(:omniauth)
+  draw(:admin)
   draw(:customer)
   draw(:business)
 end

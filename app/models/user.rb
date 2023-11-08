@@ -3,10 +3,6 @@
 class User < ApplicationRecord
   include Omniauthable
 
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable,
-         :confirmable, :lockable, :trackable
-
   validates :email, presence: true, uniqueness: { scope: :type, case_sensitive: true },
                     format: { with: URI::MailTo::EMAIL_REGEXP, message: 'Invalid email format' }
 

@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class Customer < User
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable,
+         :confirmable, :lockable, :trackable
+
   has_one_attached :avatar
 
   has_many :customer_rewards, class_name: 'Customer::Reward', dependent: :destroy,
