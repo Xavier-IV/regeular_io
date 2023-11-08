@@ -1,5 +1,5 @@
 <div class="flex flex-col gap-4 py-10 md:py-20 overflow-scroll no-scrollbar">
-  <%- if @ready %>
+  <%- unless @not_ready %>
     <div class="w-full h-fit grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto px-10 md:px-10 md:px-0">
       <%= turbo_stream_from current_client.business, 'qr_codes_review' %>
 
@@ -12,7 +12,6 @@
           </div>
           <p class="print:hidden"><%= link_to 'Go to link', qr_code_url(reference: @qr.id) if Rails.env.development? %></p>
         </div>
-        <small class="print:hidden my-2"><%= pluralize(@qr.scanned_times, 'user') %> has scanned</small>
         <div class="w-full flex flex-col gap-2 px-4 items-center text-center">
           <h1 class="text-lg font-light text-gray-200">Share your review with us!</h1>
         </div>
@@ -33,7 +32,10 @@
           <span class="<%= @business.logo.present? && @business.logo.attached? ? 'text-green-500' : 'text-gray-400' %> pt-1 flex items-center"><i class="lni lni-checkmark-circle"></i></span>
           <div class="flex flex-col gap-1">
             <p>Business Logo</p>
-            <p class="text-gray-400">If you don't have a logo yet, you can easily use any image of your store front.</p>
+            <%- unless @business.logo.present? && @business.logo.attached? %>
+              <p class="text-gray-400">If you don't have a logo yet, you can easily use any image of your store
+                front.</p>
+            <% end %>
           </div>
         </div>
         <div class="flex gap-4 items-start">
@@ -58,7 +60,6 @@
 
         <p class="mt-4">We will then verify your application within 1-2 days.</p>
       </div>
-    </div>
     </div>
   <% end %>
 </div>

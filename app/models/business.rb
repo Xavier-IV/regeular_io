@@ -49,7 +49,7 @@ class Business < ApplicationRecord
 
   validates :registration_id, uniqueness: true, presence: true, if: -> { registration_id.present? }
   validate :close_time_is_greater_than_open_time
-  validates :gmap_link, format: { with: %r{\Ahttps://maps\.app\.goo\.gl/[A-Za-z0-9]+\z}, message: 'has an invalid format' }, allow_blank: true
+  validate :valid_gmap_format
 
   def reviewable
     approved_at.present? && owner.confirmed_at.present? && created_at < 1.hour.ago
@@ -77,6 +77,18 @@ class Business < ApplicationRecord
   end
 
   private
+
+  def valid_gmap_format
+    return if gmap_link.blank?
+
+    # Define the expected prefix
+    expected_prefix = 'https://maps.app.goo.gl/'
+
+    # Check if the URL starts with the expected prefix
+    return if gmap_link.start_with?(expected_prefix)
+
+    errors.add(:gmap_link, 'must start with "https://maps.app.goo.gl/"')
+  end
 
   def close_time_is_greater_than_open_time
     return unless close_at.present? && open_at.present? && close_at <= open_at
