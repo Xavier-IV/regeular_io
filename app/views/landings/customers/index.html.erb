@@ -56,8 +56,8 @@
         Most <span class="text-yellow-400 flex items-center"><i class="lni lni-star-fill"></i></span>
       <% end %>
       <%- if params[:most].present? %>
-        <%= link_to customer_root_path, class: "px-2 rounded-full flex items-center gap-2" do %>
-          <i class="lni lni-cross-circle"></i> Reset
+        <%= link_to customer_root_path, class: "px-2 rounded-full flex items-center gap-2 text-gray-400" do %>
+          <i class="lni lni-cross-circle"></i> Clear Filter
         <% end %>
       <% end %>
     </div>
@@ -109,7 +109,6 @@
         <div
           class="absolute w-full h-full bg-gradient-to-t from-black via-transparent to-transparent z-20"></div>
         <div
-          data-action="click->landing--customer#flipCard"
           class="absolute w-full h-full bg-gradient-to-t from-black via-transparent to-transparent z-20"></div>
         <!--Opened-->
         <div
@@ -117,9 +116,11 @@
           data-landing--customer-target="overlay"
           class="hidden absolute w-full h-full bg-[#4A164E] opacity-[95%] z-30"></div>
 
+
+        <!--Mobile Card-->
         <div
           data-action="click->landing--customer#flipCard"
-          class="absolute z-30 h-full w-full">
+          class="lg:hidden absolute z-30 h-full w-full">
           <div class="flex w-full h-full">
             <div class="p-4 gap-3 grid grid-rows-3 w-full h-full">
               <div class="row-span-2 flex gap-2 h-full justify-between">
@@ -135,6 +136,58 @@
                     <p class="<%= business.open? ? 'text-[#986C9B]' : 'text-red-400' %>"><%= business.open? ? 'Open Now' : 'Closed' %></p>
                     <p class="text-[#7A417E]"><%= business.open_at.strftime("%H:%M") %>
                       - <%= business.close_at.strftime("%H:%M") %></p>
+                  </div>
+                </div>
+                <div class="flex gap-2">
+                  <a
+                    data-landing--customer-target="overlayContent"
+                    data-action="click->landing--customer#openMap"
+                    href="<%= business.gmap_link %>" target="_blank" class="hidden w-16 h-16 bg-[#68256D] rounded-2xl flex items-center justify-center">
+                    <i class="lni lni-map text-3xl text-[#FDFDFD]"></i>
+                  </a>
+                </div>
+              </div>
+              <div class="w-full h-full flex items-center gap-2 justify-between">
+                <h2 class="lg:hidden text-2xl text-white line-clamp-2 md:line-clamp-1"><%= business.name %></h2>
+                <div class="flex gap-2 lg:items-end lg:justify-end w-fit lg:w-full">
+                  <div class="w-14 h-14 lg:w-12 lg:h-12">
+                    <%= render(Shared::CircularProgressComponent.new({
+                                                                       percent: business.business_statistic.regular_rating_percent,
+                                                                       progress_bg: 'text-purple-400',
+                                                                       progress_color: 'text-purple-400',
+                                                                       fill_color: 'fill-purple-200',
+                                                                       value: business_regular_percent(business)
+                                                                     })) %>
+                  </div>
+                  <div class="w-14 h-14 lg:w-12 lg:h-12 opacity-80">
+                    <%= render(Shared::CircularProgressComponent.new({
+                                                                       percent: business.business_statistic.customer_rating_percent,
+                                                                       type: 'secondary',
+                                                                       progress_bg: 'text-yellow-700',
+                                                                       progress_color: 'text-yellow-400',
+                                                                       fill_color: 'fill-yellow-400',
+                                                                       value: business_customer_percent(business)
+                                                                     })) %>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="h-full flex flex-col justify-between">
+            </div>
+          </div>
+        </div>
+
+        <!--Large Screen Card-->
+        <div
+          class="hidden lg:block absolute z-30 h-full w-full">
+          <div class="flex w-full h-full">
+            <div class="p-4 gap-3 grid grid-rows-3 w-full h-full">
+              <div class="row-span-2 flex gap-2 h-full justify-between">
+                <div class="flex flex-col gap-4 text-white">
+                  <div class="w-14 h-14 flex-none rounded-full bg-gray-300 overflow-hidden border border-white border-2">
+                    <% if business.logo.present? && business.logo.attached? %>
+                      <%= image_tag url_for(business.logo), class: 'w-full h-full object-cover' %>
+                    <% end %>
                   </div>
                 </div>
                 <div class="flex gap-2">

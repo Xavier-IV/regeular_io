@@ -1,5 +1,5 @@
 <div class="flex flex-col gap-4 py-10 md:py-20 overflow-scroll no-scrollbar">
-  <%- if @ready %>
+  <%- unless @not_ready %>
     <div class="w-full h-fit grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto px-10 md:px-10 md:px-0">
       <%= turbo_stream_from current_client.business, 'qr_codes_review' %>
 
@@ -12,7 +12,6 @@
           </div>
           <p class="print:hidden"><%= link_to 'Go to link', qr_code_url(reference: @qr.id) if Rails.env.development? %></p>
         </div>
-        <small class="print:hidden my-2"><%= pluralize(@qr.scanned_times, 'user') %> has scanned</small>
         <div class="w-full flex flex-col gap-2 px-4 items-center text-center">
           <h1 class="text-lg font-light text-gray-200">Share your review with us!</h1>
         </div>
@@ -23,30 +22,44 @@
     </div>
   <% else %>
     <div class="border rounded-2xl bg-white p-6 md:p-10 my-10 mx-10 md:mx-0 flex flex-col gap-4">
-      <p>To start collecting reviews:</p>
+      <p>To get listed:</p>
       <div class="flex flex-col gap-2">
         <div class="flex gap-4 items-center">
           <span class="<%= @business.owner.confirmed_at.present? ? 'text-green-500' : 'text-gray-400' %> flex items-center"><i class="lni lni-checkmark-circle"></i></span>
           <p>Verified email</p>
         </div>
-        <div class="flex gap-4 items-center">
-          <span class="<%= @business.logo.present? && @business.logo.attached? ? 'text-green-500' : 'text-gray-400' %> flex items-center"><i class="lni lni-checkmark-circle"></i></span>
-          <p>Business Logo</p>
+        <div class="flex gap-4 items-start">
+          <span class="<%= @business.logo.present? && @business.logo.attached? ? 'text-green-500' : 'text-gray-400' %> pt-1 flex items-center"><i class="lni lni-checkmark-circle"></i></span>
+          <div class="flex flex-col gap-1">
+            <p>Business Logo</p>
+            <%- unless @business.logo.present? && @business.logo.attached? %>
+              <p class="text-gray-400">If you don't have a logo yet, you can easily use any image of your store
+                front.</p>
+            <% end %>
+          </div>
         </div>
         <div class="flex gap-4 items-start">
           <span class="<%= @business.listing.present? && @business.listing.attached? ? 'text-green-500' : 'text-gray-400' %> pt-1 flex items-center"><i class="lni lni-checkmark-circle"></i></span>
           <p>Listing image of one of your product (i.e. foods, drinks, services, etc)</p>
         </div>
         <div class="flex gap-4 items-start">
-          <span class="<%= @business.approved_at.present? ? 'text-green-500' : 'text-gray-400' %> pt-1 flex items-center"><i class="lni lni-checkmark-circle"></i></span>
-          <p>Approved account</p>
+          <span class="<%= @business.open_at.present? && @business.close_at.present? ? 'text-green-500' : 'text-gray-400' %> pt-1 flex items-center"><i class="lni lni-checkmark-circle"></i></span>
+          <p>Business operating hours</p>
         </div>
         <div class="flex gap-4 items-start">
-          <span class="<%= @business.created_at < 1.hour.ago ? 'text-green-500' : 'text-gray-400' %> pt-1 flex items-center"><i class="lni lni-checkmark-circle"></i></span>
-          <p>Account created at least for 1 hour</p>
+          <span class="<%= @business.gmap_link.present? ? 'text-green-500' : 'text-gray-400' %> pt-1 flex items-center"><i class="lni lni-checkmark-circle"></i></span>
+          <div class="flex flex-col gap-1">
+            <p>
+              Google Map link (i.e., head over to Google Map > Share > Copy the link provided).
+            </p>
+            <p class="text-gray-400">
+              Valid Google Map link looks like: https://maps.app.goo.gl/your_code
+            </p>
+          </div>
         </div>
+
+        <p class="mt-4">We will then verify your application within 1-2 days.</p>
       </div>
-    </div>
     </div>
   <% end %>
 </div>

@@ -190,7 +190,7 @@
   </div>
 </div>
 
-<%- if @business.logo.blank? || @business.listing.blank? || @business.owner.confirmed_at.blank? %>
+<%- if @not_ready %>
   <div class="mb-20">
     <div class="border rounded-2xl bg-white p-6 md:p-10 my-10 mx-10 md:mx-0 flex flex-col gap-4">
       <p>To get listed:</p>
@@ -199,22 +199,46 @@
           <span class="<%= @business.owner.confirmed_at.present? ? 'text-green-500' : 'text-gray-400' %> flex items-center"><i class="lni lni-checkmark-circle"></i></span>
           <p>Verified email</p>
         </div>
-        <div class="flex gap-4 items-center">
-          <span class="<%= @business.logo.present? && @business.logo.attached? ? 'text-green-500' : 'text-gray-400' %> flex items-center"><i class="lni lni-checkmark-circle"></i></span>
-          <p>Business Logo</p>
+        <div class="flex gap-4 items-start">
+          <span class="<%= @business.logo.present? && @business.logo.attached? ? 'text-green-500' : 'text-gray-400' %> pt-1 flex items-center"><i class="lni lni-checkmark-circle"></i></span>
+          <div class="flex flex-col gap-1">
+            <p>Business Logo</p>
+            <%- unless @business.logo.present? && @business.logo.attached? %>
+              <p class="text-gray-400">If you don't have a logo yet, you can easily use any image of your store
+                front.</p>
+            <% end %>
+          </div>
         </div>
         <div class="flex gap-4 items-start">
           <span class="<%= @business.listing.present? && @business.listing.attached? ? 'text-green-500' : 'text-gray-400' %> pt-1 flex items-center"><i class="lni lni-checkmark-circle"></i></span>
           <p>Listing image of one of your product (i.e. foods, drinks, services, etc)</p>
         </div>
+        <div class="flex gap-4 items-start">
+          <span class="<%= @business.open_at.present? && @business.close_at.present? ? 'text-green-500' : 'text-gray-400' %> pt-1 flex items-center"><i class="lni lni-checkmark-circle"></i></span>
+          <p>Business operating hours</p>
+        </div>
+        <div class="flex gap-4 items-start">
+          <span class="<%= @business.gmap_link.present? ? 'text-green-500' : 'text-gray-400' %> pt-1 flex items-center"><i class="lni lni-checkmark-circle"></i></span>
+          <div class="flex flex-col gap-1">
+            <p>
+              Google Map link (i.e., head over to Google Map > Share > Copy the link provided).
+            </p>
+            <%- unless @business.gmap_link.present? %>
+              <p class="text-gray-400">
+                Valid Google Map link looks like: https://maps.app.goo.gl/your_code
+              </p>
+            <% end %>
+          </div>
+        </div>
+
+        <p class="mt-4">We will then verify your application within 1-2 days.</p>
       </div>
-      <p class="text-gray-400">If you don't have a logo yet, you can easily use any image of your store front.</p>
     </div>
   </div>
-<% elsif (@business.logo.present? && @business.listing.present? && @business.owner.confirmed_at.present?) && @business.approved_at.blank? %>
+<% elsif !@not_ready && @business.approved_at.blank? %>
   <div class="mb-20">
     <div class="border rounded-2xl bg-white p-6 md:p-10 my-10 mx-10 md:mx-0 flex flex-col gap-4">
-      <p>Thank you! We will review your business within 24 hours.</p>
+      <p>Thank you! We will review your business within 1-2 days.</p>
     </div>
   </div>
 <% end %>

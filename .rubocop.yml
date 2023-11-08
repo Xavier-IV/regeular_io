@@ -38,6 +38,7 @@ Metrics/CyclomaticComplexity:
     - 'app/controllers/dashboards_controller.rb'
     - 'app/controllers/dashboards/businesses_controller.rb'
     - 'app/controllers/omniauth_sessions_controller.rb'
+    - 'app/controllers/dashboards/qrs/reviews_controller.rb'
 
 Metrics/MethodLength:
   Enabled: false
