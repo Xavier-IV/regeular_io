@@ -43,7 +43,10 @@
 <% end %>
 
 <div class="flex gap-1 w-full max-w-6xl mx-auto px-10">
-  <%= link_to 'Why is it purple star?', how_it_works_path, class: 'pl-1 text-gray-400 underline py-2' %>
+  <%= link_to 'Why is it purple star?', how_it_works_path, class: 'pl-1 text-gray-400 underline py-2', data: {
+    action: "click->landing--customer#trackWhy",
+    controller: "landing--customer"
+  } %>
 </div>
 
 <div class="flex gap-1 w-full max-w-6xl mx-auto px-10">
@@ -237,7 +240,9 @@
               <h2 class="text-2xl font-bold"><%= business.name %></h2>
             </div>
             <div class="w-12 h-10 border-l border-b rounded-bl-lg flex-none overflow-hidden">
-              <a href="<%= business.gmap_link %>" target="_blank" class="flex items-center justify-center w-full h-full text-gray-400 hover:bg-black hover:text-white overflow-hidden">
+              <a
+                data-action="click->landing--customer#openMap"
+                href="<%= business.gmap_link %>" target="_blank" class="flex items-center justify-center w-full h-full text-gray-400 hover:bg-black hover:text-white overflow-hidden">
                 <i class="lni lni-map text-2xl"></i>
               </a>
             </div>

@@ -17,7 +17,9 @@
   </div>
   <div class="w-full bg-white px-10 pt-4 pb-10 border rounded-3xl flex flex-col items-center justify-center gap-4 text-gray-700">
     <h1 class="text-2xl font-bold mt-10">Purple Review,<br/>Growing Merchant</h1>
-    <p class="mt-4">There's a chance you would trust reviews of <span class="font-semibold text-purple-600">regular customer</span>, as compared to someone who just tried once.</p>
+    <p class="mt-4">There's a chance you would trust reviews of
+      <span class="font-semibold text-purple-600">regular customer</span>, as compared to someone who just tried once.
+    </p>
     <p>With Regülar, we provide a platform for you to browse merchant with better review experience.</p>
   </div>
 </div>
@@ -25,7 +27,8 @@
 <div class="flex flex-col items-center justify-center mb-40 shadow-md py-10 border-y gap-4 mt-20">
   <div data-controller="modal">
     <button
-      data-action="click->modal#openModal"
+      data-controller="landing--customer"
+      data-action="click->modal#openModal click->landing--customer#trackPlayGame"
       class="px-4 py-2 bg-orange-500 text-white rounded-md text-lg">Play Review Game
     </button>
 

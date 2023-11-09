@@ -13,6 +13,18 @@ export default class extends Controller {
         amplitude.track('customer.landing.open_map');
     }
 
+    trackWhy() {
+        amplitude.track('customer.landing.click_why_purple_star');
+    }
+
+    trackPlayGame() {
+        amplitude.track('customer.landing.play_minigame');
+    }
+
+    trackGameNextLevel() {
+        amplitude.track('customer.landing.play_minigame.level_up');
+    }
+
     flipCard() {
         this.flipped = !this.flipped
         if (this.flipped) {
