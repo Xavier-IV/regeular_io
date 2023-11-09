@@ -12,13 +12,14 @@ class DashboardsController < ApplicationController
     @business = current_client.business
     @reviews = 0
     @regulars_total = 0
-    @approval = @business.business_approval_histories.unresolved.first
-
-    @not_ready = @business.logo.blank? || @business.listing.blank? ||
-                 @business.owner.confirmed_at.blank? || @business.open_at.blank? ||
-                 @business.close_at.blank? || @business.gmap_link.blank?
 
     return unless @business.present? && @business.reviews.present?
+
+    @not_ready = @business.logo.blank? || @business.listing.blank? ||
+      @business.owner.confirmed_at.blank? || @business.open_at.blank? ||
+      @business.close_at.blank? || @business.gmap_link.blank?
+
+    @approval = @business.business_approval_histories.unresolved.first
 
     @regulars = @business.reviewers.regular
     @regulars_total = ActiveRecord::Base.connection.exec_query(@regulars.to_sql).count
