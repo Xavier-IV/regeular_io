@@ -6,9 +6,11 @@ export default class extends Controller {
 
   openModal() {
     this.modalTarget.classList.remove('hidden')
+    amplitude.track('modal.open');
   }
 
   closeModal() {
     this.modalTarget.classList.add('hidden')
+    amplitude.track('modal.close');
   }
 }
