@@ -5,6 +5,10 @@ class ApplicationController < ActionController::Base
 
   before_action :store_user_location!, if: :storable_location?
 
+  def index
+    redirect_to admins_dashboard_path
+  end
+
   private
 
   def storable_location?

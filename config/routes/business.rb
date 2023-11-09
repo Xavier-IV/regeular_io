@@ -48,6 +48,10 @@ constraints host: Rails.application.credentials.dig(:host, :business) do
       end
     end
 
+    namespace :businesses do
+      resource :approval
+    end
+
     resources :regulars
 
     resource :onboarding

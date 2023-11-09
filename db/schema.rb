@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_07_073334) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_09_141115) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -47,6 +47,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_07_073334) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "business_approval_histories", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "business_id", null: false
+    t.string "status"
+    t.text "client_remark"
+    t.text "system_remark"
+    t.boolean "resolved", default: false, null: false
+    t.uuid "requested_by_id"
+    t.uuid "managed_by_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_id"], name: "index_business_approval_histories_on_business_id"
+    t.index ["managed_by_id"], name: "index_business_approval_histories_on_managed_by_id"
+    t.index ["requested_by_id"], name: "index_business_approval_histories_on_requested_by_id"
   end
 
   create_table "business_banks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -115,6 +130,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_07_073334) do
     t.string "gmap_link"
     t.time "open_at"
     t.time "close_at"
+    t.string "status", default: "new"
   end
 
   create_table "cities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -259,6 +275,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_07_073334) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "business_approval_histories", "businesses"
+  add_foreign_key "business_approval_histories", "users", column: "managed_by_id"
+  add_foreign_key "business_approval_histories", "users", column: "requested_by_id"
   add_foreign_key "business_banks", "banks"
   add_foreign_key "business_banks", "businesses"
   add_foreign_key "business_products", "businesses"

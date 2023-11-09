@@ -8,6 +8,7 @@ class Business < ApplicationRecord
 
   has_many :clients, dependent: :destroy
   has_many :products, class_name: 'Business::Product', dependent: :destroy
+  has_many :business_approval_histories, class_name: 'Business::ApprovalHistory', dependent: :destroy
 
   has_one_attached :logo
   has_one_attached :listing
@@ -24,16 +25,10 @@ class Business < ApplicationRecord
   has_many :customer_rewards, class_name: 'Customer::Reward', dependent: :destroy, inverse_of: false
   has_many :business_rewards, class_name: 'Business::Reward', dependent: :destroy
 
-  scope :listed, lambda {
-    joins(:listing_attachment).distinct.joins(:logo_attachment).distinct
-                              .joins(:clients)
-                              .where(clients: { role: 'owner' })
-                              .where.not(clients: { confirmed_at: nil })
-                              .where.not(approved_at: nil)
-                              .where.not(gmap_link: nil)
-                              .where.not(open_at: nil)
-                              .where.not(close_at: nil)
-  }
+  scope :state_new, -> { where(status: 'new') }
+  scope :state_pending_review, -> { where(status: 'pending_review') }
+  scope :state_approved, -> { where(status: 'approved') }
+  scope :state_rejected, -> { where(status: 'rejected') }
 
   scope :most_regular, lambda { |truthy|
     includes(:business_statistic).order('business_statistics.regular_rating_average DESC NULLS LAST') if truthy

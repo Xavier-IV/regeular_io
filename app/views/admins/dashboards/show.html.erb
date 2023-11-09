@@ -1,1 +1,105 @@
-<p>Hello from admin</p>
+<div class="mt-20 flex flex-col gap-4 mx-10 md:mx-0">
+  <h1 class="text-2xl">Require Action</h1>
+  <p class="text-gray-400">This business is awaiting for your approvals.</p>
+  <div class="flex flex-col gap-2">
+    <%- @pending_businesses.each do |business| %>
+      <div class="flex flex-col gap-4 p-10 border rounded-md">
+        <div class="flex justify-between">
+          <h2 class="text-2xl font-bold"><%= business.name %></h2>
+
+          <div class="flex gap-1">
+            <div
+              data-controller="modal"
+              class="modal-groups">
+              <button
+                data-action="modal#openModal"
+                class="w-fit px-4 py-2 bg-green-500 rounded-md text-white">
+                Approve
+              </button>
+              <%= render(ModalComponent.new(title: "Confirm Approve?")) do |component| %>
+                <div class="p-10 flex flex-col gap-4">
+                  <div class="">
+                    <p>Are you sure you want to <span class="text-green-500 font-bold">approve</span> this business?</p>
+                    <p class="font-bold"><%= business.name %></p>
+                  </div>
+                  <%= button_to 'Yes, Approve', admins_dashboards_approval_approve_path(business_id: business.id), method: :post, class: 'px-4 py-2 rounded-md bg-green-500 text-white' %>
+                </div>
+              <% end %>
+            </div>
+            <div
+              data-controller="modal"
+              class="modal-groups">
+              <button
+                data-action="modal#openModal"
+                class="w-fit px-4 py-2 bg-red-500 rounded-md text-white">
+                Reject
+              </button>
+              <%= render(ModalComponent.new(title: "Confirm Reject?")) do |component| %>
+                <div class="p-10 flex flex-col gap-4">
+                  <div class="">
+                    <p>Are you sure you want to <span class="text-red-500 font-bold">reject</span> this business?</p>
+                    <p class="font-bold"><%= business.name %></p>
+                  </div>
+                  <%= form_tag(admins_dashboards_approval_reject_path(business_id: business.id), method: :post, class: 'flex flex-col gap-4') do %>
+                    <%= csrf_meta_tags %>
+                    <p>Write formal message of why this application is rejected.</p>
+                    <div class="field">
+                      <%= text_area_tag :system_remark, nil, placeholder: 'Describe your business',
+                                        class: "w-full px-3 py-2 border rounded-lg text-gray-700", rows: 4
+                      %>
+                    </div>
+                    <%= button_tag "Submit", type: :submit, class: 'px-4 py-2 rounded-md bg-red-500 text-white' %>
+                  <% end %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex gap-2">
+          <div class="w-20 h-20 rounded-md overflow-hidden">
+            <% if business.logo.present? && business.logo.attached? %>
+              <%= image_tag rails_blob_url(business.logo), class: 'object-cover w-full h-full' %>
+            <% end %>
+          </div>
+          <div class="w-20 h-20 rounded-md overflow-hidden">
+            <% if business.listing.present? && business.listing.attached? %>
+              <%= image_tag rails_blob_url(business.listing), class: 'object-cover w-full h-full' %>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-4">
+          <div class="flex flex-col gap-2">
+            <p>Created At: <%= business.created_at.strftime('%d/%m/%Y %H:%M') %></p>
+            <p>Opening Hours: <%= business.open_at.strftime('%H:%M') %> - <%= business.close_at.strftime('%H:%M') %></p>
+            <p>Owner's Email Verified:
+              <span class="text-green-500"><%= business.owner.confirmed_at.present? ? 'Yes' : 'No' %></span></p>
+            <div class="">
+              <p>Google Map Link:
+                <a href="<%= business.gmap_link %>" class="text-blue-400" target="_blank"><%= business.gmap_link %></a>
+              </p>
+              <p class="text-red-400">Careful on opening external links</p>
+            </div>
+          </div>
+          <div class="w-full p-8 rounded-2xl bg-gray-100 whitespace-pre-line break-words"><%= business.business_approval_histories.unresolved.first.client_remark %></div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="mt-20 flex flex-col gap-4">
+  <h1 class="text-2xl">New Business</h1>
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
+    <%- @new_businesses.each do |business| %>
+      <div class="flex flex-col justify-between gap-4 px-4 py-4 border rounded-md">
+        <h2 class="text-lg line-clamp-1"><%= business.name %></h2>
+
+        <div class="flex flex-col gap-1">
+          <p class="text-gray-300"><%= business.created_at.strftime("%d %b %Y") %></p>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

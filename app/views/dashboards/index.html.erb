@@ -7,7 +7,9 @@
   </div>
 <% end %>
 
-<div class="flex flex-col gap-4 mt-10 md:mt-20">
+<div class="flex flex-col gap-4 mt-10 md:mt-10 md:mt-20">
+  <%= render 'dashboards/info' %>
+
   <div class="w-full h-fit grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto px-10 md:px-0">
     <%= form_with(model: @business, url: dashboards_business_path(@business), local: true, method: :put,
                   data: { controller: 'dashboard--file-upload' },
@@ -190,7 +192,7 @@
   </div>
 </div>
 
-<%- if @not_ready %>
+<%- if @business.status == 'new' && @not_ready %>
   <div class="mb-20">
     <div class="border rounded-2xl bg-white p-6 md:p-10 my-10 mx-10 md:mx-0 flex flex-col gap-4">
       <p>To get listed:</p>
@@ -233,12 +235,6 @@
 
         <p class="mt-4">We will then verify your application within 1-2 days.</p>
       </div>
-    </div>
-  </div>
-<% elsif !@not_ready && @business.approved_at.blank? %>
-  <div class="mb-20">
-    <div class="border rounded-2xl bg-white p-6 md:p-10 my-10 mx-10 md:mx-0 flex flex-col gap-4">
-      <p>Thank you! We will review your business within 1-2 days.</p>
     </div>
   </div>
 <% end %>
