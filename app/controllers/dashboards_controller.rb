@@ -13,11 +13,13 @@ class DashboardsController < ApplicationController
     @reviews = 0
     @regulars_total = 0
 
-    return unless @business.present? && @business.reviews.present?
+    return unless @business.present?
 
     @not_ready = @business.logo.blank? || @business.listing.blank? ||
       @business.owner.confirmed_at.blank? || @business.open_at.blank? ||
       @business.close_at.blank? || @business.gmap_link.blank?
+
+    return unless @business.present? && @business.reviews.present?
 
     @approval = @business.business_approval_histories.unresolved.first
 
