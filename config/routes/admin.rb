@@ -15,7 +15,12 @@ constraints host: Rails.application.credentials.dig(:host, :admin) do
     invitations: 'admins/invitations'
   }
 
+  resource :admins
   namespace :admins do
     resource :dashboard
+    namespace :dashboards do
+      post '/approvals/:business_id/approve', to: 'approvals#approve', as: :approval_approve
+      post '/approvals/:business_id/reject', to: 'approvals#reject', as: :approval_reject
+    end
   end
 end
