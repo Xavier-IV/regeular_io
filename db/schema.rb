@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_09_141115) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_10_092644) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -194,6 +194,16 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_141115) do
     t.index ["user_id"], name: "index_omniauths_on_user_id"
   end
 
+  create_table "progresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.string "type"
+    t.string "progress_type"
+    t.datetime "completed_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_progresses_on_user_id"
+  end
+
   create_table "qr_codes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "type"
     t.integer "scanned_times", default: 0
@@ -293,6 +303,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_09_141115) do
   add_foreign_key "customer_rewards", "qr_codes"
   add_foreign_key "customer_rewards", "users"
   add_foreign_key "omniauths", "users"
+  add_foreign_key "progresses", "users"
   add_foreign_key "qr_codes", "businesses"
   add_foreign_key "reviews", "businesses"
   add_foreign_key "reviews", "qr_codes"

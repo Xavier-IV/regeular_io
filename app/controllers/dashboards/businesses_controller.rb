@@ -8,6 +8,14 @@ class Dashboards::BusinessesController < ApplicationController
   def edit
     @business = current_client.business
     authorize @business
+    @progress = current_client.client_progresses.onboarded?([
+                                                              'onboarding.get_started',
+                                                              'onboarding.verified_email',
+                                                              'onboarding.has_logo',
+                                                              'onboarding.has_listing_image',
+                                                              'onboarding.has_operating_hours',
+                                                              'onboarding.has_gmap_link'
+                                                            ])
     @states = Common::Country.find_by(name: 'Malaysia').states
     @cities = @states.find_by(name: current_client.business.state).cities || []
   end

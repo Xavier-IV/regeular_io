@@ -19,6 +19,15 @@ class DashboardsController < ApplicationController
                  @business.owner.confirmed_at.blank? || @business.open_at.blank? ||
                  @business.close_at.blank? || @business.gmap_link.blank?
 
+    @progress = current_client.client_progresses.onboarded?([
+                                                              'onboarding.get_started',
+                                                              'onboarding.verified_email',
+                                                              'onboarding.has_logo',
+                                                              'onboarding.has_listing_image',
+                                                              'onboarding.has_operating_hours',
+                                                              'onboarding.has_gmap_link'
+                                                            ])
+
     return unless @business.present? && @business.reviews.present?
 
     @approval = @business.business_approval_histories.unresolved.first

@@ -25,7 +25,7 @@
   </div>
 <% end %>
 
-<% if @business.status == 'new' && !@not_ready %>
+<% if @business.status == 'new' && !@not_ready && @progress.size == 6 %>
   <div class="rounded-md bg-purple-200 text-purple-700 text-sm p-2 px-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-2 mx-10 md:mx-0">
     <div class="flex gap-2 items-center">
       <i class="lni lni-checkmark-circle text-green-600"></i>

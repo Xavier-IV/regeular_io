@@ -55,6 +55,8 @@ constraints host: Rails.application.credentials.dig(:host, :business) do
     resources :regulars
 
     resource :onboarding
+    resource :progress
+
     resource :business, only: %i[edit update]
     resource :account
   end
