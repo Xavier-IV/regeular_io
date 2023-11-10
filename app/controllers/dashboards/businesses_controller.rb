@@ -3,22 +3,13 @@
 class Dashboards::BusinessesController < ApplicationController
   include DashboardLayout
 
-  before_action :map_times, :map_progress, only: %i[edit update]
+  before_action :prepare, :map_times, :map_progress, only: %i[edit update]
 
   def edit
-    @business = current_client.business
     authorize @business
-    @states = Common::Country.find_by(name: 'Malaysia').states
-    @cities = @states.find_by(name: current_client.business.state).cities || []
-
-    @approval = @business.business_approval_histories.unresolved.first
   end
 
   def update
-    @business = current_client.business
-    @states = Common::Country.find_by(name: 'Malaysia').states
-    @cities = @states.find_by(name: current_client.business.state).cities || []
-
     return render :edit if business_params.blank?
 
     if @business.status == 'pending_review'
@@ -29,10 +20,10 @@ class Dashboards::BusinessesController < ApplicationController
     @business.listing.attach(asset_params[:listing]) if business_params.present? && asset_params[:listing]
 
     if @business.update(business_params)
-
       observed_fields = %w[name address_line_1 address_line_2 postcode city state registration_id gmap_link]
-      observed_changed = @business.previous_changes &&
-                         observed_fields.select { |record| @business.previous_changes.include?(record) }.any?
+      observed_changed = (@business.previous_changes &&
+        observed_fields.select { |record| @business.previous_changes.include?(record) }.any?) ||
+                         (asset_params[:logo].present? || asset_params[:listing].present?)
 
       if @business.status == 'approved' && observed_changed
         @business.status = 'new'
@@ -42,7 +33,8 @@ class Dashboards::BusinessesController < ApplicationController
           requested_by_id: current_client.id,
           status: @business.status,
           resolved: true,
-          client_remark: params[:client_remark]
+          client_remark: params[:client_remark],
+          system_remark: @business.previous_changes.to_s
         )
         return redirect_to dashboards_path, notice: 'Important information changed, kindly resubmit your application.'
       end
@@ -76,6 +68,13 @@ class Dashboards::BusinessesController < ApplicationController
                                                               'onboarding.has_operating_hours',
                                                               'onboarding.has_gmap_link'
                                                             ])
+  end
+
+  def prepare
+    @business = current_client.business
+    @states = Common::Country.find_by(name: 'Malaysia').states
+    @cities = @states.find_by(name: current_client.business.state).cities || []
+    @approval = @business.business_approval_histories.unresolved.first
   end
 
   def map_times
