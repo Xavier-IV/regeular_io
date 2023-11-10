@@ -1,14 +1,8 @@
-<%- unless current_client.confirmed? %>
-  <div class="w-full px-10 md:px-0">
-    <div id="announcement" class="flex w-full p-2 text-center justify-center bg-green-200 text-green-800 rounded-md">
-      <p>Check your email for
-        verification. <%= link_to "Resend?", new_dashboards_confirmation_path(email: current_client.email), class: 'text-blue-600', method: :get %></p>
-    </div>
-  </div>
-<% end %>
-
 <div class="flex flex-col gap-4 mt-10 md:mt-10 md:mt-20">
   <%= render 'dashboards/info' %>
+  <div class="mx-10 md:mx-0">
+    <%= render 'dashboards/onboarding_steps' %>
+  </div>
 
   <div class="w-full h-fit grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto px-10 md:px-0">
     <%= form_with(model: @business, url: dashboards_business_path(@business), local: true, method: :put,
@@ -25,41 +19,50 @@
             class="absolute w-full h-full z-10">
             <%= image_tag rails_blob_url(@business.logo), class: 'object-cover w-full h-full' %>
           </div>
-          <div
-            data-action="dashboard--file-upload#mouseClickUploaded"
-            data-dashboard--file-upload-target="logoUploadedContainer"
-            class="hidden absolute w-full h-full z-20 bg-white/30 flex flex-col items-center justify-center backdrop-blur-sm">
+          <%- if @business.state == 'new' %>
             <div
-              data-dashboard--file-upload-target="logoCtaHover"
-              class="flex flex-col gap-1 items-center">
-              <i
-                data-dashboard--file-upload-target="logoCtaHoverIconPlus"
-                class="lni lni-pencil text-2xl text-white"></i>
-              <button
-                data-dashboard--file-upload-target="logoCtaHoverUploadBtn"
-                class="hidden rounded bg-white px-3 py-1 hover:bg-purple-500 hover:text-white">
-                Upload
-              </button>
-              <p data-dashboard--file-upload-target="logoCtaHoverMessage" class="text-white hidden md:block">Click to
-                update image</p>
-              <%= form.file_field :logo, class: 'hidden', data: {
-                action: 'change->dashboard--file-upload#changeFile',
-                'dashboard--file-upload-target': 'logoFile',
-              } %>
+              data-action="dashboard--file-upload#mouseClickUploaded"
+              data-dashboard--file-upload-target="logoUploadedContainer"
+              class="hidden absolute w-full h-full z-20 bg-white/30 flex flex-col items-center justify-center backdrop-blur-sm">
+              <div
+                data-dashboard--file-upload-target="logoCtaHover"
+                class="flex flex-col gap-1 items-center">
+                <i
+                  data-dashboard--file-upload-target="logoCtaHoverIconPlus"
+                  class="lni lni-pencil text-2xl text-white"></i>
+                <button
+                  data-dashboard--file-upload-target="logoCtaHoverUploadBtn"
+                  class="hidden rounded bg-white px-3 py-1 hover:bg-purple-500 hover:text-white">
+                  Upload
+                </button>
+                <p data-dashboard--file-upload-target="logoCtaHoverMessage" class="text-white hidden md:block">Click to
+                  update image</p>
+                <%= form.file_field :logo, class: 'hidden', data: {
+                  action: 'change->dashboard--file-upload#changeFile',
+                  'dashboard--file-upload-target': 'logoFile',
+                } %>
 
+              </div>
             </div>
-          </div>
+          <% else %>
+            <div
+              data-action="dashboard--file-upload#mouseClickUploaded"
+              data-dashboard--file-upload-target="logoUploadedContainer"
+              class="hidden absolute w-full h-full z-20 bg-white/30 flex flex-col items-center justify-center backdrop-blur-sm">
+              <%= link_to "Edit Image", edit_dashboards_business_path, class: 'px-4 py-2 rounded-md bg-purple-500 text-white' %>
+            </div>
+          <% end %>
         </label>
       <% else %>
         <label
           data-action="mouseenter->dashboard--file-upload#mouseEnter mouseleave->dashboard--file-upload#mouseLeave click->dashboard--file-upload#mouseClick"
           data-dashboard--file-upload-target="logoUploadContainer"
-          for="business_logo" class="dashboard-glass cursor-pointer w-full h-full border border-[#7731D0] border-dashed rounded-2xl py-14 flex flex-col items-center justify-center gap-2 text-[#7731D0]">
+          for="business_logo" class="guide-test dashboard-glass cursor-pointer w-full h-full border border-[#7731D0] border-dashed rounded-2xl py-14 flex flex-col items-center justify-center gap-2 text-[#7731D0]">
           <div
             data-dashboard--file-upload-target="logoCta"
             class="flex flex-col gap-1 items-center">
             <i class="lni lni-camera text-2xl"></i>
-            <p>Company Logo</p>
+            <p>Business Logo</p>
           </div>
           <div
             data-dashboard--file-upload-target="logoCtaHover"
@@ -79,6 +82,7 @@
             } %>
 
           </div>
+
         </label>
       <% end %>
     <% end %>
@@ -97,30 +101,39 @@
             class="absolute w-full h-full z-10">
             <%= image_tag url_for(@business.listing), class: 'object-cover w-full h-full' %>
           </div>
-          <div
-            data-action="dashboard--file-upload#mouseClickUploaded"
-            data-dashboard--file-upload-target="logoUploadedContainer"
-            class="hidden absolute w-full h-full z-20 bg-white/30 flex flex-col items-center justify-center backdrop-blur-sm">
+          <%- if @business.state == 'new' %>
             <div
-              data-dashboard--file-upload-target="logoCtaHover"
-              class="flex flex-col gap-1 items-center">
-              <i
-                data-dashboard--file-upload-target="logoCtaHoverIconPlus"
-                class="lni lni-pencil text-2xl text-white"></i>
-              <button
-                data-dashboard--file-upload-target="logoCtaHoverUploadBtn"
-                class="hidden rounded bg-white px-3 py-1 hover:bg-purple-500 hover:text-white">
-                Upload
-              </button>
-              <p data-dashboard--file-upload-target="logoCtaHoverMessage" class="text-white hidden md:block">Click to
-                update image</p>
-              <%= form.file_field :listing, class: 'hidden', data: {
-                action: 'change->dashboard--file-upload#changeFile',
-                'dashboard--file-upload-target': 'logoFile',
-              } %>
+              data-action="dashboard--file-upload#mouseClickUploaded"
+              data-dashboard--file-upload-target="logoUploadedContainer"
+              class="hidden absolute w-full h-full z-20 bg-white/30 flex flex-col items-center justify-center backdrop-blur-sm">
+              <div
+                data-dashboard--file-upload-target="logoCtaHover"
+                class="flex flex-col gap-1 items-center">
+                <i
+                  data-dashboard--file-upload-target="logoCtaHoverIconPlus"
+                  class="lni lni-pencil text-2xl text-white"></i>
+                <button
+                  data-dashboard--file-upload-target="logoCtaHoverUploadBtn"
+                  class="hidden rounded bg-white px-3 py-1 hover:bg-purple-500 hover:text-white">
+                  Upload
+                </button>
+                <p data-dashboard--file-upload-target="logoCtaHoverMessage" class="text-white hidden md:block">Click to
+                  update image</p>
+                <%= form.file_field :listing, class: 'hidden', data: {
+                  action: 'change->dashboard--file-upload#changeFile',
+                  'dashboard--file-upload-target': 'logoFile',
+                } %>
 
+              </div>
             </div>
-          </div>
+          <% else %>
+            <div
+              data-action="dashboard--file-upload#mouseClickUploaded"
+              data-dashboard--file-upload-target="logoUploadedContainer"
+              class="hidden absolute w-full h-full z-20 bg-white/30 flex flex-col items-center justify-center backdrop-blur-sm">
+              <%= link_to "Edit Image", edit_dashboards_business_path, class: 'px-4 py-2 rounded-md bg-purple-500 text-white' %>
+            </div>
+          <% end %>
         </label>
       <% else %>
         <label
@@ -191,50 +204,3 @@
     <% end %>
   </div>
 </div>
-
-<%- if @business.status == 'new' && @not_ready %>
-  <div class="mb-20">
-    <div class="border rounded-2xl bg-white p-6 md:p-10 my-10 mx-10 md:mx-0 flex flex-col gap-4">
-      <p>To get listed:</p>
-      <div class="flex flex-col gap-2">
-        <div class="flex gap-4 items-center">
-          <span class="<%= @business.owner.confirmed_at.present? ? 'text-green-500' : 'text-gray-400' %> flex items-center"><i class="lni lni-checkmark-circle"></i></span>
-          <p>Verified email</p>
-        </div>
-        <div class="flex gap-4 items-start">
-          <span class="<%= @business.logo.present? && @business.logo.attached? ? 'text-green-500' : 'text-gray-400' %> pt-1 flex items-center"><i class="lni lni-checkmark-circle"></i></span>
-          <div class="flex flex-col gap-1">
-            <p>Business Logo</p>
-            <%- unless @business.logo.present? && @business.logo.attached? %>
-              <p class="text-gray-400">If you don't have a logo yet, you can easily use any image of your store
-                front.</p>
-            <% end %>
-          </div>
-        </div>
-        <div class="flex gap-4 items-start">
-          <span class="<%= @business.listing.present? && @business.listing.attached? ? 'text-green-500' : 'text-gray-400' %> pt-1 flex items-center"><i class="lni lni-checkmark-circle"></i></span>
-          <p>Listing image of one of your product (i.e. foods, drinks, services, etc)</p>
-        </div>
-        <div class="flex gap-4 items-start">
-          <span class="<%= @business.open_at.present? && @business.close_at.present? ? 'text-green-500' : 'text-gray-400' %> pt-1 flex items-center"><i class="lni lni-checkmark-circle"></i></span>
-          <p>Business operating hours</p>
-        </div>
-        <div class="flex gap-4 items-start">
-          <span class="<%= @business.gmap_link.present? ? 'text-green-500' : 'text-gray-400' %> pt-1 flex items-center"><i class="lni lni-checkmark-circle"></i></span>
-          <div class="flex flex-col gap-1">
-            <p>
-              Google Map link (i.e., head over to Google Map > Share > Copy the link provided).
-            </p>
-            <%- unless @business.gmap_link.present? %>
-              <p class="text-gray-400">
-                Valid Google Map link looks like: https://maps.app.goo.gl/your_code
-              </p>
-            <% end %>
-          </div>
-        </div>
-
-        <p class="mt-4">We will then verify your application within 1-2 days.</p>
-      </div>
-    </div>
-  </div>
-<% end %>

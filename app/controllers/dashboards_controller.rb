@@ -19,12 +19,20 @@ class DashboardsController < ApplicationController
                  @business.owner.confirmed_at.blank? || @business.open_at.blank? ||
                  @business.close_at.blank? || @business.gmap_link.blank?
 
-    return unless @business.present? && @business.reviews.present?
-
+    @progress = current_client.client_progresses.onboarded?([
+                                                              'onboarding.get_started',
+                                                              'onboarding.verified_email',
+                                                              'onboarding.has_logo',
+                                                              'onboarding.has_listing_image',
+                                                              'onboarding.has_operating_hours',
+                                                              'onboarding.has_gmap_link'
+                                                            ])
     @approval = @business.business_approval_histories.unresolved.first
 
+    return unless @business.present? && @business.reviews.present?
+
     @regulars = @business.reviewers.regular
-    @regulars_total = ActiveRecord::Base.connection.exec_query(@regulars.to_sql).count
+    @regulars_total = @business.reviewers.regular.count
 
     @reviewers = current_client.business.reviewers
     @anon_reviews = current_client.business.anon_reviews
