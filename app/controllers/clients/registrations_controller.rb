@@ -12,4 +12,10 @@ class Clients::RegistrationsController < Devise::RegistrationsController
       respond_with_navigational(resource) { render :new }
     end
   end
+
+  private
+
+  def after_sign_in_path_for(_resource)
+    dashboards_path
+  end
 end
