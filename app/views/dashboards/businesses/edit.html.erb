@@ -1,6 +1,7 @@
 <div id="business_edit" class="flex flex-col gap-4 mt-20 px-10 md:px-0">
   <%= render 'dashboards/onboarding_steps' %>
-  <div class="w-full h-fit grid grid-cols-1 md:grid-cols-3 gap-4 mx-auto">
+  <%= render 'dashboards/info' %>
+  <div class="relative w-full h-fit grid grid-cols-1 md:grid-cols-3 gap-4 mx-auto mt-4">
     <div class="w-full flex order-2 md:order-1 flex-col gap-4">
       <%= form_with(model: @business, url: dashboards_business_path(@business), local: true, method: :put,
                     data: { controller: 'dashboard--file-upload' },
@@ -16,29 +17,39 @@
               class="absolute w-full h-full z-10">
               <%= image_tag rails_blob_url(@business.logo), class: 'object-cover w-full h-full' %>
             </div>
-            <div
-              data-action="dashboard--file-upload#mouseClickUploaded"
-              data-dashboard--file-upload-target="logoUploadedContainer"
-              class="hidden absolute w-full h-full z-20 bg-white/30 flex flex-col items-center justify-center backdrop-blur-sm">
+            <%- if @business.status == 'pending_review' %>
               <div
-                data-dashboard--file-upload-target="logoCtaHover"
-                class="flex flex-col gap-1 items-center">
-                <i
-                  data-dashboard--file-upload-target="logoCtaHoverIconPlus"
-                  class="lni lni-pencil text-2xl text-white"></i>
-                <button
-                  data-dashboard--file-upload-target="logoCtaHoverUploadBtn"
-                  class="hidden rounded bg-white px-3 py-1 hover:bg-purple-500 hover:text-white">
-                  Upload
-                </button>
-                <p data-dashboard--file-upload-target="logoCtaHoverMessage" class="text-white">Click to update image</p>
-                <%= form.file_field :logo, class: 'hidden', data: {
-                  action: 'change->dashboard--file-upload#changeFile',
-                  'dashboard--file-upload-target': 'logoFile',
-                } %>
-
+                class="cursor-auto absolute w-full h-full z-20 bg-white/30 flex flex-col items-center justify-center backdrop-blur-sm">
+                <div class="bg-white rounded-md px-3 py-2">
+                  <p class="text-orange-500">Pending Review</p>
+                </div>
               </div>
-            </div>
+            <% else %>
+              <div
+                data-action="dashboard--file-upload#mouseClickUploaded"
+                data-dashboard--file-upload-target="logoUploadedContainer"
+                class="hidden absolute w-full h-full z-20 bg-white/30 flex flex-col items-center justify-center backdrop-blur-sm">
+                <div
+                  data-dashboard--file-upload-target="logoCtaHover"
+                  class="flex flex-col gap-1 items-center">
+                  <i
+                    data-dashboard--file-upload-target="logoCtaHoverIconPlus"
+                    class="lni lni-pencil text-2xl text-white"></i>
+                  <button
+                    data-dashboard--file-upload-target="logoCtaHoverUploadBtn"
+                    class="hidden rounded bg-white px-3 py-1 hover:bg-purple-500 hover:text-white">
+                    Upload
+                  </button>
+                  <p data-dashboard--file-upload-target="logoCtaHoverMessage" class="text-white">Click to update
+                    image</p>
+                  <%= form.file_field :logo, class: 'hidden', data: {
+                    action: 'change->dashboard--file-upload#changeFile',
+                    'dashboard--file-upload-target': 'logoFile',
+                  } %>
+
+                </div>
+              </div>
+            <% end %>
           </label>
         <% else %>
           <label
@@ -87,29 +98,40 @@
               class="absolute w-full h-full z-10">
               <%= image_tag rails_blob_url(@business.listing), class: 'object-cover w-full h-full' %>
             </div>
-            <div
-              data-action="dashboard--file-upload#mouseClickUploaded"
-              data-dashboard--file-upload-target="logoUploadedContainer"
-              class="hidden absolute w-full h-full z-20 bg-white/30 flex flex-col items-center justify-center backdrop-blur-sm">
+            <%- if @business.status == 'pending_review' %>
               <div
-                data-dashboard--file-upload-target="logoCtaHover"
-                class="flex flex-col gap-1 items-center">
-                <i
-                  data-dashboard--file-upload-target="logoCtaHoverIconPlus"
-                  class="lni lni-pencil text-2xl text-white"></i>
-                <button
-                  data-dashboard--file-upload-target="logoCtaHoverUploadBtn"
-                  class="hidden rounded bg-white px-3 py-1 hover:bg-purple-500 hover:text-white">
-                  Upload
-                </button>
-                <p data-dashboard--file-upload-target="logoCtaHoverMessage" class="text-white">Click to update image</p>
-                <%= form.file_field :listing, class: 'hidden', data: {
-                  action: 'change->dashboard--file-upload#changeFile',
-                  'dashboard--file-upload-target': 'logoFile',
-                } %>
-
+                class="absolute cursor-auto w-full h-full z-20 bg-white/30 flex flex-col items-center justify-center backdrop-blur-sm">
+                <div class="bg-white rounded-md px-3 py-2">
+                  <p class="text-orange-500">Pending Review</p>
+                </div>
               </div>
-            </div>
+            <% else %>
+              <div
+                data-action="dashboard--file-upload#mouseClickUploaded"
+                data-dashboard--file-upload-target="logoUploadedContainer"
+                class="hidden absolute w-full h-full z-20 bg-white/30 flex flex-col items-center justify-center backdrop-blur-sm">
+                <div
+                  data-dashboard--file-upload-target="logoCtaHover"
+                  class="flex flex-col gap-1 items-center">
+                  <i
+                    data-dashboard--file-upload-target="logoCtaHoverIconPlus"
+                    class="lni lni-pencil text-2xl text-white"></i>
+                  <button
+                    data-dashboard--file-upload-target="logoCtaHoverUploadBtn"
+                    class="hidden rounded bg-white px-3 py-1 hover:bg-purple-500 hover:text-white">
+                    Upload
+                  </button>
+                  <p data-dashboard--file-upload-target="logoCtaHoverMessage" class="text-white">Click to update
+                    image</p>
+                  <%= form.file_field :listing, class: 'hidden', data: {
+                    action: 'change->dashboard--file-upload#changeFile',
+                    'dashboard--file-upload-target': 'logoFile',
+                  } %>
+
+                </div>
+              </div>
+            <% end %>
+
           </label>
         <% else %>
           <label
@@ -154,7 +176,7 @@
             Name
           </div>
           <div class="col-span-2 flex flex-col gap-2">
-            <%= f.text_field :name, placeholder: 'Company Name' %>
+            <%= f.text_field :name, placeholder: 'Company Name', disabled: @business.status == 'pending_review' %>
           </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-2 w-full mt-4 md:mt-0">
@@ -162,11 +184,11 @@
             Address
           </div>
           <div class="col-span-2 flex flex-col gap-2">
-            <%= f.text_field :address_line_1, placeholder: 'Address Line 1' %>
+            <%= f.text_field :address_line_1, placeholder: 'Address Line 1', disabled: @business.status == 'pending_review' %>
 
-            <%= f.text_field :address_line_2, placeholder: 'Address Line 2' %>
+            <%= f.text_field :address_line_2, placeholder: 'Address Line 2', disabled: @business.status == 'pending_review' %>
 
-            <%= f.text_field :postcode, placeholder: 'Postcode' %>
+            <%= f.text_field :postcode, placeholder: 'Postcode', disabled: @business.status == 'pending_review' %>
 
             <div
               data-controller="dashboard--city-update"
@@ -175,15 +197,17 @@
                                       { selected: @business.city,
                                         data: {
                                           'dashboard--city-update-target': 'citySelect'
-                                        }
+                                        },
+                                        disabled: @business.status == 'pending_review'
                                       } %>
 
-                <%= f.collection_select :state, @states, :name, :name, { include_blank: 'Select a state...' },
-                                        { selected: @business.state,
-                                          data: {
-                                            action: 'change->dashboard--city-update#updateCities',
-                                            'dashboard--city-update-target': 'stateSelect' }
-                                        } %>
+              <%= f.collection_select :state, @states, :name, :name, { include_blank: 'Select a state...' },
+                                      { selected: @business.state,
+                                        data: {
+                                          action: 'change->dashboard--city-update#updateCities',
+                                          'dashboard--city-update-target': 'stateSelect' },
+                                        disabled: @business.status == 'pending_review'
+                                      } %>
 
             </div>
           </div>
@@ -195,7 +219,6 @@
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-2 w-full mt-4 md:mt-0">
           <div
-            data-dashboard--business--edit-target="businessIdLabel"
             class="flex justify-start items-center">
             Business ID
           </div>
@@ -204,24 +227,26 @@
                              data: {
                                action: 'keyup->dashboard--business--edit#inputChange'
                              },
+                             disabled: @business.status == 'pending_review',
                              class: 'w-full' %>
           </div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-2 w-full mt-4 md:mt-0">
           <div
-            data-dashboard--business--edit-target="businessIdLabel"
             class="flex justify-start items-center">
             Opening Hours
           </div>
           <div class="col-span-2 grid grid-cols-2 gap-2">
             <%= f.select :open_at, options_for_select(
               [["Open at...", nil]] + @hours, @business.open_at&.to_time),
-                                    { selected: @business.city,
-                                    } %>
+                         { selected: @business.city,
+                         },
+                         disabled: @business.status == 'pending_review' %>
             <%= f.select :close_at, options_for_select(
               [["Close at...", nil]] + @hours, @business.close_at&.to_time),
                          { selected: @business.city,
-                         } %>
+                         },
+                         disabled: @business.status == 'pending_review' %>
 
           </div>
         </div>
@@ -232,24 +257,70 @@
           </div>
           <div class="col-span-2 flex flex-col gap-2">
             <%= f.text_field :gmap_link, placeholder: 'https://maps.app.goo.gl/map_code',
-                             class: 'w-full' %>
+                             class: 'w-full', disabled: @business.status == 'pending_review' %>
           </div>
-          <div class="md:col-start-2 md:col-span-2 flex flex-col gap-1">
-            <p class="text-sm text-gray-200">You can copy your google map link by clicking "share" on your google map.</p>
-            <button class="p-2 bg-purple-600 rounded-md w-fit h-fit text-sm">See how</button>
-          </div>
+          <%- if @business.status == 'new' %>
+            <div class="md:col-start-2 md:col-span-2 flex flex-col gap-1">
+              <p class="text-sm text-gray-200">You can copy your google map link by clicking "share" on your google
+                map.</p>
+              <div
+                data-controller="modal"
+                class="modal-groups">
+                <button
+                  data-action="modal#openModal analytic#track"
+                  data-controller="analytic"
+                  data-analytic-key-param="client.edit_business.tutorial_map"
+                  type="button" class="p-2 bg-purple-700 rounded-md w-fit h-fit text-sm">See how
+                </button>
+                <%= render(ModalComponent.new(title: "Getting Link?")) do |component| %>
+                  <div class="p-10 flex flex-col gap-4">
+                    <div class="h-60 w-5/6 overflow-hidden border rounded-lg">
+                      <img src='/assets/tutorials/copy_map_link.png' class="object-cover w-full h-full" alt="">
+                    </div>
+
+                    <p class="text-gray-500">
+                      You can copy the link from your google map. It will have this format: <br/>
+                      <span class="text-gray-400 select-none text-sm">https://maps.app.goo.gl/unique_code</span>
+                    </p>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
         </div>
 
-        <div class="flex gap-2">
-          <%= link_to dashboards_path, class: 'p-3 bg-red-500 rounded-lg flex items-center' do %>
-            <i class="lni lni-close"></i>
+        <div class="flex flex-col gap-2 w-full mt-4 md:mt-0 text-sm text-purple-200 pr-10">
+          <%- if @business.status == 'approved' %>
+            <p>Notice: By updating this information, you are submitting a new approvals.</p>
+            <ul class="list-disc list-inside">
+              <li>Business Name</li>
+              <li>Business ID</li>
+              <li>Business Address</li>
+              <li>Google Map Link</li>
+              <li>Logo & Listing Image</li>
+            </ul>
+            <p>This is to preserve to our community guideline and ensure trusted information are shown
+              to your customers.</p>
           <% end %>
-          <button class="p-3 bg-green-500 rounded-lg flex items-center">
-            <i class="lni lni-checkmark"></i>
-          </button>
         </div>
+
+        <%- if @business.status != 'pending_review' %>
+          <div class="flex gap-2">
+            <%= link_to dashboards_path, class: 'p-3 bg-red-500 rounded-lg flex items-center' do %>
+              <i class="lni lni-close"></i>
+            <% end %>
+            <button class="p-3 bg-green-500 rounded-lg flex items-center">
+              <i class="lni lni-checkmark"></i>
+            </button>
+          </div>
+        <% else %>
+          <div class="w-full">
+            <p class="text-left text-purple-300">We are reviewing your details, you can edit afterwards.</p>
+          </div>
+        <% end %>
       <% end %>
     </div>
+
   </div>
 
   <div class="h-20"></div>

@@ -27,13 +27,12 @@ class DashboardsController < ApplicationController
                                                               'onboarding.has_operating_hours',
                                                               'onboarding.has_gmap_link'
                                                             ])
+    @approval = @business.business_approval_histories.unresolved.first
 
     return unless @business.present? && @business.reviews.present?
 
-    @approval = @business.business_approval_histories.unresolved.first
-
     @regulars = @business.reviewers.regular
-    @regulars_total = ActiveRecord::Base.connection.exec_query(@regulars.to_sql).count
+    @regulars_total = @business.reviewers.regular.count
 
     @reviewers = current_client.business.reviewers
     @anon_reviews = current_client.business.anon_reviews

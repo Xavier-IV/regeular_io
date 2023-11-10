@@ -1,5 +1,5 @@
 <% if @business.status == 'pending_review' %>
-  <div class="rounded-md bg-gray-200 text-sm p-2 px-4 flex items-center gap-2 text-gray-600">
+  <div class="rounded-md bg-gray-200 text-sm p-2 px-4 flex items-center gap-2 text-gray-600 mx-10 md:mx-0">
     <i class="lni lni-timer text-gray-400"></i>
     <p>We will review your business within 1-2 days. Status: In Review</p>
   </div>
@@ -21,6 +21,17 @@
                       'analytic-key-param': 'client.approval.got_it'
                     }
       %>
+    </div>
+  </div>
+<% end %>
+
+<% if @business.status == 'approved' && @approval.blank? %>
+  <div class="rounded-md bg-green-200 text-green-700 text-sm p-2 px-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-2 mx-10 md:mx-0">
+    <div class="flex gap-2 items-center">
+      <div class="animate-pulse duration-1000 flex space-x-4">
+        <div class="rounded-full bg-green-600 h-2 w-2"></div>
+      </div>
+      <p>Your business is online.</p>
     </div>
   </div>
 <% end %>

@@ -1,12 +1,3 @@
-<%- unless current_client.confirmed? %>
-  <div class="w-full px-10 md:px-0">
-    <div id="announcement" class="flex w-full p-2 text-center justify-center bg-green-200 text-green-800 rounded-md">
-      <p>Check your email for
-        verification. <%= link_to "Resend?", new_dashboards_confirmation_path(email: current_client.email), class: 'text-blue-600', method: :get %></p>
-    </div>
-  </div>
-<% end %>
-
 <div class="flex flex-col gap-4 mt-10 md:mt-10 md:mt-20">
   <%= render 'dashboards/info' %>
   <div class="mx-10 md:mx-0">
@@ -28,30 +19,39 @@
             class="absolute w-full h-full z-10">
             <%= image_tag rails_blob_url(@business.logo), class: 'object-cover w-full h-full' %>
           </div>
-          <div
-            data-action="dashboard--file-upload#mouseClickUploaded"
-            data-dashboard--file-upload-target="logoUploadedContainer"
-            class="hidden absolute w-full h-full z-20 bg-white/30 flex flex-col items-center justify-center backdrop-blur-sm">
+          <%- if @business.state == 'new' %>
             <div
-              data-dashboard--file-upload-target="logoCtaHover"
-              class="flex flex-col gap-1 items-center">
-              <i
-                data-dashboard--file-upload-target="logoCtaHoverIconPlus"
-                class="lni lni-pencil text-2xl text-white"></i>
-              <button
-                data-dashboard--file-upload-target="logoCtaHoverUploadBtn"
-                class="hidden rounded bg-white px-3 py-1 hover:bg-purple-500 hover:text-white">
-                Upload
-              </button>
-              <p data-dashboard--file-upload-target="logoCtaHoverMessage" class="text-white hidden md:block">Click to
-                update image</p>
-              <%= form.file_field :logo, class: 'hidden', data: {
-                action: 'change->dashboard--file-upload#changeFile',
-                'dashboard--file-upload-target': 'logoFile',
-              } %>
+              data-action="dashboard--file-upload#mouseClickUploaded"
+              data-dashboard--file-upload-target="logoUploadedContainer"
+              class="hidden absolute w-full h-full z-20 bg-white/30 flex flex-col items-center justify-center backdrop-blur-sm">
+              <div
+                data-dashboard--file-upload-target="logoCtaHover"
+                class="flex flex-col gap-1 items-center">
+                <i
+                  data-dashboard--file-upload-target="logoCtaHoverIconPlus"
+                  class="lni lni-pencil text-2xl text-white"></i>
+                <button
+                  data-dashboard--file-upload-target="logoCtaHoverUploadBtn"
+                  class="hidden rounded bg-white px-3 py-1 hover:bg-purple-500 hover:text-white">
+                  Upload
+                </button>
+                <p data-dashboard--file-upload-target="logoCtaHoverMessage" class="text-white hidden md:block">Click to
+                  update image</p>
+                <%= form.file_field :logo, class: 'hidden', data: {
+                  action: 'change->dashboard--file-upload#changeFile',
+                  'dashboard--file-upload-target': 'logoFile',
+                } %>
 
+              </div>
             </div>
-          </div>
+          <% else %>
+            <div
+              data-action="dashboard--file-upload#mouseClickUploaded"
+              data-dashboard--file-upload-target="logoUploadedContainer"
+              class="hidden absolute w-full h-full z-20 bg-white/30 flex flex-col items-center justify-center backdrop-blur-sm">
+              <%= link_to "Edit Image", edit_dashboards_business_path, class: 'px-4 py-2 rounded-md bg-purple-500 text-white' %>
+            </div>
+          <% end %>
         </label>
       <% else %>
         <label
@@ -82,6 +82,7 @@
             } %>
 
           </div>
+
         </label>
       <% end %>
     <% end %>
@@ -100,30 +101,39 @@
             class="absolute w-full h-full z-10">
             <%= image_tag url_for(@business.listing), class: 'object-cover w-full h-full' %>
           </div>
-          <div
-            data-action="dashboard--file-upload#mouseClickUploaded"
-            data-dashboard--file-upload-target="logoUploadedContainer"
-            class="hidden absolute w-full h-full z-20 bg-white/30 flex flex-col items-center justify-center backdrop-blur-sm">
+          <%- if @business.state == 'new' %>
             <div
-              data-dashboard--file-upload-target="logoCtaHover"
-              class="flex flex-col gap-1 items-center">
-              <i
-                data-dashboard--file-upload-target="logoCtaHoverIconPlus"
-                class="lni lni-pencil text-2xl text-white"></i>
-              <button
-                data-dashboard--file-upload-target="logoCtaHoverUploadBtn"
-                class="hidden rounded bg-white px-3 py-1 hover:bg-purple-500 hover:text-white">
-                Upload
-              </button>
-              <p data-dashboard--file-upload-target="logoCtaHoverMessage" class="text-white hidden md:block">Click to
-                update image</p>
-              <%= form.file_field :listing, class: 'hidden', data: {
-                action: 'change->dashboard--file-upload#changeFile',
-                'dashboard--file-upload-target': 'logoFile',
-              } %>
+              data-action="dashboard--file-upload#mouseClickUploaded"
+              data-dashboard--file-upload-target="logoUploadedContainer"
+              class="hidden absolute w-full h-full z-20 bg-white/30 flex flex-col items-center justify-center backdrop-blur-sm">
+              <div
+                data-dashboard--file-upload-target="logoCtaHover"
+                class="flex flex-col gap-1 items-center">
+                <i
+                  data-dashboard--file-upload-target="logoCtaHoverIconPlus"
+                  class="lni lni-pencil text-2xl text-white"></i>
+                <button
+                  data-dashboard--file-upload-target="logoCtaHoverUploadBtn"
+                  class="hidden rounded bg-white px-3 py-1 hover:bg-purple-500 hover:text-white">
+                  Upload
+                </button>
+                <p data-dashboard--file-upload-target="logoCtaHoverMessage" class="text-white hidden md:block">Click to
+                  update image</p>
+                <%= form.file_field :listing, class: 'hidden', data: {
+                  action: 'change->dashboard--file-upload#changeFile',
+                  'dashboard--file-upload-target': 'logoFile',
+                } %>
 
+              </div>
             </div>
-          </div>
+          <% else %>
+            <div
+              data-action="dashboard--file-upload#mouseClickUploaded"
+              data-dashboard--file-upload-target="logoUploadedContainer"
+              class="hidden absolute w-full h-full z-20 bg-white/30 flex flex-col items-center justify-center backdrop-blur-sm">
+              <%= link_to "Edit Image", edit_dashboards_business_path, class: 'px-4 py-2 rounded-md bg-purple-500 text-white' %>
+            </div>
+          <% end %>
         </label>
       <% else %>
         <label

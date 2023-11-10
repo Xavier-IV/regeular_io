@@ -9,7 +9,7 @@ constraints host: Rails.application.credentials.dig(:host, :business) do
 
   devise_for :clients, controllers: {
     registrations: 'clients/registrations',
-    confirmations: 'dashboards/confirmations',
+    confirmations: 'clients/confirmations',
     sessions: 'clients/sessions',
     unlocks: 'clients/unlocks',
     passwords: 'clients/passwords',
@@ -21,9 +21,7 @@ constraints host: Rails.application.credentials.dig(:host, :business) do
 
   resources :dashboards, only: :index
   namespace :dashboards do
-    devise_scope :client do
-      resources :confirmations
-    end
+    resource :confirmation
 
     namespace :qrs do
       resource :bank
