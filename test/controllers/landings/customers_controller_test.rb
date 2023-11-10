@@ -3,7 +3,8 @@
 require 'test_helper'
 
 class Landings::CustomersControllerTest < ActionDispatch::IntegrationTest
-  # test "the truth" do
-  #   assert true
-  # end
+  test 'should get index' do
+    get customer_root_url
+    assert_response :success
+  end
 end

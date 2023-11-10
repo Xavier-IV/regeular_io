@@ -16,6 +16,15 @@ class Dashboards::BusinessesController < ApplicationController
       return redirect_to edit_dashboards_business_path, notice: 'Please wait for us to complete our review.'
     end
 
+    if business_params.present? && asset_params[:logo] && asset_params[:logo].size > 5.megabytes
+      flash.now[:alert] = 'Image cannot be more than 5MB.'
+      return render :edit, status: :unprocessable_entity
+    end
+    if business_params.present? && asset_params[:listing] && asset_params[:listing].size > 5.megabytes
+      flash.now[:alert] = 'Image cannot be more than 5MB.'
+      return render :edit, status: :unprocessable_entity
+    end
+
     @business.logo.attach(asset_params[:logo]) if business_params.present? && asset_params[:logo]
     @business.listing.attach(asset_params[:listing]) if business_params.present? && asset_params[:listing]
 

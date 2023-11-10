@@ -12,6 +12,13 @@ class Dashboards::AccountsController < ApplicationController
   end
 
   def update
+    @user = current_client
+
+    if asset_params[:avatar] && asset_params[:avatar].size > 5.megabytes
+      flash.now[:alert] = 'Image cannot be more than 5MB.'
+      return render :edit, status: :unprocessable_entity
+    end
+
     current_client.avatar.attach(asset_params[:avatar]) if asset_params[:avatar]
 
     if current_client.update(user_params)
