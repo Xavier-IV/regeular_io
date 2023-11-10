@@ -13,6 +13,8 @@ class Business < ApplicationRecord
   has_one_attached :logo
   has_one_attached :listing
 
+  validate :validate_attachment_size
+
   has_one :qr_code_bank, class_name: 'QrCode::Bank', dependent: :destroy
   has_many :qr_code_review, class_name: 'QrCode::Review', dependent: :destroy
   has_many :qr_code_reward, class_name: 'QrCode::Reward', dependent: :destroy
@@ -72,6 +74,16 @@ class Business < ApplicationRecord
   end
 
   private
+
+  def validate_attachment_size
+    max_size_in_bytes = 5.megabytes.to_i
+
+    errors.add(:logo, "can't be larger than 5MB") if logo.attached? && logo.blob.byte_size > max_size_in_bytes
+
+    return unless listing.attached? && listing.blob.byte_size > max_size_in_bytes
+
+    errors.add(:listing, "can't be larger than 5MB")
+  end
 
   def valid_gmap_format
     return if gmap_link.blank?
