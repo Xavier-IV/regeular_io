@@ -1,4 +1,5 @@
 <div class="flex flex-col gap-4 py-10 md:py-20 overflow-scroll no-scrollbar">
+  <%= render 'dashboards/qrs/reviews/info' %>
   <%- unless @not_ready %>
     <div class="w-full h-fit grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto px-10 md:px-10 md:px-0">
       <%= turbo_stream_from current_client.business, 'qr_codes_review' %>
