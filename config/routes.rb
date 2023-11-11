@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   get '/terms_and_conditions', to: 'landings/legals#terms_and_conditions'
   get '/cookie_policy', to: 'landings/legals#cookie_policy'
   get '/privacy_policy', to: 'landings/legals#privacy_policy'
-  get '/acceptable_use_policy', to: 'landings/legals#privacy_policy'
+  get '/acceptable_use_policy', to: 'landings/legals#acceptable_use_policy'
   get '/disclaimer', to: 'landings/legals#disclaimer'
 
   draw(:omniauth)
