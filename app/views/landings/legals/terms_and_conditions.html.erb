@@ -1,10 +1,14 @@
-<div class="mx-auto max-w-2xl border rounded-2xl p-10 my-20">
-  <div name="termly-embed" data-id="f954a3e8-11bc-4233-941c-61c9c87bf0a6"></div>
-  <script type="text/javascript">(function(d, s, id) {
-      var js, tjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = "https://app.termly.io/embed-policy.min.js";
-      tjs.parentNode.insertBefore(js, tjs);
-  }(document, 'script', 'termly-jssdk'));</script>
+<div class="min-h-screen py-20">
+  <%= render 'landings/customers/navbar' %>
+  <div class="mx-10 md:mx-auto max-w-4xl border rounded-2xl p-4 md:p-10 my-20 bg-white">
+    <div name="termly-embed" data-id="f954a3e8-11bc-4233-941c-61c9c87bf0a6"></div>
+    <script type="text/javascript">(function (d, s, id) {
+        var js, tjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s);
+        js.id = id;
+        js.src = "https://app.termly.io/embed-policy.min.js";
+        tjs.parentNode.insertBefore(js, tjs);
+    }(document, 'script', 'termly-jssdk'));</script>
+  </div>
 </div>
