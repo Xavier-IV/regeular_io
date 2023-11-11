@@ -5,9 +5,7 @@ class Dashboards::Qrs::ReviewsController < ApplicationController
 
   def index
     @business = current_client.business
-    @not_ready = @business.logo.blank? || @business.listing.blank? ||
-                 @business.owner.confirmed_at.blank? || @business.open_at.blank? ||
-                 @business.close_at.blank? || @business.gmap_link.blank? || @business.approved_at.blank?
+    @not_ready = @business.status != 'approved'
 
     @qr = current_client.business.qr_code_review.find_by(scanned_times: 0)
     @qr = current_client.business.qr_code_review.create if @qr.blank?
