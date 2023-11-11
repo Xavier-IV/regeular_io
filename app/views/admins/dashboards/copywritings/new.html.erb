@@ -1,0 +1,8 @@
+<div class="max-w-xl mx-auto border rounded-2xl p-10 mt-20">
+  <p>Provide company name for copywriting template</p>
+  <%= form_tag(admins_dashboards_copywritings_path,
+               method: :post, class: 'flex flex-col gap-4') do %>
+    <%= text_field_tag :company_name, {}, placeholder: 'Company Name' %>
+    <button class="px-4 py-2 border rounded-md bg-black text-white">Submit</button>
+  <% end %>
+</div>

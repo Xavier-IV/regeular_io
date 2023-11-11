@@ -11,6 +11,12 @@ Rails.application.routes.draw do
   get '/states', to: 'geographies#states', defaults: { format: :json }
   get '/cities', to: 'geographies#cities', defaults: { format: :json }
 
+  get '/terms_and_conditions', to: 'landings/legals#terms_and_conditions'
+  get '/cookie_policy', to: 'landings/legals#cookie_policy'
+  get '/privacy_policy', to: 'landings/legals#privacy_policy'
+  get '/acceptable_use_policy', to: 'landings/legals#privacy_policy'
+  get '/disclaimer', to: 'landings/legals#disclaimer'
+
   draw(:omniauth)
   draw(:admin)
   draw(:customer)

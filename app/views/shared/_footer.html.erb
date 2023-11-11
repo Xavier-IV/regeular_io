@@ -1,0 +1,20 @@
+<footer class="bg-gray-900 w-full h-fit flex flex-col gap-10 pt-10 md:pt-20 pb-10 text-sm">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 px-10 md:px-20 lg:max-w-6xl 2xl:max-w-7xl mx-auto text-white w-full">
+    <div class="flex flex-col gap-2 text-sm">
+      <h2 class="text-lg font-bold">Legal</h2>
+      <%= link_to 'Disclaimer', disclaimer_path, data: { turbo: false } %>
+      <%= link_to 'Cookie Policy', cookie_policy_path, data: { turbo: false } %>
+      <%= link_to 'Privacy Policy', privacy_policy_path, data: { turbo: false } %>
+      <%= link_to 'Terms and conditions', terms_and_conditions_path, data: { turbo: false } %>
+      <%= link_to 'Acceptable use policy', acceptable_use_policy_path, data: { turbo: false } %>
+    </div>
+    <div class="flex flex-col gap-2 text-sm">
+      <h2 class="text-lg font-bold">Our Links</h2>
+      <%= link_to 'Regülar', root_url %>
+      <%= link_to 'Regülar for Business', business_root_url %>
+    </div>
+  </div>
+  <div class="flex items-center justify-center">
+    <p class="text-gray-500 text-center">&copy; <%= Time.now.year %> Regülar. All Rights Reserved</p>
+  </div>
+</footer>

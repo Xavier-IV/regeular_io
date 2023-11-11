@@ -1,0 +1,30 @@
+<% if @business.status == 'approved' %>
+  <div
+    data-controller="dashboard--survey"
+    data-dashboard--survey-target="surveyContainer"
+    data-dashboard--survey-key-value="survey.vote_printed_qr"
+    class="hidden rounded-md bg-gray-200 text-sm p-2 px-4 flex items-center justify-between gap-4 text-gray-600 mx-10 md:mx-0">
+    <div class="flex gap-2 items-center">
+      <i class="lni lni-question-circle text-gray-400"></i>
+      <p data-dashboard--survey-target="surveyMessage">Survey: Would you like to have printed copy of QR Code?</p>
+    </div>
+    <div
+      data-dashboard--survey-target="surveyContainer"
+      data-dashboard--survey-key-value="survey.vote_printed_qr"
+      class="flex gap-1 items-center">
+      <button
+        data-controller="analytic"
+        data-action="analytic#track analytic#storeRecord dashboard--survey#toggle"
+        data-analytic-target="surveyAction"
+        data-analytic-key-param="survey.vote_printed_qr"
+        data-analytic-value-param="true"
+
+        data-dashboard--survey-target="surveyAction"
+        data-dashboard--survey-value-param="true"
+        data-dashboard--survey-key-param="survey.vote_printed_qr"
+        class="px-3 py-1 bg-gray-400 text-white rounded-md">
+        I'm interested
+      </button>
+    </div>
+  </div>
+<% end %>

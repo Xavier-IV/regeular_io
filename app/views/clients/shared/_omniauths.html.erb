@@ -1,6 +1,11 @@
 <div class="flex gap-2 items-center justify-center">
   <% [:google_oauth2, :twitter].each do |provider| %>
-    <%= button_to "/auth/#{provider}?role=clients", method: :post, data: { turbo: false },
+    <%= button_to "/auth/#{provider}?role=clients", method: :post, data: {
+      turbo: false,
+      controller: "analytic",
+      action: "click->analytic#track",
+      'analytic-key-param': "client.omniauth"
+    },
                   class: 'border border-gray-300 px-4 py-3 flex items-center justify-between rounded-sm gap-4 fill-blue-400' do %>
       <%= image_tag "logos/#{omniauth_logo(provider)}", class: 'border-none drops-shadow-none shadow-none w-4 fill-blue-400', alt: 'Your Image' %>
       <p><%= "#{omniauth_name(provider)}" %></p>

@@ -30,7 +30,11 @@
   </div>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Sign up", data: {
+      controller: "analytic",
+      action: "click->analytic#track",
+      'analytic-key-param': "customer.register"
+    } %>
   </div>
 
   <%= recaptcha_v3(action: 'register', turbolinks: true) %>
