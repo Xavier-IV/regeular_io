@@ -3,7 +3,6 @@
 require 'test_helper'
 
 class AuthCustomerFlowsTest < ActionDispatch::IntegrationTest
-
   setup do
     get new_customer_registration_url
     assert_select 'h2', 'Sign up'

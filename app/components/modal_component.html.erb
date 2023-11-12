@@ -1,9 +1,9 @@
 <div
   data-modal-target="modal"
-  id="modal" class="<%= @opened ? '' : 'hidden' %>">
-  <div class="fixed top-0 right-0 h-screen w-screen bg-black opacity-40 z-20"></div>
-  <div class="fixed top-0 right-0 h-screen w-screen z-30 flex items-center justify-center">
-    <div class="bg-white rounded-lg overflow-hidden mx-10">
+  id="modal" class="<%= @opened ? '' : 'hidden' %> fixed top-0 right-0 w-screen h-screen z-10 overflow-hidden">
+  <div class="fixed top-0 right-0 h-screen w-screen bg-black opacity-40 z-20 overflow-hidden"></div>
+  <div class="fixed top-0 right-0 h-screen w-screen z-30 flex items-center justify-center overflow-hidden">
+    <div class="bg-white rounded-lg mx-10 overflow-hidden">
       <div
         id="modal-title"
         class="px-10 py-2 flex items-center justify-center gap-2">
