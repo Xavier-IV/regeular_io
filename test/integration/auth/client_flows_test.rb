@@ -33,12 +33,27 @@ class AuthClientFlowsTest < ActionDispatch::IntegrationTest
     assert_response :redirect
   end
 
-  test 'redirect to dashboard if no business' do
+  test 'redirect to onboarding if no business' do
     get dashboards_path
     assert_response :redirect
     follow_redirect!
 
     assert_select 'h1', 'Welcome Onboard!'
+  end
+
+  test 'redirect to dashboard if has business' do
+    client = Client.find_by(email: 'user@company.com')
+    client.create_business(
+      name: 'User Company',
+      state: 'Melaka',
+      city: 'Alor Gajah'
+    )
+    client.save
+
+    get dashboards_path
+    assert_response :success
+
+    assert_select 'h1', 'User Company'
   end
 
   test 'can sign up and onboard' do
