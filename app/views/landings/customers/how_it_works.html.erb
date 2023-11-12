@@ -25,7 +25,10 @@
 </div>
 
 <div class="flex flex-col items-center justify-center mb-40 shadow-md py-10 border-y gap-4 mt-20">
-  <div data-controller="modal">
+  <div
+    data-controller="modal"
+    data-modal-master-outlet="body"
+  >
     <button
       data-controller="landing--customer"
       data-action="click->modal#openModal click->landing--customer#trackPlayGame"
@@ -34,11 +37,14 @@
 
     <%= render(ModalComponent.new(title: "Reward Game", opened: params[:experience].present?)) do %>
       <%= turbo_frame_tag dom_id(@rating) do %>
-        <div class="h-[500px] overflow-y-scroll pb-4">
+        <div class="pb-4">
           <div class="py-2 bg-black">
-            <p class="text-white px-4 text-center">Guide: Submit dummy reviews to increase level</p>
+          <%- if params[:level] != '4' %>
+              <p class="text-white px-4 text-center">Guide: Submit dummy reviews to increase level</p>
+          <% else %>
+              <p class="text-white px-4 text-center">Congratulations, you've seen how customer experience writing review!</p>
+          <% end %>
           </div>
-
           <%= render partial: 'landings/customers/game_progress' %>
         </div>
       <% end %>

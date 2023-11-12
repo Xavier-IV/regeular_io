@@ -16,6 +16,6 @@ class Admins::SessionsController < Devise::SessionsController
   private
 
   def after_sign_in_path_for(_resource)
-    stored_location_for(resource) || admins_dashboard_path
+    stored_location_for(resource) || new_admin_session
   end
 end

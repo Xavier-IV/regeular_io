@@ -37,12 +37,12 @@ class Landings::CustomersController < ApplicationController
     @rating = Review.new
     @customer_progress = Customer::Progress.new
 
-    experience = query_params[:experience].to_i
-    level = query_params[:level].to_i || 0
+    experience = game_params[:experience].to_i
+    level = game_params[:level].to_i || 0
 
     experience += 1
 
-    level += 1 if experience == 5
+    level += 1 if experience == 5 && level < 4
     experience = 0 if experience == 5
 
     redirect_to how_it_works_path(experience:, level:)
