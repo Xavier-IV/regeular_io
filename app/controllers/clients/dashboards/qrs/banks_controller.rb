@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Clients::Dashboards::Qrs::BanksController < ApplicationController
-  include DashboardLayout
+  include Dashboard::Layout
+  include Dashboard::Auth
 
   def show
     @bank_info = current_client.business&.business_bank

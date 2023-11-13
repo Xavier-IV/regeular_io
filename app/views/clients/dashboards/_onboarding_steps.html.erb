@@ -44,7 +44,7 @@
       </div>
       <div class="flex justify-end w-full md:w-fit">
         <%- if current_client.confirmed_at.present? %>
-          <%= button_to 'Next', dashboards_progress_path,
+          <%= button_to 'Next', clients_dashboards_progress_path,
                         class: 'py-1 px-3 rounded-md bg-green-600 text-white w-fit',
                         params: { progress_type: 'onboarding.verified_email' },
                         data: {
@@ -89,7 +89,7 @@
         data-controller="dashboard--onboard"
         class="flex justify-end w-full md:w-fit">
         <%- if @business.logo.present? && @business.logo.attached? %>
-          <%= button_to 'Next', dashboards_progress_path,
+          <%= button_to 'Next', clients_dashboards_progress_path,
                         class: 'py-1 px-3 rounded-md bg-green-600 text-white w-fit',
                         params: { progress_type: 'onboarding.has_logo' },
                         data: {
@@ -125,7 +125,7 @@
         data-controller="dashboard--onboard"
         class="flex justify-end w-full md:w-fit">
         <%- if @business.listing.present? && @business.listing.attached? %>
-          <%= button_to 'Next', dashboards_progress_path,
+          <%= button_to 'Next', clients_dashboards_progress_path,
                         class: 'py-1 px-3 rounded-md bg-green-600 text-white w-fit',
                         params: { progress_type: 'onboarding.has_listing_image' },
                         data: {
@@ -161,7 +161,7 @@
         data-controller="dashboard--onboard"
         class="flex justify-end w-full md:w-fit">
         <%- if @business.open_at.present? && @business.close_at.present? %>
-          <%= button_to 'Next', dashboards_progress_path,
+          <%= button_to 'Next', clients_dashboards_progress_path,
                         class: 'py-1 px-3 rounded-md bg-green-600 text-white w-fit',
                         params: { progress_type: 'onboarding.has_operating_hours' },
                         data: {
@@ -206,7 +206,7 @@
         data-controller="dashboard--onboard"
         class="flex justify-end w-full md:w-fit">
         <%- if @business.gmap_link.present? %>
-          <%= button_to 'Finalize', dashboards_progress_path,
+          <%= button_to 'Finalize', clients_dashboards_progress_path,
                         class: 'py-1 px-3 rounded-md bg-green-600 text-white w-fit',
                         params: { progress_type: 'onboarding.has_gmap_link' },
                         data: {

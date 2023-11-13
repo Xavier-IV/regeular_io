@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Clients::Dashboards::Rewards::DiscountsController < ApplicationController
-  include DashboardLayout
+  include Dashboard::Layout
+  include Dashboard::Auth
 
   def new
     @reward = Business::Reward.new(kind: 'Discount')

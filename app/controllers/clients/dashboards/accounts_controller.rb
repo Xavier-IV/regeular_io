@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Clients::Dashboards::AccountsController < ApplicationController
-  include DashboardLayout
+  include Dashboard::Layout
+  include Dashboard::Auth
 
   def show
     @user = current_client

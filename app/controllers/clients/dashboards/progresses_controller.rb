@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Clients::Dashboards::ProgressesController < ApplicationController
+  include Dashboard::Layout
+  include Dashboard::Auth
+
   def create
     current_client.client_progresses.create(
       progress_type: params[:progress_type],

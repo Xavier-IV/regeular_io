@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Clients::Dashboards::ConfirmationsController < ApplicationController
-  layout 'business/dashboard', only: [:new]
-  before_action :authenticate_client!
+  include Dashboard::Layout
+  include Dashboard::Auth
 
   def new
     @sent_at = current_client.confirmation_sent_at

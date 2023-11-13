@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Clients::Dashboards::Businesses::ApprovalsController < ApplicationController
-  include DashboardLayout
+  include Dashboard::Layout
+  include Dashboard::Auth
 
   def create
     business = current_client.business

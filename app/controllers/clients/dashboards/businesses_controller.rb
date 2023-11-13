@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Clients::Dashboards::BusinessesController < ApplicationController
-  include DashboardLayout
+  include Dashboard::Layout
+  include Dashboard::Auth
 
   before_action :prepare, :map_times, :map_progress, only: %i[edit update]
 

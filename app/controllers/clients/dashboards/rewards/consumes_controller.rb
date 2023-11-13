@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Clients::Dashboards::Rewards::ConsumesController < ApplicationController
-  include DashboardLayout
+  include Dashboard::Layout
+  include Dashboard::Auth
 
   def edit
     @qr = QrCode::Reward.find(query_params[:reference])

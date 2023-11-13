@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Clients::Dashboards::Qrs::ReviewsController < ApplicationController
-  include DashboardLayout
+  include Dashboard::Layout
+  include Dashboard::Auth
 
   def index
     @business = current_client.business

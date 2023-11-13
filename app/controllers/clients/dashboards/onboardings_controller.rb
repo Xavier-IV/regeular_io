@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class Clients::Dashboards::OnboardingsController < ApplicationController
-  before_action :authenticate_client!
+  include Dashboard::Layout
+  include Dashboard::Auth
 
   include Wicked::Wizard
 
