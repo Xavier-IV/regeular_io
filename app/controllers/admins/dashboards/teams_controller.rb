@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Admins::Dashboards::TeamsController < ApplicationController
   include AdminLayout
 
