@@ -3,7 +3,7 @@
 require 'test_helper'
 
 class Admins::DashboardsControllerTest < ActionDispatch::IntegrationTest
-  include Devise::Test::IntegrationHelpers # Include Devise test helpers
+  include Devise::Test::IntegrationHelpers
 
   test 'should get index' do
     sign_in admins(:admin_one)
