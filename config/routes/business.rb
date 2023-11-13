@@ -7,6 +7,9 @@ constraints host: Rails.application.credentials.dig(:host, :business) do
     options[:protocol] = 'https' if Rails.env.staging? || Rails.env.production?
   end)
 
+  # Business Landing Page
+  root 'landings/businesses#index', as: :business_root
+
   devise_for :clients, controllers: {
     registrations: 'clients/registrations',
     confirmations: 'clients/confirmations',
@@ -15,9 +18,6 @@ constraints host: Rails.application.credentials.dig(:host, :business) do
     passwords: 'clients/passwords',
     invitations: 'clients/invitations'
   }
-
-  # Business Landing Page
-  get '/home', to: 'landings/businesses#index', as: :business_root
 
   resources :dashboards, only: :index
   namespace :dashboards do

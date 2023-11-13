@@ -7,6 +7,9 @@ constraints host: Rails.application.credentials.dig(:host, :review) do
     options[:protocol] = 'https' if Rails.env.staging? || Rails.env.production?
   end)
 
+  # Customers Landing Page
+  root 'landings/customers#index', as: :customer_root
+
   devise_for :customers, controllers: {
     registrations: 'customers/registrations',
     sessions: 'customers/sessions',
@@ -14,8 +17,6 @@ constraints host: Rails.application.credentials.dig(:host, :review) do
     passwords: 'customers/passwords'
   }
 
-  # Customers Landing Page
-  get '/listings', to: 'landings/customers#index', as: :customer_root
   get '/how_it_works', to: 'landings/customers#how_it_works'
   post '/how_it_works', to: 'landings/customers#how_it_works_progress'
 
