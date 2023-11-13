@@ -31,12 +31,10 @@ class DashboardsController < ApplicationController
 
     return unless @business.present? && @business.reviews.present?
 
-    @regulars = @business.reviewers.regular
-    @regulars_total = @business.reviewers.regular.count
+    @regulars = @business.customer_progresses.where('level > 1')
+    @regulars_total = @business.customer_progresses.where('level > 1').count
 
-    @reviewers = current_client.business.reviewers
-    @anon_reviews = current_client.business.anon_reviews
-    @reviews = @reviewers.count + @anon_reviews.count
+    @reviews = current_client.business.reviews.count
   end
 
   private

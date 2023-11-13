@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class OmniauthSessionsController < ApplicationController
+  include CustomerHelper
+
   def google_oauth2
     omniauth_callback('google')
   end
@@ -27,9 +29,11 @@ class OmniauthSessionsController < ApplicationController
     if role == 'customers' && purpose == 'link_review_anonymous' && review_id.present?
       anon_omniauth = User.from_omniauth(request.env['omniauth.auth'], request.env['omniauth.params'], resource)
       review = Review.find(review_id)
+      business = review.business
       if review.user_id.blank?
         flash[:success] = 'Your review is now linked to your account.'
         review.user_id = anon_omniauth.id
+        add_pending_progress(anon_omniauth, business)
         review.save
       else
         flash[:success] = 'Review is already owned by someone else.'
