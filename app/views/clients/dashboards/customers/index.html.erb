@@ -1,0 +1,70 @@
+<div class="flex flex-col gap-4 my-10 md:my-10 px-10 md:px-0">
+  <h1 class="text-lg font-semibold">Registered Customers (<%= @reviewer_progresses.count %>)</h1>
+  <div class="h-2"></div>
+
+  <%- if @reviewer_progresses.present? %>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <% @reviewer_progresses.each do |progress| %>
+        <%= link_to clients_dashboards_customers_reviews_path(id: progress.user_id), class: "flex min-h-[160px] h-full flex-col gap-2 border rounded-md p-4 px-6 shadow-lg #{progress.level > 0 ? 'bg-purple-500 text-white' : 'bg-white'}" do %>
+          <div class="flex items-center justify-between">
+            <div class="flex gap-2">
+              <% (1..5).each do |rating_value| %>
+                <%= render(Shared::Review::StarComponent.new(role: rating_value > progress.rating_average.ceil ? :default : :star)) %>
+              <% end %>
+            </div>
+            <span class="text-sm">
+            (<%= progress.rating_count %> Reviews, ~<%= progress.rating_average.round(1) %>)
+          </span>
+          </div>
+
+          <h2 class="text-lg font-semibold"><%= progress.user.full_name %> </h2>
+          <p><%= progress.user.reviews.by_business(@business.id).latest.description %></p>
+
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="border rounded-2xl bg-white px-10 py-20">
+      <div class="flex flex-col items-center gap-4">
+        <%= image_tag 'undraw/reviews.svg', class: 'w-40 p-2', alt: 'Empty rewards' %>
+        <p class="text-gray-400 text-sm">There's no regular customer reviews yet.</p>
+      </div>
+    </div>
+  <% end %>
+  <div class="h-10"></div>
+
+  <h1 class="text-lg font-semibold">Anonymous Customers (<%= @anon_reviews.count %>)</h1>
+
+  <p class="text-gray-400 text-sm italic">User who write their reviews, but did not have account with Regülar.</p>
+  <%- if @anon_reviews.present? %>
+    <div class="h-2"></div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <% @anon_reviews.each do |review| %>
+        <div class="flex flex-col gap-2 border rounded-md p-4 px-6 bg-white shadow-lg">
+          <div class="flex items-center justify-between">
+            <div class="flex gap-1">
+              <% (1..5).each do |rating_value| %>
+                <%= render(Shared::Review::StarComponent.new(role: rating_value > review.rating ? :default : :star)) %>
+              <% end %>
+            </div>
+            <span class="text-sm text-gray-400"><%= review.created_at.strftime("%d %b %Y") %></span>
+          </div>
+          <p><%= review.description %></p>
+        </div>
+
+        <%#= render(::Dashboard::Review::ReviewCardComponent.new(rating: review.rating, description: review.description)) %>
+      <% end.empty? and begin %>
+        <p>No reviews yet</p>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="border rounded-2xl bg-white px-10 py-20">
+      <div class="flex flex-col items-center gap-4">
+        <%= image_tag 'undraw/empty_anon_reviews.svg', class: 'w-40 p-2', alt: 'Empty rewards' %>
+        <p class="text-gray-400 text-sm">There's no anonymous reviews yet.</p>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="h-20"></div>
+</div>

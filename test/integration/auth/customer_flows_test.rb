@@ -42,7 +42,7 @@ class AuthCustomerFlowsTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert_redirected_to customer_root_path
 
-    get dashboards_customers_url
+    get clients_dashboards_customers_url
     assert_response :redirect
     follow_redirect!
     assert_select 'h2', 'Log in'

@@ -19,3 +19,13 @@ two:
   state: Melaka
   postcode: 78000
   country: Malaysia
+
+three:
+  name: Sambal Merah
+  registration_id: SA02319033
+  address_line_1: AddressLine1
+  address_line_2: AddressLine2
+  city: Alor Gajah
+  state: Melaka
+  postcode: 78000
+  country: Malaysia

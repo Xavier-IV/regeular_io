@@ -14,4 +14,9 @@ client_two:
   first_name: ClientName2
   email: client2@test.com
   type: Client
-# column: value
+
+client_three:
+  first_name: ClientName3
+  email: client3@test.com
+  type: Client
+  business: three

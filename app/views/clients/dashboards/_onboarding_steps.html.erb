@@ -1,0 +1,231 @@
+<%# Step 1, Email Verification  %>
+<%- if @progress.size >= 0 && @progress.size <= 5 %>
+  <div class="rounded-md bg-green-200 text-green-700 text-sm p-2 px-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
+    <% if @business.status == 'new' && current_client.owner? && @progress.size == 0 %>
+      <div class="flex flex-col gap-1">
+        <div class="flex gap-2 items-center">
+          <i class="lni lni-flag-alt"></i>
+          <p>Ready to get listed? Let's get started!</p>
+        </div>
+      </div>
+      <div class="flex justify-end w-full md:w-fit">
+        <%= button_to 'Get Started', clients_dashboards_progress_path,
+                      class: 'py-1 px-3 rounded-md bg-green-600 text-white w-fit',
+                      params: { progress_type: 'onboarding.get_started' },
+                      data: {
+                        controller: 'analytic',
+                        action: 'analytic#track',
+                        'analytic-key-param': 'client.onboarding_dashboard.start_onboard'
+                      }
+        %>
+      </div>
+
+    <% end %>
+
+    <% if @business.status == 'new' && current_client.owner? &&
+      @progress.size == 1
+    %>
+      <div class="flex flex-col gap-1">
+        <div class="flex gap-2 items-center">
+          <i class="lni lni-envelope"></i>
+          <%- if current_client.confirmed_at.blank? %>
+            <p>First, let's get you verified. Check your email for
+              confirmation.</p>
+          <% else %>
+            <p>Your email is verified! Let's proceed next step.</p>
+          <% end %>
+        </div>
+        <div class="flex gap-2 items-center">
+          <div class="w-40 h-2 bg-green-300 rounded-full ml-5 overflow-hidden">
+            <div class="h-full rounded-full bg-green-600" style="width: <%= 1.0/5.0 * 100 %>%"></div>
+          </div>
+          <span class="text-xs text-green-600">[1/5]</span>
+        </div>
+      </div>
+      <div class="flex justify-end w-full md:w-fit">
+        <%- if current_client.confirmed_at.present? %>
+          <%= button_to 'Next', dashboards_progress_path,
+                        class: 'py-1 px-3 rounded-md bg-green-600 text-white w-fit',
+                        params: { progress_type: 'onboarding.verified_email' },
+                        data: {
+                          controller: 'analytic',
+                          action: 'analytic#track',
+                          'analytic-key-param': 'client.onboarding_dashboard.confirm_email'
+                        }
+          %>
+        <% else %>
+          <%= link_to 'Resend?', new_dashboards_confirmation_path,
+                        class: 'py-1 px-3 rounded-md bg-blue-500 text-white w-fit',
+                        data: {
+                          controller: 'analytic',
+                          action: 'analytic#track',
+                          'analytic-key-param': 'client.onboarding_dashboard.resend_email'
+                        }
+          %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if @business.status == 'new' && current_client.owner? &&
+      @progress.size == 2
+    %>
+      <div class="flex flex-col gap-1">
+        <div class="flex gap-2 items-center">
+          <i class="lni lni-camera"></i>
+          <%- if @business.logo.present? && @business.logo.attached? %>
+            <p>Looking good, you have added your logo!</p>
+          <% else %>
+            <p>Let's add your business logo below.</p>
+          <% end %>
+        </div>
+        <div class="flex gap-2 items-center">
+          <div class="w-40 h-2 bg-green-300 rounded-full ml-5 overflow-hidden">
+            <div class="h-full rounded-full bg-green-600" style="width: <%= 2.0/5.0 * 100 %>%"></div>
+          </div>
+          <span class="text-xs text-green-600">[2/5]</span>
+        </div>
+      </div>
+      <div
+        data-controller="dashboard--onboard"
+        class="flex justify-end w-full md:w-fit">
+        <%- if @business.logo.present? && @business.logo.attached? %>
+          <%= button_to 'Next', dashboards_progress_path,
+                        class: 'py-1 px-3 rounded-md bg-green-600 text-white w-fit',
+                        params: { progress_type: 'onboarding.has_logo' },
+                        data: {
+                          controller: 'analytic',
+                          action: 'analytic#track',
+                          'analytic-key-param': 'client.onboarding_dashboard.confirm_has_logo'
+                        }
+          %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if @business.status == 'new' && current_client.owner? &&
+      @progress.size == 3
+    %>
+      <div class="flex flex-col gap-1">
+        <div class="flex gap-2 items-center">
+          <i class="lni lni-camera"></i>
+          <%- if @business.listing.present? && @business.listing.attached? %>
+            <p>Awesome, your listing image looks great!</p>
+          <% else %>
+            <p>Let's add your listing image below, it will be shown in the listing page.</p>
+          <% end %>
+        </div>
+        <div class="flex gap-2 items-center">
+          <div class="w-40 h-2 bg-green-300 rounded-full ml-5 overflow-hidden">
+            <div class="h-full rounded-full bg-green-600" style="width: <%= 3.0/5.0 * 100 %>%"></div>
+          </div>
+          <span class="text-xs text-green-600">[3/5]</span>
+        </div>
+      </div>
+      <div
+        data-controller="dashboard--onboard"
+        class="flex justify-end w-full md:w-fit">
+        <%- if @business.listing.present? && @business.listing.attached? %>
+          <%= button_to 'Next', dashboards_progress_path,
+                        class: 'py-1 px-3 rounded-md bg-green-600 text-white w-fit',
+                        params: { progress_type: 'onboarding.has_listing_image' },
+                        data: {
+                          controller: 'analytic',
+                          action: 'analytic#track',
+                          'analytic-key-param': 'client.onboarding_dashboard.confirm_has_listing_image'
+                        }
+          %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if @business.status == 'new' && current_client.owner? &&
+      @progress.size == 4
+    %>
+      <div class="flex flex-col gap-1">
+        <div class="flex gap-2 items-center">
+          <i class="lni lni-hourglass"></i>
+          <%- if @business.open_at.present? && @business.close_at.present? %>
+            <p>Operating hours added. Almost there!</p>
+          <% else %>
+            <p>Add your opening and closing hours.</p>
+          <% end %>
+        </div>
+        <div class="flex gap-2 items-center">
+          <div class="w-40 h-2 bg-green-300 rounded-full ml-5 overflow-hidden">
+            <div class="h-full rounded-full bg-green-600" style="width: <%= 4.0/5.0 * 100 %>%"></div>
+          </div>
+          <span class="text-xs text-green-600">[4/5]</span>
+        </div>
+      </div>
+      <div
+        data-controller="dashboard--onboard"
+        class="flex justify-end w-full md:w-fit">
+        <%- if @business.open_at.present? && @business.close_at.present? %>
+          <%= button_to 'Next', dashboards_progress_path,
+                        class: 'py-1 px-3 rounded-md bg-green-600 text-white w-fit',
+                        params: { progress_type: 'onboarding.has_operating_hours' },
+                        data: {
+                          controller: 'analytic',
+                          action: 'analytic#track',
+                          'analytic-key-param': 'client.onboarding_dashboard.confirm_operating_hours'
+                        }
+          %>
+        <% elsif !current_page?(edit_dashboards_business_path) %>
+          <%= link_to 'Show Me', edit_clients_dashboards_business_path,
+                      class: 'py-1 px-3 rounded-md bg-green-600 text-white w-fit',
+                      data: {
+                        controller: 'analytic',
+                        action: 'analytic#track',
+                        'analytic-key-param': 'client.onboarding_dashboard.confirm_operating_hours'
+                      }
+          %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if @business.status == 'new' && current_client.owner? &&
+      @progress.size == 5
+    %>
+      <div class="flex flex-col gap-1">
+        <div class="flex gap-2 items-center">
+          <i class="lni lni-flag-alt"></i>
+          <%- if @business.gmap_link.present? %>
+            <p>All good, now for the final part!</p>
+          <% else %>
+            <p>Finally, let's add your google map link!</p>
+          <% end %>
+        </div>
+        <div class="flex gap-2 items-center">
+          <div class="w-40 h-2 bg-green-300 rounded-full ml-5 overflow-hidden">
+            <div class="h-full rounded-full bg-green-600" style="width: <%= 5.0/5.0 * 100 %>%"></div>
+          </div>
+          <span class="text-xs text-green-600">[5/5]</span>
+        </div>
+      </div>
+      <div
+        data-controller="dashboard--onboard"
+        class="flex justify-end w-full md:w-fit">
+        <%- if @business.gmap_link.present? %>
+          <%= button_to 'Finalize', dashboards_progress_path,
+                        class: 'py-1 px-3 rounded-md bg-green-600 text-white w-fit',
+                        params: { progress_type: 'onboarding.has_gmap_link' },
+                        data: {
+                          controller: 'analytic',
+                          action: 'analytic#track',
+                          'analytic-key-param': 'client.onboarding_dashboard.confirm_gmap'
+                        }
+          %>
+        <% elsif !current_page?(edit_dashboards_business_path) %>
+          <%= link_to 'Show Me', edit_clients_dashboards_business_path,
+                      class: 'py-1 px-3 rounded-md bg-green-600 text-white w-fit',
+                      data: {
+                        controller: 'analytic',
+                        action: 'analytic#track',
+                        'analytic-key-param': 'client.onboarding_dashboard.confirm_gmap'
+                      }
+          %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

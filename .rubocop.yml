@@ -35,11 +35,11 @@ Rails/UnknownEnv:
 Metrics/CyclomaticComplexity:
   Exclude:
     - 'bin/*'
-    - 'app/controllers/dashboards_controller.rb'
-    - 'app/controllers/dashboards/businesses_controller.rb'
+    - 'app/controllers/clients/dashboards_controller.rb'
+    - 'app/controllers/clients/dashboards/businesses_controller.rb'
     - 'app/controllers/omniauth_sessions_controller.rb'
-    - 'app/controllers/dashboards/qrs/reviews_controller.rb'
-    - 'app/controllers/dashboards/businesses/approvals_controller.rb'
+    - 'app/controllers/clients/dashboards/qrs/reviews_controller.rb'
+    - 'app/controllers/clients/dashboards/businesses/approvals_controller.rb'
 
 Metrics/MethodLength:
   Enabled: false
@@ -51,10 +51,10 @@ Metrics/PerceivedComplexity:
   Exclude:
     - 'db/migrate/*'
     - 'bin/*'
-    - 'app/controllers/dashboards_controller.rb'
-    - 'app/controllers/dashboards/businesses_controller.rb'
+    - 'app/controllers/clients/dashboards_controller.rb'
+    - 'app/controllers/clients/dashboards/businesses_controller.rb'
     - 'app/controllers/omniauth_sessions_controller.rb'
-    - 'app/controllers/dashboards/businesses/approvals_controller.rb'
+    - 'app/controllers/clients/dashboards/businesses/approvals_controller.rb'
 
 Style/Documentation:
   Enabled: false
