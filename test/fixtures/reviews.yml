@@ -6,7 +6,13 @@ review_one:
   customer: customer_one
   rating: 1
   description: The food is awesome!
-  business: one
+  business: three
+  qr_code_id: qr_code_review_one
+
+review_one_anon:
+  rating: 1
+  description: The food is awesome!
+  business: three
   qr_code_id: qr_code_review_one
 
 review_two:

@@ -19,7 +19,7 @@ class Clients::Dashboards::Businesses::ApprovalsController < ApplicationControll
     end
 
     word_count = params[:client_remark].length
-    return redirect_to(dashboards_path, alert: 'Need minimum of 50 characters') if word_count < 50
+    return redirect_to(clients_dashboards_path, alert: 'Need minimum of 50 characters') if word_count < 50
 
     business.status = 'pending_review'
     business.save

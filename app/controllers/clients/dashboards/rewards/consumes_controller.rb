@@ -16,7 +16,7 @@ class Clients::Dashboards::Rewards::ConsumesController < ApplicationController
 
     if @customer_reward.save
       flash[:success] = 'Successfully applied!'
-      redirect_to dashboards_reward_consume_path(id: @customer_reward.id)
+      redirect_to clients_dashboards_reward_consume_path(id: @customer_reward.id)
     else
       flash.now[:alert] = @customer_reward.errors.full_messages.join('. ')
       render :edit, status: :unprocessable_entity

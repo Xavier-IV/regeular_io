@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Clients::Dashboards::OnboardingsController < ApplicationController
-  include Dashboard::Layout
+  layout 'business/onboarding'
   include Dashboard::Auth
 
   include Wicked::Wizard
@@ -41,7 +41,7 @@ class Clients::Dashboards::OnboardingsController < ApplicationController
         redirect_to_next(:onboard_company_name)
       end
     else
-      redirect_to dashboards_onboarding_path, alert: 'Something went wrong'
+      redirect_to clients_dashboards_onboarding_path, alert: 'Something went wrong'
     end
   end
 

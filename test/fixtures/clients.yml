@@ -20,3 +20,15 @@ client_three:
   email: client3@test.com
   type: Client
   business: three
+
+client_business_basic:
+  first_name: ClientName4
+  email: client4@test.com
+  type: Client
+  business: only_name
+
+client_business_new:
+  first_name: ClientName5
+  email: client5@test.com
+  type: Client
+  business: business_new

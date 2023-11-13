@@ -10,6 +10,7 @@ class Clients::Dashboards::ConfirmationsController < ApplicationController
 
   def create
     if current_client && !current_client.confirmed?
+      Rails.logger.debug 'Test'
       current_client.send_confirmation_instructions
       current_client.confirmation_sent_at = Time.zone.now
       current_client.save
@@ -18,6 +19,7 @@ class Clients::Dashboards::ConfirmationsController < ApplicationController
       redirect_to clients_dashboards_path
     else
       flash[:alert] = 'Account already confirmed.'
+      redirect_to new_clients_dashboards_confirmation_url
     end
   end
 end
