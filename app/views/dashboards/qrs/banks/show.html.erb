@@ -7,7 +7,6 @@
         <%= raw @svg %>
       </div>
 
-      <small class="print:hidden my-2"><%= pluralize(@qr.scanned_times, 'user') %> has scanned</small>
       <div class="w-full flex flex-col gap-2 px-4 items-center text-center">
         <h1 class="text-xl font-light text-gray-200"><%= @bank_info.business.name %></h1>
         <hr class="border-t-1 border-white w-4/6 my-2">

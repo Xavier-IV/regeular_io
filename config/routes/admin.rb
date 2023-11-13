@@ -23,6 +23,7 @@ constraints host: Rails.application.credentials.dig(:host, :admin) do
       post '/approvals/:business_id/reject', to: 'approvals#reject', as: :approval_reject
 
       resources :copywritings
+      resources :teams
     end
   end
 end
