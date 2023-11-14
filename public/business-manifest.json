@@ -2,11 +2,12 @@
   "name": "Regülar: Business",
   "short_name": "Regülar Business",
   "id": "/?source=pwa",
-  "start_url": "/dashboards?source=pwa",
-  "scope": "/",
-  "display": "standalone",
+  "start_url": "/clients/dashboards?source=pwa",
+  "scope": "/clients",
+  "display": "fullscreen",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
+  "capture_links": "existing-client-navigate",
   "icons": [
     {
       "src": "/assets/logos/regeular_business.png",
