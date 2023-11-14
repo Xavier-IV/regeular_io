@@ -1,8 +1,6 @@
-<div class="flex flex-col gap-4 mt-10 w-full h-fit">
+<div class="flex flex-col gap-4 mt-4 md:mt-10 w-full h-fit">
   <%= render 'clients/dashboards/info' %>
-  <div class="mx-4 md:mx-0">
-    <%= render 'clients/dashboards/onboarding_steps' %>
-  </div>
+  <%= render 'clients/dashboards/onboarding_steps' %>
 
   <div class="w-full h-fit grid grid-cols-2 md:grid-cols-3 gap-2 mx-auto px-4 md:px-0">
     <%= form_with(model: @business, url: clients_dashboards_business_path(@business), local: true, method: :put,

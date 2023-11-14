@@ -29,7 +29,12 @@
   <%= render 'shared/flash' %>
 </div>
 <div class="w-screen h-screen flex flex-col justify-between">
-  <div class="w-full h-full grow overflow-hidden">
+
+  <%= turbo_frame_tag 'home',
+                      class: 'w-full h-full grow overflow-hidden',
+                      data: {
+                        controller: 'overscroll-refresh'
+                      } do %>
     <div class="w-full h-full">
       <div class="w-full h-full mx-auto max-w-3xl flex flex-col mb-20">
         <div class="print:hidden hidden md:flex justify-between gap-3 my-4 px-10 md:px-0">
@@ -73,7 +78,7 @@
         </div>
       </div>
     </div>
-  </div>
+  <% end %>
 
   <nav class="flex bottom-navbar z-50 md:hidden">
     <div class="bg-white w-full flex h-full">
