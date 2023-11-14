@@ -5,7 +5,7 @@
   <%- if @reviewer_progresses.present? %>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <% @reviewer_progresses.each do |progress| %>
-        <%= link_to clients_dashboards_customers_reviews_path(id: progress.user_id), class: "flex min-h-[160px] h-full flex-col gap-2 border rounded-md p-4 px-6 shadow-lg #{progress.level > 0 ? 'bg-purple-500 text-white' : 'bg-white'}" do %>
+        <%= link_to clients_dashboards_customers_reviews_path(id: progress.user_id), class: "flex min-h-[160px] h-fit flex-col gap-2 border rounded-md p-4 px-6 shadow-lg #{progress.level > 0 ? 'bg-purple-500 text-white' : 'bg-white'}" do %>
           <div class="flex items-center justify-between">
             <div class="flex gap-2">
               <% (1..5).each do |rating_value| %>
