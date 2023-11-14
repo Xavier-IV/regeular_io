@@ -6,7 +6,7 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <link rel="manifest" crossorigin="use-credentials" href="/business-manifest.json" />
+  <link rel="manifest" crossorigin="use-credentials" href="/business-manifest.json"/>
   <%= favicon_link_tag 'favicon_business.ico' %>
 
   <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet"/>
@@ -23,58 +23,77 @@
 <body
   data-controller="dashboard--profile-tray"
   data-action="click->dashboard--profile-tray#screenToggle"
-  class="lg:overscroll-y-none">
+  class="lg:overscroll-y-none select-none">
 
 <div id="flash">
   <%= render 'shared/flash' %>
 </div>
-<div class="relative w-screen h-screen md:overflow-hidden">
-  <div class="absolute w-full h-screen">
-    <img src='/assets/mesh.png' class="overflow-hidden object-cover w-screen h-screen" alt="">
-  </div>
-  <div class="absolute w-screen h-screen overflow-scroll no-scrollbar">
-    <div class="w-full h-full mx-auto max-w-3xl flex flex-col mb-20">
-      <div class="print:hidden flex justify-between gap-3 my-4 px-10 md:px-0">
-        <%= link_to clients_dashboards_path, class: 'rounded-md w-fit text-2xl text-gray-800 flex items-center justify-center cursor-pointer p-1' do %>
-          <i class="lni lni-home"></i>
-        <% end %>
-        <div class="flex gap-4">
-          <%= link_to clients_dashboards_reward_path, class: 'w-12 h-12 rounded-md bg-white border flex items-center justify-center' do %>
-            <i class="lni lni-offer text-2xl font-light stroke-gray-100 text-gray-500"></i>
+<div class="w-screen h-screen flex flex-col justify-between">
+  <div class="w-full h-full grow overflow-hidden">
+    <div class="w-full h-full">
+      <div class="w-full h-full mx-auto max-w-3xl flex flex-col mb-20">
+        <div class="print:hidden hidden md:flex justify-between gap-3 my-4 px-10 md:px-0">
+          <%= link_to clients_dashboards_path, class: 'rounded-md w-fit text-2xl text-gray-800 flex items-center justify-center cursor-pointer p-1' do %>
+            <i class="lni lni-home"></i>
           <% end %>
-          <%= link_to clients_dashboards_qrs_path, class: 'w-12 h-12 rounded-md bg-white border' do %>
-            <%= image_tag 'icons/icon_qr.svg', class: 'w-full h-full p-2', alt: 'QR Code' %>
-          <% end %>
-          <div class="w-12 h-12 relative">
-            <div
-              class="absolute w-12 h-12 rounded-full bg-gray-400 cursor-pointer z-10 overflow-hidden">
-              <% if current_client.avatar.present? && current_client.avatar.attached? %>
-                <%= image_tag url_for(current_client.avatar), id: 'profile_avatar_filled', data: { action: 'click->dashboard--profile-tray#toggle' } %>
-              <% else %>
-                <div
-                  id="profile_avatar"
-                  data-action="click->dashboard--profile-tray#toggle"
-                  class="w-40 h-40 bg-gray-400"></div>
-              <% end %>
-            </div>
-            <div
-              data-dashboard--profile-tray-target="menu"
-              class="hidden absolute w-fit h-fit py-2 bg-white z-20 border top-0 right-0 mt-14 rounded-md flex flex-col text-center">
-              <%= link_to "Account", clients_dashboards_account_path, class: 'p-4 py-2 hover:bg-gray-200 px-10 w-full' %>
-              <%= link_to "Team", clients_dashboards_teams_path, class: 'p-4 py-2 hover:bg-gray-200 px-10 w-full' %>
-              <%= link_to "Listing", customer_root_url(host: Rails.application.credentials.dig(:host, :review)), class: 'p-4 py-2 hover:bg-gray-200 px-10 w-full', target: '_blank' %>
-              <hr class="my-2">
-              <%= button_to "Logout", destroy_client_session_path, method: :delete, class: 'p-4 py-2 hover:bg-gray-200 px-10 w-full' %>
+          <div class="flex gap-4">
+            <%= link_to clients_dashboards_reward_path, class: 'w-12 h-12 rounded-md bg-white border flex items-center justify-center' do %>
+              <i class="lni lni-offer text-2xl font-light stroke-gray-100 text-gray-500"></i>
+            <% end %>
+            <%= link_to clients_dashboards_qrs_path, class: 'w-12 h-12 rounded-md bg-white border' do %>
+              <%= image_tag 'icons/icon_qr.svg', class: 'w-full h-full p-2', alt: 'QR Code' %>
+            <% end %>
+            <div class="w-12 h-12 relative">
+              <div
+                class="absolute w-12 h-12 rounded-full bg-gray-400 cursor-pointer z-10 overflow-hidden">
+                <% if current_client.avatar.present? && current_client.avatar.attached? %>
+                  <%= image_tag url_for(current_client.avatar), id: 'profile_avatar_filled', data: { action: 'click->dashboard--profile-tray#toggle' } %>
+                <% else %>
+                  <div
+                    id="profile_avatar"
+                    data-action="click->dashboard--profile-tray#toggle"
+                    class="w-40 h-40 bg-gray-400"></div>
+                <% end %>
+              </div>
+              <div
+                data-dashboard--profile-tray-target="menu"
+                class="hidden absolute w-fit h-fit py-2 bg-white z-20 border top-0 right-0 mt-14 rounded-md flex flex-col text-center">
+                <%= link_to "Account", clients_dashboards_account_path, class: 'p-4 py-2 hover:bg-gray-200 px-10 w-full' %>
+                <%= link_to "Team", clients_dashboards_teams_path, class: 'p-4 py-2 hover:bg-gray-200 px-10 w-full' %>
+                <%= link_to "Listing", customer_root_url(host: Rails.application.credentials.dig(:host, :review)), class: 'p-4 py-2 hover:bg-gray-200 px-10 w-full', target: '_blank' %>
+                <hr class="my-2">
+                <%= button_to "Logout", destroy_client_session_path, method: :delete, class: 'p-4 py-2 hover:bg-gray-200 px-10 w-full' %>
 
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="w-full h-fit pb-20">
-        <%= yield %>
+        <div class="w-full h-full overflow-y-scroll no-scrollbar">
+          <%= yield %>
+        </div>
       </div>
     </div>
   </div>
+
+  <nav class="flex bottom-navbar z-50 md:hidden">
+    <div class="bg-white w-full flex h-full">
+      <div class="w-full h-fit flex items-center justify-center">
+        <%= link_to clients_dashboards_path, class: 'rounded-md w-full text-2xl p-4 text-gray-500 flex items-center justify-center' do %>
+          <i class="lni lni-home"></i>
+        <% end %>
+      </div>
+      <div class="w-full flex items-center justify-center">
+        <%= link_to clients_dashboards_qrs_path, class: 'w-16 h-16 rounded-lg p-1 bg-white border border-gray-200' do %>
+          <%= image_tag 'icons/icon_qr.svg', class: 'w-full h-full p-2', alt: 'QR Code' %>
+        <% end %>
+      </div>
+      <div class="w-full h-fit flex items-center justify-center">
+        <%= link_to clients_dashboards_setting_path, class: 'rounded-md w-full text-2xl p-4 text-gray-500 flex items-center justify-center' do %>
+          <i class="lni lni-cog"></i>
+        <% end %>
+      </div>
+    </div>
+  </nav>
 </div>
 
 </body>

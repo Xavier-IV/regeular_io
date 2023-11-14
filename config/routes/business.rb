@@ -38,6 +38,7 @@ constraints host: Rails.application.credentials.dig(:host, :business) do
 
       resources :teams, only: %i[index]
       resources :qrs
+      resource :setting
       # resources :products # Feature on hold
 
       resource :reward do

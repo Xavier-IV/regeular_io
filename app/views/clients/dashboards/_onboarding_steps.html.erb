@@ -1,6 +1,6 @@
 <%# Step 1, Email Verification  %>
 <%- if @progress.size >= 0 && @progress.size <= 5 %>
-  <div class="rounded-md bg-green-200 text-green-700 text-sm p-2 px-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
+  <div class="min-h-[100px] rounded-md bg-green-200 text-green-700 text-sm p-2 px-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-2">
     <% if @business.status == 'new' && current_client.owner? && @progress.size == 0 %>
       <div class="flex flex-col gap-1">
         <div class="flex gap-2 items-center">

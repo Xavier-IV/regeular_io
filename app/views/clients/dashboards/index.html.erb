@@ -1,10 +1,10 @@
-<div class="flex flex-col gap-4 mt-10 md:mt-10 md:mt-20">
+<div class="flex flex-col gap-4 mt-10 w-full h-fit">
   <%= render 'clients/dashboards/info' %>
-  <div class="mx-10 md:mx-0">
+  <div class="mx-4 md:mx-0">
     <%= render 'clients/dashboards/onboarding_steps' %>
   </div>
 
-  <div class="w-full h-fit grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto px-10 md:px-0">
+  <div class="w-full h-fit grid grid-cols-2 md:grid-cols-3 gap-2 mx-auto px-4 md:px-0">
     <%= form_with(model: @business, url: clients_dashboards_business_path(@business), local: true, method: :put,
                   data: { controller: 'dashboard--file-upload' },
                   class: ' h-[140px] md:h-[200px] flex-none order-4 md:order-1 md:col-start-1 row-start-1'
@@ -170,7 +170,6 @@
 
     <div
       data-controller="dashboard--detail"
-      data-action="mouseenter->dashboard--detail#showEdit mouseleave->dashboard--detail#hideEdit"
       class="order-1 md:order-2 w-full col-span-2 rounded-2xl h-[200px] p-6 flex flex-col justify-start gap-2 bg-gradient-to-l from-violet-500 to-indigo-500 rounded-[20px] shadow text-white">
       <div class="flex justify-between items-center">
         <div class="flex flex-col md:flex-row md:gap-4 md:items-center">
