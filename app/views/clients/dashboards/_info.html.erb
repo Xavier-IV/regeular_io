@@ -6,7 +6,7 @@
 <% end %>
 
 <% if @business.status == 'approved' && @approval&.resolved == false %>
-  <div class="rounded-md bg-green-200 text-green-700 text-sm p-2 px-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-2 mx-10 md:mx-0">
+  <div class="rounded-md bg-green-200 text-green-700 text-sm p-2 px-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-2 mx-4 md:mx-0">
     <div class="flex gap-2 items-center">
       <i class="lni lni-bolt text-yellow-500"></i>
       <p>Congratulations! Your business has been approved and are now listed.</p>
@@ -26,7 +26,7 @@
 <% end %>
 
 <% if @business.status == 'approved' && @approval.blank? %>
-  <div class="rounded-md bg-green-200 text-green-700 text-sm p-2 px-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-2 mx-10 md:mx-0">
+  <div class="rounded-md text-green-700 text-sm p-2 px-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-2 mx-4 md:mx-0">
     <div class="flex gap-2 items-center">
       <div class="animate-pulse duration-1000 flex space-x-4">
         <div class="rounded-full bg-green-600 h-2 w-2"></div>
@@ -37,7 +37,7 @@
 <% end %>
 
 <% if @business.status == 'new' && !@not_ready && @progress.size == 6 %>
-  <div class="rounded-md bg-purple-200 text-purple-700 text-sm p-2 px-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-2 mx-10 md:mx-0">
+  <div class="rounded-md bg-purple-200 text-purple-700 text-sm p-2 px-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-2 mx-4 md:mx-0">
     <div class="flex gap-2 items-center">
       <i class="lni lni-checkmark-circle text-green-600"></i>
       <p>You are ready! Submit for approval to get listed.</p>
@@ -97,7 +97,7 @@
 <% end %>
 
 <% if @business.status == 'rejected' && @approval&.resolved == false %>
-  <div class="rounded-md bg-orange-200 text-orange-700 text-sm p-2 px-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-2 mx-10 md:mx-0">
+  <div class="rounded-md bg-orange-200 text-orange-700 text-sm p-2 px-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-2 mx-4 md:mx-0">
     <div class="flex gap-2 items-center">
       <i class="lni lni-cross-circle text-orange-700"></i>
       <p>We can't approve your business. Try to resubmit again.</p>

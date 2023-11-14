@@ -136,3 +136,15 @@ ul {
     transform: rotate(-90deg);
     transform-origin: 50% 50%;
 }
+
+.bottom-navbar {
+    @apply w-full border-t h-[80px] ;
+    @apply bg-white;
+    @apply pb-10;
+}
+
+
+.bottom-navbar .container a {
+    @apply text-black px-4 py-4 bg-red-200 border flex flex-col items-center justify-center;
+    @apply bg-white w-full select-none;
+}
