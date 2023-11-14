@@ -10,7 +10,6 @@ class Clients::Dashboards::ConfirmationsController < ApplicationController
 
   def create
     if current_client && !current_client.confirmed?
-      Rails.logger.debug 'Test'
       current_client.send_confirmation_instructions
       current_client.confirmation_sent_at = Time.zone.now
       current_client.save
