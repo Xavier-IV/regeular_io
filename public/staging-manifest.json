@@ -1,0 +1,23 @@
+{
+  "name": "Regülar (Stage)",
+  "short_name": "Regülar (Stage)",
+  "id": "/?source=pwa",
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "fullscreen",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "capture_links": "existing-client-navigate",
+  "icons": [
+    {
+      "src": "/assets/logos/staging_regeular.png",
+      "sizes": "200x200",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/logos/staging_regeular_512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

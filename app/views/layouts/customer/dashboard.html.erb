@@ -6,7 +6,14 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <link rel="manifest" crossorigin="use-credentials" href="/business-manifest.json" />
+  <%- if Rails.env.staging? %>
+    <link rel="manifest" crossorigin="use-credentials" href="/staging-manifest.json"/>
+  <% else %>
+    <link rel="manifest" crossorigin="use-credentials" href="/manifest.json"/>
+  <% end %>
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="theme-color" content="#FFFFFF">
+
   <%= favicon_link_tag 'favicon.ico' %>
 
   <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet"/>
