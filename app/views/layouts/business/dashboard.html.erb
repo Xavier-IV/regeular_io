@@ -30,18 +30,10 @@
 <body
   data-controller="dashboard--profile-tray"
   data-action="click->dashboard--profile-tray#screenToggle"
-  class="overscroll-y-none select-none">
-
-<div id="flash">
-  <%= render 'shared/flash' %>
-</div>
-<div class="w-screen h-screen flex flex-col justify-between">
-
-  <%= turbo_frame_tag 'home',
-                      class: 'w-full h-full grow overflow-hidden',
-                      data: {
-                        controller: 'overscroll-refresh'
-                      } do %>
+  class="select-none">
+<%= render 'shared/flash' %>
+<div class="w-full h-[calc(100vh-28px)] flex flex-col">
+  <div class="w-full h-screen overflow-hidden">
     <div class="w-full h-full">
       <div class="w-full h-full mx-auto max-w-3xl flex flex-col mb-20">
         <div class="print:hidden hidden md:flex justify-between gap-3 my-4 px-10 md:px-0">
@@ -85,9 +77,9 @@
         </div>
       </div>
     </div>
-  <% end %>
+  </div>
 
-  <nav class="flex bottom-navbar z-50 md:hidden">
+  <nav class="flex shrink bottom-navbar z-50 md:hidden">
     <div class="bg-white w-full flex h-full">
       <div class="w-full h-fit flex items-center justify-center">
         <%= link_to clients_dashboards_path, class: 'rounded-md w-full text-2xl p-4 text-gray-500 flex items-center justify-center' do %>
@@ -95,7 +87,7 @@
         <% end %>
       </div>
       <div class="w-full flex items-center justify-center">
-        <%= link_to clients_dashboards_qrs_path, class: 'w-16 h-16 rounded-lg p-1 bg-white border border-gray-200' do %>
+        <%= link_to clients_dashboards_qrs_path, class: 'w-16 h-16 rounded-2xl p-1 bg-white border border-gray-200' do %>
           <%= image_tag 'icons/icon_qr.svg', class: 'w-full h-full p-2', alt: 'QR Code' %>
         <% end %>
       </div>
