@@ -10,7 +10,7 @@
   <div class="flex flex-col gap-2 mt-10">
     <%- @team.each do |member| %>
       <div class="px-4 py-2 bg-white border rounded-md">
-        <div class="flex justify-between items-center">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
           <div class="flex gap-2 items-center">
             <% if member.invitation_accepted_at || member.role == 'owner' %>
               <i class="lni lni-checkmark-circle text-sm text-green-500" title="Active"></i>
@@ -19,7 +19,7 @@
             <% end %>
             <p><%= member.email %> <span class="text-gray-400"><%= member.role.humanize %></span></p>
           </div>
-          <p class="text-gray-400"><%= member.full_name %></p>
+          <p class="text-gray-400 hidden md:inline"><%= member.full_name %></p>
         </div>
       </div>
     <% end %>

@@ -1,7 +1,7 @@
 <div class="flex flex-col justify-between h-full w-full pb-20 text-gray-700">
   <div class="flex flex-col h-full gap-2 p-4 mt-10 pb-40">
     <h1 class="text-lg pl-1">Account & Settings</h1>
-    <p class="text-sm text-gray-400 pl-1">Manage your account and team members.</p>
+    <p class="text-sm text-gray-400 pl-1"><%= current_client.email %></p>
     <div class="flex flex-col divide-y border rounded-md mt-4">
       <%= link_to "Edit Account", clients_dashboards_account_path, class: 'p-4 py-2 text-gray-800 hover:bg-gray-200 px-4 w-full' %>
       <%= link_to "Manage Team", clients_dashboards_teams_path, class: 'p-4 py-2 hover:bg-gray-200 px-4 w-full' %>
