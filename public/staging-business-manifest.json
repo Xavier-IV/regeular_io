@@ -1,0 +1,23 @@
+{
+  "name": "Regülar: Business (Stage)",
+  "short_name": "Regülar Business (Stage)",
+  "id": "/?source=pwa",
+  "start_url": "/clients/dashboards?source=pwa",
+  "scope": "/clients",
+  "display": "fullscreen",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "capture_links": "existing-client-navigate",
+  "icons": [
+    {
+      "src": "/assets/logos/staging_regeular_business.png",
+      "sizes": "200x200",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/logos/staging_regeular_business_512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

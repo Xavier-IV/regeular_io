@@ -6,7 +6,12 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
 
-  <link rel="manifest" crossorigin="use-credentials" href="/business-manifest.json" />
+  <%- if Rails.env.staging? %>
+    <link rel="manifest" crossorigin="use-credentials" href="/staging-business-manifest.json"/>
+  <% else %>
+    <link rel="manifest" crossorigin="use-credentials" href="/business-manifest.json"/>
+  <% end %>
+
   <%= favicon_link_tag 'favicon.ico' %>
 
   <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet"/>
