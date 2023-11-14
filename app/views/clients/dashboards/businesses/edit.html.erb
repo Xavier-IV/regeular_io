@@ -1,4 +1,9 @@
-<div id="business_edit" class="flex flex-col gap-4 mt-10 md:mt-20">
+<div class="w-full p-4 flex md:hidden">
+  <%= link_to clients_dashboards_path do %>
+    <i class="lni lni-arrow-left text-2xl"></i>
+  <% end %>
+</div>
+<div id="business_edit" class="flex flex-col gap-4 md:mt-20">
   <%= render 'clients/dashboards/onboarding_steps' %>
   <%= render 'clients/dashboards/info' %>
   <div class="relative w-full h-fit grid grid-cols-1 md:grid-cols-3 gap-4 mx-auto mt-4 px-4 md:px-0">

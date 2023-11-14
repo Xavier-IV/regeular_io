@@ -4,7 +4,7 @@
   "id": "/?source=pwa",
   "start_url": "/clients/dashboards?source=pwa",
   "scope": "/clients",
-  "display": "fullscreen",
+  "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
   "capture_links": "existing-client-navigate",
