@@ -3,11 +3,21 @@
   "short_name": "Regülar Business (Stage)",
   "id": "/?source=pwa",
   "start_url": "/clients/dashboards?source=pwa",
+  "description": "Track your regular customer, gives them reward and grow your business!",
   "scope": "/clients",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
   "capture_links": "existing-client-navigate",
+  "screenshots" : [
+    {
+      "src": "/assets/previews/business_og.png",
+      "sizes": "1200x675",
+      "type": "image/webp",
+      "form_factor": "wide",
+      "label": "Homescreen of Awesome App"
+    }
+  ],
   "icons": [
     {
       "src": "/assets/logos/staging_regeular_business.png",
@@ -18,6 +28,7 @@
       "src": "/assets/logos/staging_regeular_business_512.png",
       "sizes": "512x512",
       "type": "image/png"
-    }
+    },
+    "lang": "en"
   ]
 }
