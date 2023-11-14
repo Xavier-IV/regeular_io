@@ -32,11 +32,11 @@
   data-action="click->dashboard--profile-tray#screenToggle"
   class="select-none">
 <%= render 'shared/flash' %>
-<div class="w-full h-[calc(100vh-28px)] flex flex-col">
-  <div class="w-full h-screen overflow-hidden">
+<div class="w-full pwa:h-[calc(100vh-28px)] h-screen flex flex-col">
+  <div class="w-full h-full overflow-hidden">
     <div class="w-full h-full">
       <div class="w-full h-full mx-auto max-w-3xl flex flex-col mb-20">
-        <div class="print:hidden hidden md:flex justify-between gap-3 my-4 px-10 md:px-0">
+        <div class="print:hidden pwa:hidden flex justify-between gap-3 my-4 px-10 md:px-0">
           <%= link_to clients_dashboards_path, class: 'rounded-md w-fit text-2xl text-gray-800 flex items-center justify-center cursor-pointer p-1' do %>
             <i class="lni lni-home"></i>
           <% end %>
@@ -75,11 +75,23 @@
         <div class="w-full h-full overflow-y-scroll no-scrollbar">
           <%= yield %>
         </div>
+        <div
+          data-controller="pwa"
+          data-pwa-install-target="installButton"
+          class="hidden p-4 bg-white border-t drop-shadow-lg flex flex-col items-center gap-2">
+          <button
+            data-action="click->pwa-install#installPWA"
+            class=" bg-blue-500 w-full hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Install App
+          </button>
+          <p class="text-gray-400">Download our PWA app</p>
+        </div>
+
       </div>
     </div>
   </div>
 
-  <nav class="flex shrink bottom-navbar z-50 md:hidden">
+  <nav class="hidden pwa:flex shrink bottom-navbar z-50">
     <div class="bg-white w-full flex h-full">
       <div class="w-full h-fit flex items-center justify-center">
         <%= link_to clients_dashboards_path, class: 'rounded-md w-full text-2xl p-4 text-gray-500 flex items-center justify-center' do %>
