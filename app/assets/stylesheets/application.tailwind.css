@@ -138,7 +138,7 @@ ul {
 }
 
 .bottom-navbar {
-    @apply w-full border-t h-[80px] ;
+    @apply w-full border-t h-[50px];
     @apply bg-white;
     @apply pb-10;
 }
