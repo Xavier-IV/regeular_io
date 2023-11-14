@@ -18,7 +18,7 @@ class QrCodesController < ApplicationController
       Turbo::StreamsChannel.broadcast_replace_to([@qr.business, 'qr_codes_review'],
                                                  target: 'codes',
                                                  locals: { qr_code: replace_qr },
-                                                 partial: 'dashboards/qrs/reviews/review')
+                                                 partial: 'clients/dashboards/qrs/reviews/review')
     end
 
     case @qr.type
