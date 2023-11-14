@@ -11,6 +11,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      screens: {
+        pwa: { raw: '(display-mode: standalone)' },
+      },
       transitionProperty: {
         'height': 'height',
       },
