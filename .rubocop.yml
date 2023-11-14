@@ -79,3 +79,7 @@ Layout/LineLength:
 
 Rails/LexicallyScopedActionFilter:
   Enabled: false
+
+Metrics/ClassLength:
+  Exclude:
+    - 'test/**/*.rb'

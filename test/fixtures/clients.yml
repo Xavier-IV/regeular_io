@@ -30,5 +30,13 @@ client_business_basic:
 client_business_new:
   first_name: ClientName5
   email: client5@test.com
+  role: 'owner'
   type: Client
   business: business_new
+
+client_business_approved:
+  first_name: ClientNameApproved
+  email: client_approved@test.com
+  role: 'owner'
+  type: Client
+  business: business_approved

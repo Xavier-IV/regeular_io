@@ -46,6 +46,12 @@ jobs:
       - name: Run tests
         run: bin/rake
 
+      # Using the current repo to perform coverage analysis
+      - uses: joshmfrankel/simplecov-check-action@main
+        with:
+          minimum_suite_coverage: 10
+          minimum_file_coverage: 10
+          github_token: ${{ secrets.GITHUB_TOKEN }}
   lint:
     runs-on: ubuntu-latest
     steps:

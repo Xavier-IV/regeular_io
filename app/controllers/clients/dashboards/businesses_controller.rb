@@ -11,7 +11,7 @@ class Clients::Dashboards::BusinessesController < ApplicationController
   end
 
   def update
-    return render :edit if business_params.blank?
+    return render :edit if business_params.blank? || @business.blank?
 
     if @business.status == 'pending_review'
       return redirect_to edit_clients_dashboards_business_path, notice: 'Please wait for us to complete our review.'
@@ -85,7 +85,7 @@ class Clients::Dashboards::BusinessesController < ApplicationController
     @business = current_client.business
     @states = Common::Country.find_by(name: 'Malaysia').states
     @cities = @states.find_by(name: current_client.business.state).cities || []
-    @approval = @business.business_approval_histories.unresolved.first
+    @approval = @business&.business_approval_histories&.unresolved&.first
   end
 
   def map_times
