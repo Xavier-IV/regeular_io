@@ -14,4 +14,29 @@ client_two:
   first_name: ClientName2
   email: client2@test.com
   type: Client
-# column: value
+
+client_three:
+  first_name: ClientName3
+  email: client3@test.com
+  type: Client
+  business: three
+
+client_business_basic:
+  first_name: ClientName4
+  email: client4@test.com
+  type: Client
+  business: only_name
+
+client_business_new:
+  first_name: ClientName5
+  email: client5@test.com
+  role: 'owner'
+  type: Client
+  business: business_new
+
+client_business_approved:
+  first_name: ClientNameApproved
+  email: client_approved@test.com
+  role: 'owner'
+  type: Client
+  business: business_approved

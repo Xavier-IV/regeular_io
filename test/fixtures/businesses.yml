@@ -19,3 +19,39 @@ two:
   state: Melaka
   postcode: 78000
   country: Malaysia
+
+three:
+  name: Sambal Merah
+  registration_id: SA02319033
+  address_line_1: AddressLine1
+  address_line_2: AddressLine2
+  city: Alor Gajah
+  state: Melaka
+  postcode: 78000
+  country: Malaysia
+
+business_new:
+  name: Sambal Merah
+  registration_id: SA02319034
+  address_line_1: AddressLine1
+  address_line_2: AddressLine2
+  city: Alor Gajah
+  state: Melaka
+  postcode: 78000
+  country: Malaysia
+
+business_approved:
+  name: Sambal Merah Approved
+  registration_id: SA02319035
+  address_line_1: AddressLine1
+  address_line_2: AddressLine2
+  city: Alor Gajah
+  state: Melaka
+  postcode: 78000
+  country: Malaysia
+  status: 'approved'
+  open_at: <%= 5.day.ago.to_time %>
+  close_at: <%= 5.day.ago.to_time + 1.hour %>
+
+only_name:
+  name: Sambal Merah

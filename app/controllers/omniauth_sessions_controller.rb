@@ -23,7 +23,7 @@ class OmniauthSessionsController < ApplicationController
     if role == 'clients' && purpose == 'link' && existing_user_id
       linked_omniauth = User.link_omniauth(request.env['omniauth.auth'], request.env['omniauth.params'], resource)
       flash[:success] = "Successfully linked with #{provider.capitalize}!"
-      return redirect_to dashboards_account_path if linked_omniauth.persisted?
+      return redirect_to clients_dashboards_account_path if linked_omniauth.persisted?
     end
 
     if role == 'customers' && purpose == 'link_review_anonymous' && review_id.present?
@@ -58,8 +58,8 @@ class OmniauthSessionsController < ApplicationController
 
     # https://github.com/heartcombo/devise/wiki/How-To:-%5BRedirect-back-to-current-page-after-sign-in,-sign-out,-sign-up,-update%5D#storelocation-to-the-rescue
     target_path = stored_location_for(resource_or_scope)
-    target_path = dashboards_path if current_domain == Rails.application.credentials.dig(:host, :business)
-    target_path = root_path if current_domain == Rails.application.credentials.dig(:host, :review)
+    target_path = clients_dashboards_path if current_domain == Rails.application.credentials.dig(:host, :business)
+    target_path = customer_root_path if current_domain == Rails.application.credentials.dig(:host, :review)
     target_path = request.env['omniauth.params']['redirect_to'] if request.env['omniauth.params']['redirect_to']
 
     target_path

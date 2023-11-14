@@ -14,14 +14,14 @@ class Clients::InvitationsController < Devise::InvitationsController
   def create
     @team_count = current_client.business.clients.count
     if @team_count == 2
-      return redirect_to dashboards_teams_path, notice: "You have reached your quota (#{@team_count}/2)"
+      return redirect_to clients_dashboards_teams_path, notice: "You have reached your quota (#{@team_count}/2)"
     end
 
     super
   end
 
   def after_invite_path_for(_)
-    dashboards_teams_path
+    clients_dashboards_teams_path
   end
 
   private

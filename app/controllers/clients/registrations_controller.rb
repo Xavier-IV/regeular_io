@@ -16,6 +16,6 @@ class Clients::RegistrationsController < Devise::RegistrationsController
   private
 
   def after_sign_in_path_for(_resource)
-    dashboards_path
+    clients_dashboards_path
   end
 end

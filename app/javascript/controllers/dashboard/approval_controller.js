@@ -8,9 +8,9 @@ export default class extends Controller {
   }
 
   updateWordCount(event) {
-    this.wordCountTarget.textContent = 100 - event.target.value?.length
+    this.wordCountTarget.textContent = 50 - event.target.value?.length
 
-    if (event.target.value?.length >= 100) {
+    if (event.target.value?.length >= 50) {
       this.submitButtonTarget.disabled = false
       this.submitButtonTarget.classList.remove('bg-purple-100')
       this.submitButtonTarget.classList.add('bg-purple-500')

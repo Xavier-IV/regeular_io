@@ -20,7 +20,7 @@ class Clients::ConfirmationsController < Devise::ConfirmationsController
   end
 
   def after_confirmation_path_for(_, _)
-    dashboards_onboarding_path(id: :onboard_company_name)
+    clients_dashboards_onboarding_path(id: :onboard_company_name)
   end
 
   private

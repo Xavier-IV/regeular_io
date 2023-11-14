@@ -12,6 +12,7 @@ on:
     branches: [ "master" ]
 jobs:
   test:
+    permissions: write-all
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -46,6 +47,12 @@ jobs:
       - name: Run tests
         run: bin/rake
 
+      # Using the current repo to perform coverage analysis
+      - uses: joshmfrankel/simplecov-check-action@main
+        with:
+          minimum_suite_coverage: 60
+          minimum_file_coverage: 60
+          github_token: ${{ secrets.GITHUB_TOKEN }}
   lint:
     runs-on: ubuntu-latest
     steps:

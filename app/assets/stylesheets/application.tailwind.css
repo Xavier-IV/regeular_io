@@ -60,13 +60,9 @@
     @apply bg-red-100 px-4 py-2 rounded-sm;
 }
 
-#auths .actions {
-    @apply bg-purple-600 text-white w-full md:w-fit text-center flex items-center justify-center rounded-sm px-4 py-3 my-4 cursor-pointer;
-}
-
-#auths .actions,
 #auths .actions input {
     @apply cursor-pointer;
+    @apply bg-purple-600 text-white w-full md:w-fit text-center flex items-center justify-center rounded-sm px-4 py-3 my-4 cursor-pointer;
 }
 
 #auths input[type="text"],

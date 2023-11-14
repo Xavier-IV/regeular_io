@@ -19,11 +19,8 @@ class AuthCustomerFlowsTest < ActionDispatch::IntegrationTest
   end
 
   test 'can see the listing page' do
-    get root_url
-    assert_response :redirect
-    assert_redirected_to customer_root_path(most: 'regular')
-
-    follow_redirect!
+    get customer_root_url
+    assert_response :success
 
     assert_select 'h1', 'Regülar'
   end
@@ -37,15 +34,15 @@ class AuthCustomerFlowsTest < ActionDispatch::IntegrationTest
     post customer_session_path,
          params: { customer: { email: 'user@company.com', password: '123456' } }
     assert_response :redirect
-    assert_redirected_to root_path
+    assert_redirected_to customer_root_path
   end
 
   test 'retain redirect after sign in' do
     delete destroy_customer_session_path
     assert_response :redirect
-    assert_redirected_to root_path
+    assert_redirected_to customer_root_path
 
-    get dashboards_customers_url
+    get clients_dashboards_customers_url
     assert_response :redirect
     follow_redirect!
     assert_select 'h2', 'Log in'
@@ -53,8 +50,7 @@ class AuthCustomerFlowsTest < ActionDispatch::IntegrationTest
     post customer_session_url,
          params: { customer: { email: 'user@company.com', password: '123456' } }
     assert_response :redirect
+    assert_redirected_to customer_root_url
     follow_redirect!
-
-    assert_redirected_to customer_root_url(most: 'regular')
   end
 end

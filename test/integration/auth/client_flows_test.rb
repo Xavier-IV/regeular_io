@@ -34,7 +34,7 @@ class AuthClientFlowsTest < ActionDispatch::IntegrationTest
   end
 
   test 'redirect to onboarding if no business' do
-    get dashboards_path
+    get clients_dashboards_path
     assert_response :redirect
     follow_redirect!
 
@@ -50,7 +50,7 @@ class AuthClientFlowsTest < ActionDispatch::IntegrationTest
     )
     client.save
 
-    get dashboards_path
+    get clients_dashboards_path
     assert_response :success
 
     assert_select 'h1', 'User Company'
@@ -59,21 +59,21 @@ class AuthClientFlowsTest < ActionDispatch::IntegrationTest
   test 'can sign up and onboard' do
     assert_response :redirect
 
-    get dashboards_path
+    get clients_dashboards_path
     assert_response :redirect
     follow_redirect!
 
     assert_select 'h1', 'Welcome Onboard!'
     assert_select 'p', 'Let’s start by adding your business informations!'
 
-    post dashboards_onboarding_path(id: 'onboard_company_name'),
+    post clients_dashboards_onboarding_path(id: 'onboard_company_name'),
          params: { business: { name: 'Test' }, id: 'onboard_company_name' }
     assert_response :redirect
     follow_redirect!
 
     assert_select 'h1', 'Business Location'
 
-    patch dashboards_onboarding_path(id: 'onboard_company_location'),
+    patch clients_dashboards_onboarding_path(id: 'onboard_company_location'),
           params: { business: { state: 'Melaka', city: 'Alor Gajah' }, id: 'onboard_company_location' }
     assert_response :redirect
     follow_redirect!
@@ -81,7 +81,7 @@ class AuthClientFlowsTest < ActionDispatch::IntegrationTest
     assert_select 'h1', 'Congratulations! 🎉'
     assert_select 'p', 'Let\'s see your dashboard.'
 
-    get dashboards_path
+    get clients_dashboards_path
     assert_response :success
     assert_select 'p', 'Ready to get listed? Let\'s get started!'
   end

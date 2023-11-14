@@ -15,7 +15,8 @@ constraints host: Rails.application.credentials.dig(:host, :admin) do
     invitations: 'admins/invitations'
   }
 
-  resource :admins
+  root 'admins/dashboards#index'
+
   namespace :admins do
     resource :dashboard
     namespace :dashboards do

@@ -7,7 +7,7 @@ class Admins::InvitationsController < Devise::InvitationsController
   add_flash_types :success
 
   def after_invite_path_for(_)
-    dashboards_teams_path
+    admins_dashboards_teams_path
   end
 
   private
