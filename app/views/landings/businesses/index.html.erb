@@ -21,22 +21,27 @@ backdrop-filter: blur(3px);
       <% end %>
     </div>
   </div>
-  <div class="absolute inset-0 flex lg:max-w-6xl 2xl:max-w-7xl mx-auto gap-10 flex-col items-center justify-center py-20 px-10 md:px-20">
-    <div class="flex flex-col gap-2 w-full mt-16 md:mt-20">
-      <h1 class="text-5xl md:text-6xl font-bold w-fit md:bg-white">Regülar<span class="font-light"> for business</span>
-      </h1>
-      <div class="h-4"></div>
-      <p class="text-gray-600 bg-white w-fit pl-0.5 text-xl">Better experience.<br>For business. For regular customers.
-      </p>
+  <div class="absolute h-fit inset-0 flex lg:max-w-6xl 2xl:max-w-7xl mx-auto gap-10 flex items-center justify-center py-20 px-10 md:px-20">
+    <div class="flex flex-col gap-4 w-full h-fit mb-20">
+      <div class="flex flex-col gap-2 w-fit mb-1">
+        <h1 class="text-5xl md:text-6xl font-bold w-fit md:bg-white">Regülar<span class="font-light"> for business</span>
+        </h1>
+        <div class="h-4"></div>
+        <p class="text-gray-600 bg-white w-fit pl-0.5 text-xl">Better experience.<br>For business. For regular customers.
+        </p>
+      </div>
+      <div class="flex flex-col md:flex-row gap-2 items-start justify-start w-full">
+        <%= link_to 'Grow Your Regular Customers', new_client_registration_path, class: 'px-3 py-3 md:px-5 md:py-3 border-none bg-purple-600 text-white rounded-md' %>
+        <%= link_to 'See how it works', "#learn-more", class: 'px-3 py-3 md:px-5 md:py-3 border border-purple-300 bg-white text-gray-800 rounded-md' %>
+      </div>
     </div>
-    <div class="flex flex-col md:flex-row gap-2 items-start justify-start w-full">
-      <%= link_to 'Grow Your Regular Customers', new_client_registration_path, class: 'px-3 py-3 md:px-5 md:py-3 border-none bg-purple-600 text-white rounded-md' %>
-      <%= link_to 'See how it works', "#learn-more", class: 'px-3 py-3 md:px-5 md:py-3 border border-purple-300 bg-white text-gray-800 rounded-md' %>
+    <div class="w-fit lg:flex items-center justify-center mt-10 hidden mr-20">
+      <img src='/assets/previews/business_dashboard.png' class="w-full" alt="">
     </div>
   </div>
 </div>
 
-<div class="px-10 md:px-20 lg:max-w-6xl 2xl:max-w-7xl mx-auto">
+<div class="px-10 md:px-20 lg:max-w-6xl 2xl:max-w-7xl mx-auto lg:mt-40">
 
   <div class="h-10"></div>
 
@@ -45,7 +50,10 @@ backdrop-filter: blur(3px);
     class="flex flex-col">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div class="w-full flex items-center justify-center my-10 -- row-start-1 --md md:row-start-1 md:col-start-2">
-        <%= image_tag 'undraw/chef.svg', class: 'w-5/6 md:w-4/6 md:w-full h-full p-2', alt: 'QR Code' %>
+        <%= image_tag 'undraw/chef.svg', class: 'w-5/6 md:w-4/6 hidden lg:block md:w-full h-full p-2', alt: 'QR Code' %>
+        <div class="w-fit h-[320px] md:h-[400px] lg:hidden">
+          <img src='/assets/previews/business_dashboard.png' class="h-full" alt="">
+        </div>
       </div>
 
       <div id="learn-more" class="flex flex-col gap-2 text-lg pl-1 justify-center -- row-start-2 my-4 --md md:row-start-1 md:col-start-1">

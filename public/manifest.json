@@ -4,9 +4,10 @@
   "id": "/?source=pwa",
   "start_url": "/?source=pwa",
   "scope": "/",
-  "display": "standalone",
+  "display": "fullscreen",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
+  "capture_links": "existing-client-navigate",
   "icons": [
     {
       "src": "/assets/logos/regeular.png",
