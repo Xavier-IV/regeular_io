@@ -35,6 +35,8 @@
   <meta name="twitter:description" content="Track your regular customer, gives them reward and grow your business!">
   <meta name="twitter:image" content="https://business.regeular.io/assets/previews/business_og.png?v=1">
 
+  <%= render 'shared/analytics/clients' %>
+
   <%= favicon_link_tag 'favicon_business.ico' %>
 
   <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet"/>
@@ -44,8 +46,6 @@
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
 
   <%= javascript_importmap_tags %>
-
-  <%= render 'shared/analytics/clients' %>
 </head>
 
 <body

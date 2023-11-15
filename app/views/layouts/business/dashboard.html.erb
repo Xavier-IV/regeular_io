@@ -14,6 +14,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <meta name="theme-color" content="#FFFFFF">
 
+  <%= render 'shared/analytics/clients' %>
+
   <%= favicon_link_tag 'favicon_business.ico' %>
 
   <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet"/>
@@ -23,8 +25,6 @@
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
 
   <%= javascript_importmap_tags %>
-
-  <%= render 'shared/analytics/clients' %>
 </head>
 
 <body

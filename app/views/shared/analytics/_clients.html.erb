@@ -73,17 +73,3 @@
   <script type="text/javascript" id="hs-script-loader" async defer src="//js-eu1.hs-scripts.com/143578006.js"></script>
   <!-- End of HubSpot Embed Code -->
 <% end %>
-
-<script>
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/business-service-worker.js')
-              .then((registration) => {
-                  console.log('Service Worker registered with scope:', registration.scope);
-              })
-              .catch((error) => {
-                  console.error('Service Worker registration failed:', error);
-              });
-        });
-    }
-</script>
