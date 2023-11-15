@@ -1,4 +1,4 @@
-<div class="flex flex-col gap-4 py-10 md:py-16 overflow-scroll no-scrollbar">
+<div class="flex flex-col gap-4 py-10 md:py-16 h-fit pb-20">
   <div class="flex flex-col justify-center items-center">
     <% if customer_signed_in? %>
       <p>Welcome, <%= current_customer.first_name %>!</p>
@@ -50,7 +50,7 @@
     <div class="flex flex-col justify-center items-center gap-4 px-10">
       <div class="flex flex-col items-center">
         <div class="flex gap-1 items-center">
-          <p class="text-lg"><strong>Regülar Customer Benefit</strong></p>
+          <p class="text-lg text-center"><strong>Regülar Customer Benefit</strong></p>
           <% unless customer_signed_in? %>
             <i class="lni lni-lock-alt"></i>
           <% end %>
