@@ -13,7 +13,7 @@
     </button>
     <%= render(ModalComponent.new(title: "Next Level Rewards")) do |component| %>
       <%- @business.business_rewards.each do |reward| %>
-        <div class="p-4 bg-sky-500 text-white rounded-sm">
+        <div class="m-4 p-4 bg-sky-500 text-white rounded-sm">
           <h4 class="font-semibold"><%= reward_name(reward) %> off</h4>
           <p><small class="text-sky-200">With minimum order of <%= number_to_currency(reward.min_order_amount, locale: :ms) %></small></p>
           <p><small class="text-sky-200">Capped to <%= number_to_currency(reward.capped_amount, locale: :ms) %></small></p>
