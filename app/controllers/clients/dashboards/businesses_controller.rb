@@ -53,6 +53,9 @@ class Clients::Dashboards::BusinessesController < ApplicationController
       redirect_to clients_dashboards_path, notice: 'Record updated.'
     else
       flash[:alert] = @business.errors.full_messages.join('. ')
+      Rails.logger.debug @business.errors.full_messages.join('. ')
+      Rails.logger.debug @business.open_at
+      Rails.logger.debug @business.close_at
       render :edit, status: :unprocessable_entity
     end
   end

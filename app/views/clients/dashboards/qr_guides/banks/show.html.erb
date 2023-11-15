@@ -1,0 +1,103 @@
+<% content_for :back_to do %>
+  <%= link_to clients_dashboards_qrs_path do %>
+    <i class="lni lni-arrow-left text-2xl"></i>
+  <% end %>
+  <div class="col-span-3 flex items-center justify-center">QR Bank Guide</div>
+<% end %>
+
+<div class="h-fit w-full mb-20">
+  <div class="w-full p-4">
+    <div class="flex gap-4 mx-auto w-full items-center justify-center">
+      <div class="flex flex-col gap-2 items-center justify-center">
+        <div class="text-sm w-6 h-6 bg-purple-500 rounded-full text-white flex items-center justify-center">
+          1
+        </div>
+      </div>
+      <div class="flex items-center justify-center">
+        <div class="w-16 h-1 border-t"></div>
+      </div>
+      <div class="flex flex-col gap-2 items-center justify-center">
+        <div class="text-sm w-6 h-6 bg-purple-500 rounded-full text-white flex items-center justify-center">
+          2
+        </div>
+      </div>
+      <div class="flex items-center justify-center">
+        <div class="w-16 h-1 border-t"></div>
+      </div>
+      <div class="flex flex-col gap-2 items-center justify-center">
+        <div class="text-sm w-6 h-6 bg-purple-500 rounded-full text-white flex items-center justify-center">
+          3
+        </div>
+      </div>
+    </div>
+    <div class="grid grid-cols-3 gap-2 mx-auto mt-2 text-gray-400 text-sm">
+      <div class="flex flex-col gap-2 items-center justify-start text-center">
+        <p>Scan</p>
+      </div>
+      <div class="flex flex-col gap-2 items-center justify-start text-center">
+        <p>Copy<br/>Account</p>
+      </div>
+      <div class="flex flex-col gap-2 items-center justify-start text-center">
+        <p>Transfer!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="w-fit mt-10 px-10 w-full text-gray-80 text-sm">
+    <div class="border border-green-200 rounded-md p-4 w-full flex flex-col gap-4">
+      <div class="flex gap-4">
+        <div class="w-6 h-6 bg-white border border-purple-400 flex-none rounded-full mt-1">
+          <div class="w-full h-full text-purple-600 flex items-center justify-center text-sm">
+            1
+          </div>
+        </div>
+        <p>User scan your QR code to see your bank information.</p>
+      </div>
+
+      <div class="flex gap-4">
+        <div class="w-6 h-6 bg-white border border-purple-400 flex-none rounded-full mt-1">
+          <div class="w-full h-full text-purple-600 flex items-center justify-center text-sm">
+            2
+          </div>
+        </div>
+        <p>In their screen, they can easily verify your bank and copy account number.</p>
+      </div>
+
+      <div class="flex gap-4">
+        <div class="w-6 h-6 bg-white border border-purple-400 flex-none rounded-full mt-1">
+          <div class="w-full h-full text-purple-600 flex items-center justify-center text-sm">
+            3
+          </div>
+        </div>
+        <p>All of this are FREE! No QR code charges.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="mx-4 pl-1 my-10">
+    <h1 class="text-lg text-gray-700 font-semibold">What is this?</h1>
+    <div class="text-gray-500 mt-4 flex flex-col gap-4">
+      <p>We provide a seamless way for bank transfer.</p>
+
+      <p>Unlike other QR solution that charges per transaction, this is free as it is an
+        easy implementation and acts like a regular bank transfer.</p>
+
+      <p>Just like how we would transfer a money to our relatives, we just need account name, bank name
+        and their account number.</p>
+
+      <p>By using this, you agree to the disclaimer below.</p>
+    </div>
+
+    <h1 class="text-lg text-gray-700 font-semibold mt-16">Disclaimer</h1>
+    <div class="text-gray-500 mt-4 flex flex-col gap-4">
+      <p>We will not use your account information without your consent.</p>
+      <p>You are free to remove your account information anytime.</p>
+      <p>We take no responsibility on wrongly input information or if you did not check
+        the account information correctly.</p>
+    </div>
+
+    <div class="text-gray-500 mt-4 flex flex-col gap-4">
+      <p>Otherwise, this is an easy to use tools out of the box.</p>
+    </div>
+  </div>
+</div>

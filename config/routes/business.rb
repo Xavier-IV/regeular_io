@@ -29,6 +29,11 @@ constraints host: Rails.application.credentials.dig(:host, :business) do
         resources :reviews
       end
 
+      namespace :qr_guides do
+        resource :review
+        resource :bank
+      end
+
       resources :customers
       namespace :customers do
         scope ':id' do

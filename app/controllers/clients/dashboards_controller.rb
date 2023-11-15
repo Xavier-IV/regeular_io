@@ -31,8 +31,8 @@ class Clients::DashboardsController < ApplicationController
 
     return unless @business.present? && @business.reviews.present?
 
-    @regulars = @business.customer_progresses.where('level > 1')
-    @regulars_total = @business.customer_progresses.where('level > 1').count
+    @regulars = @business.customer_progresses.where('level > 0')
+    @regulars_total = @business.customer_progresses.where('level > 0').count
 
     @reviews = current_client.business.reviews.count
   end

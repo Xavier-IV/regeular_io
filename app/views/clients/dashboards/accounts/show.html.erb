@@ -1,4 +1,11 @@
-<div class="flex flex-col gap-4 my-20">
+<div class="w-full p-4 hidden pwa:grid pwa:grid-cols-5">
+  <%= link_to clients_dashboards_setting_path do %>
+    <i class="lni lni-arrow-left text-2xl"></i>
+  <% end %>
+  <div class="col-span-3 flex items-center justify-center">My Account</div>
+</div>
+
+<div class="flex flex-col gap-4 my-10 md:my-20">
   <div class="w-full h-fit grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto px-4 md:px-0">
     <%= form_with(model: @user, url: clients_dashboards_account_path, local: true, method: :put,
                   data: { controller: 'dashboard--file-upload' },
