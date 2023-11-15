@@ -6,7 +6,7 @@ class Clients::Dashboards::Qrs::BanksController < ApplicationController
 
   def show
     @bank_info = current_client.business&.business_bank
-
+    @business = current_client.business
     unless @bank_info.present? && current_client.business.qr_code_bank.present?
       return redirect_to new_clients_dashboards_qrs_bank_path
     end
@@ -63,7 +63,7 @@ class Clients::Dashboards::Qrs::BanksController < ApplicationController
     @bank_info = current_client.business.business_bank
 
     if @bank_info.update(bank_info_params)
-      redirect_to clients_dashboards_qrs_bank_path, notice: 'Bank updated.'
+      redirect_to clients_dashboards_qrs_path, notice: 'Bank updated.'
     else
       flash[:alert] = @bank_info.errors.full_messages.join('. ')
       render :edit, status: :unprocessable_entity

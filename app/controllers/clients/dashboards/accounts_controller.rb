@@ -23,7 +23,7 @@ class Clients::Dashboards::AccountsController < ApplicationController
     current_client.avatar.attach(asset_params[:avatar]) if asset_params[:avatar]
 
     if current_client.update(user_params)
-      redirect_to clients_dashboards_account_path, notice: 'Record updated.'
+      redirect_to clients_dashboards_setting_path, notice: 'Record updated.'
     else
       render :show, status: :unprocessable_entity
     end

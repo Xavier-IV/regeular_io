@@ -72,8 +72,13 @@
             </div>
           </div>
         </div>
-        <div class="w-full h-full overflow-y-scroll no-scrollbar">
-          <%= yield %>
+        <div class="w-full h-full no-scrollbar flex flex-col">
+          <div class="shrink w-full p-4 hidden pwa:grid pwa:grid-cols-5">
+            <%= yield :back_to %>
+          </div>
+          <div class="w-full h-full overflow-y-scroll">
+            <%= yield %>
+          </div>
         </div>
         <div
           data-controller="pwa"

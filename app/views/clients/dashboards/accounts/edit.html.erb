@@ -1,8 +1,18 @@
-<div id="account_edit" class="flex flex-col gap-4 my-20">
-  <div class="w-full h-fit grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto px-4 md:px-0">
+<div class="w-full p-4 hidden pwa:grid pwa:grid-cols-5">
+  <%= link_to clients_dashboards_setting_path do %>
+    <i class="lni lni-arrow-left text-2xl"></i>
+  <% end %>
+  <div class="col-span-3 flex items-center justify-center">Update Account</div>
+</div>
+
+<div id="professional_edit" class="flex flex-col gap-4 md:my-20">
+  <div class="mx-4 md:mx-0 mt-10">
+    <h1 class="text-lg text-gray-700 font-semibold">Profile Picture</h1>
+    <div class="text-gray-500 flex flex-col gap-4">
+    </div>
     <%= form_with(model: @user, url: clients_dashboards_account_path, local: true, method: :put,
                   data: { controller: 'dashboard--file-upload' },
-                  class: ' h-[160px] md:h-[200px] flex-none order-4 md:order-1 md:col-start-1 row-start-1'
+                  class: ' h-[160px] md:h-[200px] flex-none mt-4 w-40'
         ) do |form| %>
       <% if @user.avatar.present? && @user.avatar.attached? %>
         <label
@@ -29,7 +39,8 @@
                 class="hidden rounded bg-white px-3 py-1 hover:bg-purple-500 hover:text-white">
                 Upload
               </button>
-              <p data-dashboard--file-upload-target="logoCtaHoverMessage" class="text-white hidden md:block">Click to update image</p>
+              <p data-dashboard--file-upload-target="logoCtaHoverMessage" class="text-white hidden md:block">Click to
+                update image</p>
               <%= form.file_field :avatar, class: 'hidden', data: {
                 action: 'change->dashboard--file-upload#changeFile',
                 'dashboard--file-upload-target': 'logoFile',
@@ -70,10 +81,13 @@
         </label>
       <% end %>
     <% end %>
+  </div>
 
+  <div class="mx-4 md:mx-0 mt-10">
+    <h1 class="text-lg text-gray-700 font-semibold">Account Detail</h1>
     <div
       data-controller="dashboard--detail"
-      class="order-1 md:order-2 w-full col-span-2 rounded-2xl h-[200px] p-6 flex flex-col justify-start gap-2 bg-gradient-to-l from-[#4CA2C7] to-[#5570D0] rounded-[20px] shadow text-white">
+      class="mt-4 w-full rounded-2xl h-fit  p-6 flex flex-col justify-start gap-2 bg-gray-200 rounded-md shadow text-white">
       <div class="flex flex-col">
         <%= form_with model: @user, url: clients_dashboards_account_path, class: 'flex flex-col justify-between space-between items-end h-full gap-4' do |f| %>
           <div class="grid grid-cols-1 md:grid-cols-4 gap-2 w-full items-center">
@@ -105,6 +119,40 @@
           </div>
         <% end %>
       </div>
+    </div>
+  </div>
+
+
+  <div class="mx-4 md:mx-0 mt-10">
+    <div
+      class="text-gray-700">
+      <div class="flex justify-between items-start">
+        <div class="flex flex-col justify-between items-start">
+          <h1 class="text-lg text-gray-700 font-semibold">Linked Social Account</h1>
+          <div class="text-gray-500 flex flex-col gap-4">
+            <p>You can link your social account for easier login.</p>
+          </div>
+          <div class="flex flex-col">
+            <div class="flex gap-2 items-center justify-center pt-10">
+              <% [:google_oauth2, :twitter].each do |provider| %>
+                <%- if current_client.omniauth_accounts.include?(provider.to_s) %>
+                  <button class="border bg-white border-gray-300 bg-white text-black px-4 py-3 flex items-center justify-between rounded-sm gap-4 fill-blue-400">
+                    <%= image_tag "logos/#{omniauth_logo(provider)}", class: 'border-none drops-shadow-none shadow-none w-4 fill-blue-400', alt: 'Your Image' %>
+                    <p><%= "#{omniauth_name(provider)}" %></p>
+                  </button>
+                <% else %>
+                  <%= button_to "/auth/#{provider}?role=clients&purpose=link&user_id=#{current_client.id}", method: :post, data: { turbo: false },
+                                class: "border bg-white border-gray-300 opacity-50 text-black px-4 py-3 flex items-center justify-between rounded-sm gap-4 fill-blue-400" do %>
+                    <%= image_tag "logos/#{omniauth_logo(provider)}", class: 'border-none drops-shadow-none shadow-none w-4 fill-blue-400', alt: 'Your Image' %>
+                    <p><%= "#{omniauth_name(provider)}" %></p>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
   <div class="h-20"></div>

@@ -50,8 +50,8 @@ business_approved:
   postcode: 78000
   country: Malaysia
   status: 'approved'
-  open_at: <%= 5.day.ago.to_time %>
-  close_at: <%= 5.day.ago.to_time + 1.hour %>
+  open_at: <%= 5.days.ago.beginning_of_day + 9.hours %>
+  close_at: <%= 5.days.ago.beginning_of_day + 10.hours %>
 
 only_name:
   name: Sambal Merah

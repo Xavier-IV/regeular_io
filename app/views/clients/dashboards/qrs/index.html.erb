@@ -1,37 +1,65 @@
 <div id="bank_edit" class="flex flex-col gap-4 my-10 md:my-20">
+  <div class="mx-4 pl-1">
+    <h1 class="text-lg text-gray-700">QR Code</h1>
+    <p class="text-gray-400 text-sm">Show this code to your customers.</p>
+  </div>
   <div class="w-full h-fit grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto px-4 md:px-0">
     <div class="flex flex-col gap-3">
-      <div class="cursor-pointer order-2 overflow-hidden md:order-4 w-full h-[140px] md:h-[200px] bg-gradient-to-l from-violet-500 to-indigo-500 rounded-2xl shadow flex flex-col items-center justify-center text-white gap-4">
-        <div class="flex items-center justify-center grow pt-4">
-          <%= image_tag 'icons/icon_bubble.svg', class: 'w-4/6', alt: 'Empty rewards' %>
+      <%= link_to clients_dashboards_qrs_reviews_path, class: 'cursor-pointer select-none order-2 overflow-hidden md:order-4 w-full h-[140px] md:h-[200px] bg-gradient-to-l from-violet-500 to-indigo-500 rounded-2xl shadow flex flex-col items-center justify-center text-white gap-4' do %>
+        <div class="flex items-center justify-center grow pt-4 select-none">
+          <%= image_tag 'icons/icon_bubble.svg', class: 'w-4/6 select-none', alt: 'Empty rewards' %>
         </div>
         <div class="divide-x flex w-full divide-green-400">
-          <%= link_to clients_dashboards_qrs_reviews_path, class: 'flex bg-purple-400 w-full p-3 items-center justify-center' do %>
-            <p class="md:text-lg hidden md:block">Scan</p>
-            <i class="lni lni-search-alt md:hidden"></i>
-          <% end %>
+          <div class="flex bg-purple-400 w-full p-3 items-center justify-center">
+            <p class="md:text-lg">Review</p>
+          </div>
         </div>
-      </div>
+      <% end %>
     </div>
 
     <div class="flex flex-col gap-3">
-      <div class="cursor-pointer order-2 overflow-hidden md:order-4 w-full h-[140px] md:h-[200px] bg-gradient-to-l from-violet-500 to-indigo-500 rounded-2xl shadow flex flex-col items-center justify-center text-white gap-4">
+      <%= link_to clients_dashboards_qrs_bank_path, class: 'cursor-pointer order-2 overflow-hidden md:order-4 w-full h-[140px] md:h-[200px] bg-gradient-to-l from-violet-500 to-indigo-500 rounded-2xl shadow flex flex-col items-center justify-center text-white gap-4' do %>
         <div class="flex items-center justify-center grow">
           <%= image_tag 'icons/icon_bank.svg', class: 'h-16', alt: 'Empty rewards' %>
         </div>
         <div class="divide-x flex w-full divide-purple-300 bg-purple-400">
-          <%= link_to edit_clients_dashboards_qrs_bank_path, class: 'flex w-full p-3 items-center justify-center' do %>
-            <p class="md:text-lg hidden md:block">Edit</p>
-            <i class="lni lni-pencil md:hidden"></i>
-          <% end %>
-          <%- if current_client.business.business_bank.present? %>
-            <%= link_to clients_dashboards_qrs_bank_path, class: 'flex w-full p-3 items-center justify-center' do %>
-              <p class="md:text-lg hidden md:block">Scan</p>
-              <i class="lni lni-search-alt md:hidden"></i>
-            <% end %>
-          <% end %>
+          <div class="flex bg-purple-400 w-full p-3 items-center justify-center">
+            <p class="md:text-lg">Bank</p>
+          </div>
         </div>
-      </div>
+      <% end %>
     </div>
+  </div>
+
+  <div class="mx-4 md:mx-0 pl-1 mt-10">
+    <div class="flex gap-2 items-center">
+      <i class="lni lni-graduation text-gray-400"></i>
+      <h1 class="text-lg text-gray-700">Guide</h1>
+    </div>
+    <p class="text-gray-400 text-sm">Understand how our QR Code works.</p>
+  </div>
+  <div class="mx-4 md:mx-0 flex flex-col gap-2">
+    <%= link_to clients_dashboards_qr_guides_review_path,
+                class: 'flex w-full p-3 items-center justify-center bg-gray-200 text-gray-700 rounded-md' do %>
+      <p class="md:text-lg">QR Review</p>
+    <% end %>
+    <%= link_to clients_dashboards_qr_guides_bank_path,
+                class: 'flex w-full p-3 items-center justify-center bg-gray-200 text-gray-700 rounded-md' do %>
+      <p class="md:text-lg">QR Bank Transfer</p>
+    <% end %>
+  </div>
+
+  <div class="mx-4 md:mx-0 pl-1 mt-10">
+    <div class="flex gap-2 items-center">
+      <i class="lni lni-cog text-gray-400"></i>
+      <h1 class="text-lg text-gray-700">Manage</h1>
+    </div>
+    <p class="text-gray-400 text-sm">You can manage your QR Code below.</p>
+  </div>
+  <div class="mx-4 md:mx-0">
+    <%= link_to edit_clients_dashboards_qrs_bank_path,
+                class: 'flex w-full p-3 items-center justify-center bg-gray-200 text-gray-700 rounded-md' do %>
+      <p class="md:text-lg">Edit Bank</p>
+    <% end %>
   </div>
 </div>

@@ -35,6 +35,23 @@
     @apply opacity-40;
 }
 
+#professional_edit input[type="text"],
+#professional_edit input[type="email"],
+#professional_edit input[type="password"],
+#professional_edit input[type="number"],
+#professional_edit select {
+    @apply w-full border rounded-sm border-gray-300 px-4 py-2;
+    @apply bg-white;
+    @apply text-gray-800 placeholder-gray-300;
+    @apply focus:ring-purple-400;
+
+
+}
+
+#professional_edit input:disabled {
+    @apply opacity-40;
+}
+
 #bank_edit input[type="text"],
 #bank_edit input[type="email"],
 #bank_edit input[type="password"],
