@@ -28,7 +28,8 @@ class QrCodesController < ApplicationController
       redirect_to new_qr_codes_review_path(reference: query_params[:reference])
     when 'QrCode::Reward'
       redirect_to(edit_clients_dashboards_reward_consume_url(reference: query_params[:reference],
-                                                     host: Rails.application.credentials.dig(:host, :business)),
+                                                             host: Rails.application.credentials.dig(:host,
+                                                                                                     :business)),
                   allow_other_host: true)
     end
   end
