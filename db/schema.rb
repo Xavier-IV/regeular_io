@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_10_092644) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_17_155621) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -273,8 +273,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_10_092644) do
     t.datetime "invitation_sent_at"
     t.datetime "invitation_accepted_at"
     t.integer "invitation_limit"
-    t.integer "invited_by_id"
     t.string "invited_by_type"
+    t.uuid "invited_by_id"
     t.index ["business_id"], name: "index_users_on_business_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email", "type"], name: "index_users_on_email_and_type", unique: true

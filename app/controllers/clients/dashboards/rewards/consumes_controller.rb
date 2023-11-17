@@ -3,6 +3,7 @@
 class Clients::Dashboards::Rewards::ConsumesController < ApplicationController
   include Dashboard::Layout
   include Dashboard::Auth
+  include Dashboard::Verified
 
   def edit
     @qr = QrCode::Reward.find(query_params[:reference])

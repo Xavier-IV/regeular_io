@@ -10,8 +10,15 @@ class Clients::Dashboards::QrsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to new_client_session_path
   end
 
-  test 'should get index' do
+  test 'should not get index' do
     sign_in clients(:client_three)
+    get clients_dashboards_qrs_url
+
+    assert_response :redirect
+  end
+
+  test 'should get index' do
+    sign_in clients(:client_business_approved)
     get clients_dashboards_qrs_url
 
     assert_response :success

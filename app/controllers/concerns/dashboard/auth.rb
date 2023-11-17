@@ -16,5 +16,9 @@ module Dashboard
     def pundit_user
       current_client
     end
+
+    def account_verified
+      current_client.confirmed_at.present?
+    end
   end
 end

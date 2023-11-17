@@ -37,6 +37,7 @@ client_business_new:
 client_business_approved:
   first_name: ClientNameApproved
   email: client_approved@test.com
+  confirmed_at: <%= 5.days.ago.beginning_of_day + 9.hours %>
   role: 'owner'
   type: Client
   business: business_approved

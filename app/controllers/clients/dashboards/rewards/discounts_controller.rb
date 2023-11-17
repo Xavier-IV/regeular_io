@@ -3,6 +3,7 @@
 class Clients::Dashboards::Rewards::DiscountsController < ApplicationController
   include Dashboard::Layout
   include Dashboard::Auth
+  include Dashboard::Verified
 
   def new
     @reward = Business::Reward.new(kind: 'Discount')

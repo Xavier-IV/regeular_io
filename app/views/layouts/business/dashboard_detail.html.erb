@@ -64,7 +64,6 @@
                 class="hidden absolute w-fit h-fit py-2 bg-white z-20 border top-0 right-0 mt-14 rounded-md flex flex-col text-center">
                 <%= link_to "Account", clients_dashboards_account_path, class: 'p-4 py-2 hover:bg-gray-200 px-10 w-full' %>
                 <%= link_to "Team", clients_dashboards_teams_path, class: 'p-4 py-2 hover:bg-gray-200 px-10 w-full' %>
-                <%= link_to "Listing", customer_root_url(host: Rails.application.credentials.dig(:host, :review)), class: 'p-4 py-2 hover:bg-gray-200 px-10 w-full', target: '_blank' %>
                 <hr class="my-2">
                 <%= button_to "Logout", destroy_client_session_path, method: :delete, class: 'p-4 py-2 hover:bg-gray-200 px-10 w-full' %>
 
