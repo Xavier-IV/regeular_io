@@ -3,6 +3,7 @@
 class Clients::Dashboards::Qrs::BanksController < ApplicationController
   include Dashboard::Layout
   include Dashboard::Auth
+  include Dashboard::Verified
 
   def show
     @bank_info = current_client.business&.business_bank

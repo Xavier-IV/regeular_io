@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class Clients::DashboardsController < ApplicationController
-  include Pundit::Authorization
+  include Dashboard::Layout
+  include Dashboard::Auth
 
   before_action :authenticate_client!
-  layout 'business/dashboard'
 
   def index
     redirect_to clients_dashboards_onboarding_path(id: :onboard_company_name) unless onboarded?
