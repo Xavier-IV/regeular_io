@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Clients::Dashboards::Rewards::BirthdaysController < ApplicationController
   include Dashboard::LayoutDetail
   include Dashboard::Auth
@@ -32,7 +34,7 @@ class Clients::Dashboards::Rewards::BirthdaysController < ApplicationController
   end
 
   def update
-    puts params
+    Rails.logger.debug params
     @reward = Business::Reward.find_by(kind: 'Birthday',
                                        business: current_client.business.id)
     @reward.assign_attributes(rewards_param.except(:kind))

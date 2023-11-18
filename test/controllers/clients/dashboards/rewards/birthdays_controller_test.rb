@@ -1,4 +1,6 @@
-require "test_helper"
+# frozen_string_literal: true
+
+require 'test_helper'
 
 class Clients::Dashboards::Rewards::BirthdaysControllerTest < ActionDispatch::IntegrationTest
   test 'only authenticated' do
@@ -8,19 +10,19 @@ class Clients::Dashboards::Rewards::BirthdaysControllerTest < ActionDispatch::In
     assert_redirected_to new_client_session_path
   end
 
-  test "should get show" do
+  test 'should get show' do
     sign_in clients(:client_business_approved)
     get clients_dashboards_reward_birthday_url
     assert_response :success
   end
 
-  test "should get new" do
+  test 'should get new' do
     sign_in clients(:client_business_approved)
     get new_clients_dashboards_reward_birthday_url
     assert_response :success
   end
 
-  test "should redirect to new" do
+  test 'should redirect to new' do
     sign_in clients(:client_business_approved)
 
     get edit_clients_dashboards_reward_birthday_url
@@ -28,7 +30,7 @@ class Clients::Dashboards::Rewards::BirthdaysControllerTest < ActionDispatch::In
     assert_redirected_to new_clients_dashboards_reward_birthday_url
   end
 
-  test "should be able to edit" do
+  test 'should be able to edit' do
     client = clients(:client_business_approved)
     sign_in client
 
