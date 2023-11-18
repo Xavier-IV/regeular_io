@@ -38,7 +38,7 @@
     </div>
     <p class="text-gray-400 text-sm">Understand how our QR Code works.</p>
   </div>
-  <div class="mx-4 md:mx-0 flex flex-col gap-2">
+  <div class="mx-4 md:mx-0 flex flex-col md:grid md:grid-cols-2 gap-2">
     <%= link_to clients_dashboards_qr_guides_review_path,
                 class: 'flex w-full p-3 items-center justify-center bg-gray-200 text-gray-700 rounded-md' do %>
       <p class="md:text-lg">QR Review</p>
@@ -56,7 +56,7 @@
     </div>
     <p class="text-gray-400 text-sm">You can manage your QR Code below.</p>
   </div>
-  <div class="mx-4 md:mx-0">
+  <div class="mx-4 md:mx-0 md:grid md:grid-cols-2">
     <%= link_to edit_clients_dashboards_qrs_bank_path,
                 class: 'flex w-full p-3 items-center justify-center bg-gray-200 text-gray-700 rounded-md' do %>
       <p class="md:text-lg">Edit Bank</p>

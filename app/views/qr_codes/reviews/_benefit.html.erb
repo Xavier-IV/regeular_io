@@ -4,8 +4,19 @@
       <p>Wait, this merchant has rewards! 👀</p>
       <p>Quickly sign in to unlock and potentially claim merchant's rewards.</p>
     <% else %>
-      <%- @rewards.each do |reward| %>
-        <p>1. Earn discount of <%= reward_name(reward) %> off when you become regular customer for every 5 receipts.</p>
+      <%- if @rewards_discounts.present? %>
+        <h1 class="font-semibold">Discounts</h1>
+        <%- @rewards_discounts.each do |reward| %>
+          <p>Earn discount of <%= reward_name(reward) %> off when you become regular customer for every 5
+            receipts.</p>
+        <% end %>
+      <% end %>
+
+      <% if @rewards_birthdays.present? %>
+        <h1 class="font-semibold">Birthday Rewards</h1>
+        <%- @rewards_birthdays.each do |reward| %>
+          <p>Receive discount of <%= reward_name(reward) %> off on your birthday!</p>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>

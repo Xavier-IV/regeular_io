@@ -1,0 +1,31 @@
+<div class='cursor-pointer w-full h-fit min-h-[220px] py-8 bg-gradient-to-l from-violet-500 to-indigo-500 rounded-2xl shadow flex flex-col items-center justify-center text-white gap-4'
+     style='box-shadow: 0px 4px 10px rgba(131, 105, 221, 0.50);'>
+  <div
+    class="flex flex-col items-center gap-4">
+    <p>Earn</p>
+    <div
+      class="text-4xl md:text-6xl font-bold flex items-center gap-2">
+      <span
+        data-dashboard--reward-target="prefix"
+        class="text-sm"><%= model.value_type == 'fixed' ? 'RM' : '' %></span>
+
+      <h2
+        data-dashboard--reward-target="output"
+      >
+        <%= model.value_type == 'fixed' ? model.value : model.value.to_i %>
+      </h2>
+
+      <span
+        data-dashboard--reward-target="suffix"
+        class="text-sm"><%= model.value_type == 'percentage' ? '%' : '' %></span>
+    </div>
+    <p class="text-sm">Discount on your birthday!</p>
+  </div>
+
+  <div
+    data-dashboard--reward-target="capPreview"
+    class="w-full flex flex-col items-center px-4 text-center gap-4 <%= model.value_type == 'percentage' ? '' : 'hidden' %>">
+    <hr class="border-purple-400 w-full">
+    <p class="text-purple-300">Capped at RM <span data-dashboard--reward-target="cappedAmount"><%= model.capped_amount %></span></p>
+  </div>
+</div>

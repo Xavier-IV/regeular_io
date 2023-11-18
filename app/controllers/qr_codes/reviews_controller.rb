@@ -11,6 +11,9 @@ class QrCodes::ReviewsController < QrCodesController
     @rating = Review.new(qr_code_id: @qr.id)
     @business = @qr&.business
     @rewards = @business.business_rewards
+    @rewards_discounts = @business.business_rewards.kind_discounts
+    @rewards_birthdays = @business.business_rewards.kind_birthdays
+
     @customer_progress = current_customer.customer_progresses.find_by(business: @business) if customer_signed_in?
   end
 
@@ -30,6 +33,8 @@ class QrCodes::ReviewsController < QrCodesController
     @review = Review.find(query_params[:id])
     @business = @review.business
     @rewards = @business.business_rewards
+    @rewards_discounts = @business.business_rewards.kind_discounts
+    @rewards_birthdays = @business.business_rewards.kind_birthdays
     @customer_progress = current_customer.customer_progresses.find_by(business: @business) if customer_signed_in?
   end
 

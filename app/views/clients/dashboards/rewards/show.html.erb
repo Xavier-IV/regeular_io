@@ -1,16 +1,27 @@
-<div class="w-full p-4 hidden pwa:flex">
-  <%= link_to clients_dashboards_path do %>
-    <i class="lni lni-arrow-left text-2xl"></i>
-  <% end %>
-</div>
+<% content_for :back_to do %>
+  <div class="w-full hidden pwa:flex">
+    <%= link_to clients_dashboards_path do %>
+      <i class="lni lni-arrow-left text-2xl"></i>
+    <% end %>
+  </div>
+<% end %>
+
 <div class="flex flex-col gap-4 md:my-20 px-4 md:px-0">
 
   <div>
     <h2 class="text-xl font-bold pl-0.5">Rewards</h2>
 
     <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-      <%= link_to @discounts.present? ? edit_clients_dashboards_reward_discount_path : new_clients_dashboards_reward_discount_path, class: 'bg-gradient-to-br from-green-600 to-green-500 text-white w-full h-[100px] rounded-2xl p-4 text-lg flex flex-col justify-end' do %>
-        Discounts
+      <%= link_to @discounts.present? ? edit_clients_dashboards_reward_discount_path : new_clients_dashboards_reward_discount_path, class: 'bg-gradient-to-br from-green-600 to-green-500 text-white w-full h-[100px] rounded-2xl p-4 text-lg flex items-center' do %>
+        <div class="flex items-center justify-center gap-2">
+          <p>Discounts</p> <i class="lni lni-offer"></i>
+        </div>
+      <% end %>
+
+      <%= link_to @birthday.present? ? edit_clients_dashboards_reward_birthday_path : new_clients_dashboards_reward_birthday_path, class: 'bg-gradient-to-br from-green-600 to-green-500 text-white w-full h-[100px] rounded-2xl p-4 text-lg flex items-center' do %>
+        <div class="flex items-center justify-center gap-2">
+          <p>Birthday</p> <i class="lni lni-cake"></i>
+        </div>
       <% end %>
     </div>
 

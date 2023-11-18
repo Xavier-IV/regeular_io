@@ -1,0 +1,28 @@
+<% content_for :back_to do %>
+  <div class="w-full hidden pwa:flex">
+    <%= link_to clients_dashboards_reward_path do %>
+      <i class="lni lni-arrow-left text-2xl"></i>
+    <% end %>
+  </div>
+  <div class="col-span-3 flex items-center justify-center">Birthday Discount</div>
+<% end %>
+
+<div
+  id="account_edit"
+  data-controller="dashboard--reward"
+  class="w-full h-fit grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto px-4 md:px-0 mt-4 mb-10">
+
+  <div class="col-span-2 md:col-span-1">
+    <%= render partial: 'clients/dashboards/rewards/birthdays/preview', locals: {
+      model: @reward
+    } %>
+  </div>
+
+  <div class="order-2 md:order-1 w-full col-span-2 rounded-2xl p-6 flex flex-col justify-start gap-2 bg-[#4CA2C7] rounded-[20px] shadow text-white">
+    <%= render partial: 'clients/dashboards/rewards/birthdays/form', locals: {
+      model: @reward,
+      url: clients_dashboards_reward_birthday_path,
+      method: :put
+    } %>
+  </div>
+</div>

@@ -1,9 +1,10 @@
-<div class="w-full p-4 hidden pwa:grid pwa:grid-cols-5">
+<% content_for :back_to do %>
   <%= link_to clients_dashboards_qrs_path do %>
     <i class="lni lni-arrow-left text-2xl"></i>
   <% end %>
-  <div class="col-span-3 flex items-center justify-center">Bank Information</div>
-</div>
+  <div class="col-span-3 flex items-center justify-center">Bank Transfer QR</div>
+<% end %>
+
 <div class="flex flex-col gap-4 py-4 md:py-10 overflow-scroll no-scrollbar">
   <%= render 'clients/dashboards/info' %>
   <div class="w-full h-fit flex flex-col gap-4 mx-auto px-4 md:px-4 md:px-0">

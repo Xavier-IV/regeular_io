@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  namespace :clients do
+    namespace :dashboards do
+      namespace :rewards do
+        get 'birthdays/show'
+        get 'birthdays/new'
+        get 'birthdays/edit'
+      end
+    end
+  end
   match '/404', to: 'errors#not_found', via: :all
   match '/500', to: 'errors#internal_server_error', via: :all
 

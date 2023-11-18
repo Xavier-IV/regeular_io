@@ -16,4 +16,7 @@ class Business::Reward < ApplicationRecord
                                                                       value_type == 'percentage' && kind == 'Discount'
                                                                     }
   validates :min_order_amount, presence: true, numericality: true
+
+  scope :kind_discounts, -> { where(kind: 'Discount') }
+  scope :kind_birthdays, -> { where(kind: 'Birthday') }
 end
