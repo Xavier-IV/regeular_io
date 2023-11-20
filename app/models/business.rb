@@ -15,12 +15,18 @@ class Business < ApplicationRecord
 
   validate :validate_attachment_size
 
+  has_many :business_token_limits, class_name: 'Business::TokenLimit', dependent: :destroy
+  has_many :business_token_consumptions, class_name: 'Business::TokenConsumption', dependent: :destroy
+  has_many :ai_results, dependent: :destroy
+
   has_one :qr_code_bank, class_name: 'QrCode::Bank', dependent: :destroy
   has_many :qr_code_review, class_name: 'QrCode::Review', dependent: :destroy
   has_many :qr_code_reward, class_name: 'QrCode::Reward', dependent: :destroy
 
   has_many :reviews, dependent: :destroy, class_name: 'Review'
   has_many :reviewers, -> { distinct }, through: :reviews, source: :customer, class_name: 'User'
+
+  has_one :business_subscription, class_name: 'Business::Subscription', dependent: :destroy
 
   # Gratifications
   has_many :customer_progresses, class_name: 'Customer::Progress', dependent: :destroy, inverse_of: false

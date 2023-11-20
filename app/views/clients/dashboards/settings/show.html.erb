@@ -5,6 +5,12 @@
     <div class="flex flex-col divide-y border rounded-md mt-4">
       <%= link_to "Edit Account", edit_clients_dashboards_account_path, class: 'p-4 py-2 text-gray-800 hover:bg-gray-200 px-4 w-full' %>
       <%= link_to "Manage Team", clients_dashboards_teams_path, class: 'p-4 py-2 hover:bg-gray-200 px-4 w-full' %>
+      <a href="https://billing.stripe.com/p/login/test_aEU7u87t82AH8HS000?prefilled_email=<%= CGI.escape(current_client.business.owner.email) %>"
+         class="p-4 py-2 hover:bg-gray-200 px-4 w-full flex justify-between items-center"
+         target="_blank">
+        <span>Manage Subscriptions</span>
+        <span class="text-xs text-gray-300"><%= current_client.business.business_subscription.plan %></span>
+      </a>
     </div>
 
     <div class="mt-10">

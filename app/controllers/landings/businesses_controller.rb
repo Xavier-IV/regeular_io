@@ -2,5 +2,11 @@
 
 class Landings::BusinessesController < ApplicationController
   layout 'business'
-  def index; end
+  def index
+    render layout: 'business_v2'
+  end
+
+  def pricing
+    render layout: 'business_v2'
+  end
 end

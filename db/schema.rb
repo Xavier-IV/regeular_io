@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_17_155621) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_19_182612) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -41,6 +41,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_17_155621) do
     t.uuid "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "ai_results", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "kind"
+    t.text "input_text"
+    t.text "output_text"
+    t.text "api_response"
+    t.uuid "business_id"
+    t.uuid "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_id"], name: "index_ai_results_on_business_id"
+    t.index ["user_id"], name: "index_ai_results_on_user_id"
   end
 
   create_table "banks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -113,6 +126,36 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_17_155621) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["business_id"], name: "index_business_statistics_on_business_id"
+  end
+
+  create_table "business_subscriptions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "stripe_subscription_id"
+    t.uuid "business_id", null: false
+    t.string "status"
+    t.string "plan"
+    t.date "start_date"
+    t.date "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_id"], name: "index_business_subscriptions_on_business_id"
+  end
+
+  create_table "business_token_consumptions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "kind"
+    t.uuid "business_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_id"], name: "index_business_token_consumptions_on_business_id"
+  end
+
+  create_table "business_token_limits", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "kind"
+    t.integer "limit"
+    t.string "limit_by"
+    t.uuid "business_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_id"], name: "index_business_token_limits_on_business_id"
   end
 
   create_table "businesses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -285,6 +328,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_17_155621) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "ai_results", "businesses"
+  add_foreign_key "ai_results", "users"
   add_foreign_key "business_approval_histories", "businesses"
   add_foreign_key "business_approval_histories", "users", column: "managed_by_id"
   add_foreign_key "business_approval_histories", "users", column: "requested_by_id"
@@ -295,6 +340,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_17_155621) do
   add_foreign_key "business_rewards", "users", column: "created_by_id"
   add_foreign_key "business_rewards", "users", column: "updated_by_id"
   add_foreign_key "business_statistics", "businesses"
+  add_foreign_key "business_subscriptions", "businesses"
+  add_foreign_key "business_token_consumptions", "businesses"
+  add_foreign_key "business_token_limits", "businesses"
   add_foreign_key "cities", "states"
   add_foreign_key "customer_progresses", "businesses"
   add_foreign_key "customer_progresses", "users"

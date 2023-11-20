@@ -9,6 +9,7 @@ constraints host: Rails.application.credentials.dig(:host, :business) do
 
   # Business Landing Page
   root 'landings/businesses#index', as: :business_root
+  get 'pricing', to: 'landings/businesses#pricing'
 
   devise_for :clients, controllers: {
     registrations: 'clients/registrations',
@@ -23,6 +24,13 @@ constraints host: Rails.application.credentials.dig(:host, :business) do
     resources :dashboards, only: :index
     namespace :dashboards do
       resource :confirmation
+
+      resource :tool_marketing
+      namespace :tool_marketings do
+        resources :copywritings
+        resources :viral_contents
+        resources :daily_posts
+      end
 
       namespace :qrs do
         resource :bank
@@ -44,7 +52,6 @@ constraints host: Rails.application.credentials.dig(:host, :business) do
       resources :teams, only: %i[index]
       resources :qrs
       resource :setting
-      # resources :products # Feature on hold
 
       resource :reward do
         scope module: 'rewards' do

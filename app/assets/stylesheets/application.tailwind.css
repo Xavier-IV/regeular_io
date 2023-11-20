@@ -165,3 +165,10 @@ ul {
     @apply text-black px-4 py-4 bg-red-200 border flex flex-col items-center justify-center;
     @apply bg-white w-full select-none;
 }
+
+.heading-gradient {
+    background: linear-gradient(180deg, #a735c3 0%, #660080 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

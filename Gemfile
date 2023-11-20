@@ -127,3 +127,7 @@ gem 'activerecord-session_store', '~> 2.1'
 gem 'devise_invitable', '~> 2.0'
 
 gem 'chronic', '~> 0.10.2'
+
+gem 'ruby-openai', '~> 6.2'
+
+gem 'stripe', '~> 10.1'

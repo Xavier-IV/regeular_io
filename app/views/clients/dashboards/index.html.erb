@@ -201,9 +201,57 @@
     <% end %>
   </div>
 
+  <div class="w-full h-fit px-4 mt-10 md:hidden">
+    <div class="flex gap-2 items-center text-rose-500 pl-0.5">
+      <i class="lni lni-cloud-network"></i>
+      <h1 class="text-lg">AI Tools</h1>
+    </div>
+    <p class="text-gray-400 text-sm pl-0.5">Powerful AI tools to help your business grow.</p>
+    <div class="grid grid-cols-3 md:grid-cols-3 gap-2 mx-auto md:px-0 mt-4">
+      <%= link_to clients_dashboards_reward_path, class: 'cursor-pointer order-3 py-6 md:order-5 w-full h-fit border border-rose-200 text-rose-600 h-fit rounded-2xl flex flex-col items-center justify-center gap-4' do %>
+        <p>Analysis</p>
+      <% end %>
+      <%= link_to clients_dashboards_reward_path, class: 'cursor-pointer order-3 py-6 md:order-5 w-full h-fit border border-rose-200 text-rose-600 h-fit rounded-2xl flex flex-col items-center justify-center gap-4' do %>
+        <p>Campaign</p>
+      <% end %>
+      <%= link_to clients_dashboards_reward_path, class: 'cursor-pointer order-3 py-6 md:order-5 w-full h-fit border border-rose-200 text-rose-600 h-fit rounded-2xl flex flex-col items-center justify-center gap-4' do %>
+        <p>Mood Board</p>
+      <% end %>
+      <%= link_to clients_dashboards_tool_marketing_path, class: 'cursor-pointer order-3 py-6 md:order-5 w-full h-fit border border-rose-200 text-rose-600 h-fit rounded-2xl flex flex-col items-center justify-center gap-4' do %>
+        <p>Marketing</p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="w-full h-fit px-4 mt-10 md:hidden">
+    <div class="flex gap-2 items-center text-rose-500 pl-0.5">
+      <i class="lni lni-headphone"></i>
+      <h1 class="text-lg">AI Coach</h1>
+    </div>
+    <p class="text-gray-400 text-sm pl-0.5">Artificial coach that can help you with your business question.</p>
+    <div class="flex gap-2 mx-auto md:px-0 mt-4">
+      <%= link_to clients_dashboards_tool_marketing_path, class: 'cursor-pointer order-3 py-3 w-full h-fit border border-rose-200 text-rose-600 h-fit rounded-lg flex flex-col items-center justify-center gap-4' do %>
+        <p><i class="lni lni-lock-alt"></i></p>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="w-full h-fit px-4 mt-10 md:hidden">
+    <div class="flex gap-2 items-center text-rose-500 pl-0.5">
+      <i class="lni lni-warning"></i>
+      <h1 class="text-lg">Public Relation</h1>
+    </div>
+    <p class="text-gray-400 text-sm pl-0.5">AI can help maintain and improve your public reputations when things go wrong.</p>
+    <div class="flex gap-2 mx-auto md:px-0 mt-4">
+      <%= link_to clients_dashboards_tool_marketing_path, class: 'cursor-pointer order-3 py-3 w-full h-fit border border-rose-200 text-rose-600 h-fit rounded-lg flex flex-col items-center justify-center gap-4' do %>
+        <p><i class="lni lni-lock-alt"></i></p>
+      <% end %>
+    </div>
+  </div>
+
   <div class="w-full h-fit px-4 mt-10 mb-20 md:hidden">
     <div class="flex gap-2 items-center">
-      <i class="lni lni-cog text-gray-400"></i>
+      <i class="lni lni-cog text-gray-400 pl-0.5"></i>
       <h1 class="text-lg text-gray-700">Manage Business</h1>
     </div>
     <p class="text-gray-400 text-sm pl-0.5">Manage and oversee your business.</p>

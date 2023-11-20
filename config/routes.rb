@@ -1,15 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  namespace :clients do
-    namespace :dashboards do
-      namespace :rewards do
-        get 'birthdays/show'
-        get 'birthdays/new'
-        get 'birthdays/edit'
-      end
-    end
-  end
   match '/404', to: 'errors#not_found', via: :all
   match '/500', to: 'errors#internal_server_error', via: :all
 
@@ -23,6 +14,8 @@ Rails.application.routes.draw do
   get '/privacy_policy', to: 'landings/legals#privacy_policy'
   get '/acceptable_use_policy', to: 'landings/legals#acceptable_use_policy'
   get '/disclaimer', to: 'landings/legals#disclaimer'
+
+  post '/clients/webhook', to: 'clients/webhooks#stripe'
 
   draw(:omniauth)
   draw(:admin)
