@@ -32,6 +32,12 @@ constraints host: Rails.application.credentials.dig(:host, :business) do
         resources :daily_posts
       end
 
+      resource :tool_moodboard
+      namespace :tool_moodboards do
+        resources :banners
+        resources :interior_designs
+      end
+
       namespace :qrs do
         resource :bank
         resources :reviews
