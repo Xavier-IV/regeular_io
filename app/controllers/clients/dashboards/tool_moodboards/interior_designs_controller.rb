@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Clients::Dashboards::ToolMoodboards::InteriorDesignsController < ApplicationController
   include Dashboard::LayoutDetail
   include Dashboard::Auth
@@ -27,7 +29,6 @@ class Clients::Dashboards::ToolMoodboards::InteriorDesignsController < Applicati
     @balance = "#{[(limit.limit - consumption_count), 0].max}/#{limit.limit}"
     @balance_left = limit.limit - consumption_count
     @result = business.ai_results.where(kind: 'ai.moodboard.generative.interior_design').order(created_at: :desc).first
-
   end
 
   def create

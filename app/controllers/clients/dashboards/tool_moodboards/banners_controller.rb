@@ -29,7 +29,6 @@ class Clients::Dashboards::ToolMoodboards::BannersController < ApplicationContro
     @balance = "#{[(limit.limit - consumption_count), 0].max}/#{limit.limit}"
     @balance_left = limit.limit - consumption_count
     @result = business.ai_results.where(kind: 'ai.moodboard.generative.banner').order(created_at: :desc).first
-
   end
 
   def create
