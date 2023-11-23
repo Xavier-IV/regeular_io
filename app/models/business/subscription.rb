@@ -23,7 +23,10 @@ class Business::Subscription < ApplicationRecord
         [
           { kind: 'ai.marketing.generative.viral_content_idea', limit: 5, limit_by: 'week' },
           { kind: 'ai.marketing.generative.copywriting', limit: 5, limit_by: 'week' },
-          { kind: 'ai.marketing.generative.daily_post', limit: 5, limit_by: 'week' }
+          { kind: 'ai.marketing.generative.daily_post', limit: 5, limit_by: 'week' },
+          { kind: 'ai.marketing.generative.engagement', limit: 5, limit_by: 'week' },
+          { kind: 'ai.moodboard.generative.banner', limit: 5, limit_by: 'week' },
+          { kind: 'ai.moodboard.generative.interior_design', limit: 5, limit_by: 'week' }
         ]
       )
     end
@@ -33,7 +36,10 @@ class Business::Subscription < ApplicationRecord
       [
         { kind: 'ai.marketing.generative.viral_content_idea', limit: 10, limit_by: 'week' },
         { kind: 'ai.marketing.generative.copywriting', limit: 10, limit_by: 'week' },
-        { kind: 'ai.marketing.generative.daily_post', limit: 10, limit_by: 'week' }
+        { kind: 'ai.marketing.generative.daily_post', limit: 10, limit_by: 'week' },
+        { kind: 'ai.marketing.generative.engagement', limit: 10, limit_by: 'week' },
+        { kind: 'ai.moodboard.generative.banner', limit: 5, limit_by: 'week' },
+        { kind: 'ai.moodboard.generative.interior_design', limit: 10, limit_by: 'week' }
       ]
     )
   end
@@ -47,7 +53,10 @@ class Business::Subscription < ApplicationRecord
               .where(kind: [
                        'ai.marketing.generative.viral_content_idea',
                        'ai.marketing.generative.copywriting',
-                       'ai.marketing.generative.daily_post'
+                       'ai.marketing.generative.daily_post',
+                       'ai.marketing.generative.engagement',
+                       'ai.moodboard.generative.banner',
+                       'ai.moodboard.generative.interior_design'
                      ])
               .update(limit: 5)
     end
@@ -57,7 +66,10 @@ class Business::Subscription < ApplicationRecord
             .where(kind: [
                      'ai.marketing.generative.viral_content_idea',
                      'ai.marketing.generative.copywriting',
-                     'ai.marketing.generative.daily_post'
+                     'ai.marketing.generative.daily_post',
+                     'ai.marketing.generative.engagement',
+                     'ai.moodboard.generative.banner',
+                     'ai.moodboard.generative.interior_design'
                    ])
             .update(limit: 10)
   end

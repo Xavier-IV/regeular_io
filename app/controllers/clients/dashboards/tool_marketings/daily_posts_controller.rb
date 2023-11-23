@@ -20,7 +20,12 @@ class Clients::Dashboards::ToolMarketings::DailyPostsController < ApplicationCon
                                 .where(created_at: Date.current.beginning_of_week..Date.current.end_of_week.end_of_day)
                                 .count
 
-    @percentage = consumption_count.positive? ? ((limit.limit.to_f - consumption_count.to_f) / limit.limit.to_f) * 100 : 100.0
+    @percentage = if consumption_count.positive?
+                    ([(limit.limit - consumption_count),
+                      0].max / limit.limit.to_f) * 100
+                  else
+                    100.0
+                  end
     @balance = "#{[(limit.limit - consumption_count), 0].max}/#{limit.limit}"
     @balance_left = limit.limit - consumption_count
     @result = business.ai_results.where(kind: 'ai.marketing.generative.daily_post').order(created_at: :desc).first
@@ -59,11 +64,14 @@ Do not mix with Indonesian word.
 I'm a business owner.
 My business name is #{current_client.business.name}.
 #{"My business google map link is #{current_client.business.gmap_link}" if current_client.business.gmap_link.present?}
+#{if current_client.business.open_at.present? && current_client.business.close_at.present?
+    "My opening hour is #{current_client.business.open_at} - #{current_client.business.close_at}"
+  end}
 Give me a content I can post daily to my social media to keep my
 followers in loop. You can use emojis, fancy words, bullet points etc. Be creative.
 ONLY gives the answer for today. Result in Bahasa Melayu.
 ONLY include location if provided.
-ONLY include opening hours if provided, otherwise state 'We are open today!'
+DO NOT state opening hours unless I say so.
 ONLY gives relevant hashtag.
 DO NOT assume customer other product name.
 DO NOT assume how the product was made.

@@ -77,4 +77,7 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+  config.stripe_micro_link = 'https://buy.stripe.com/test_7sI7uj1tB2hX2CAbIK'
+  config.stripe_sme_link = 'https://buy.stripe.com/test_3csbKz2xF7Chdhe6or'
 end

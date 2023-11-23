@@ -30,6 +30,7 @@ constraints host: Rails.application.credentials.dig(:host, :business) do
         resources :copywritings
         resources :viral_contents
         resources :daily_posts
+        resources :engagements
       end
 
       resource :tool_moodboard

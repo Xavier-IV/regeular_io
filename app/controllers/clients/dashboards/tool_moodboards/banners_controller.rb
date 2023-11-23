@@ -25,7 +25,12 @@ class Clients::Dashboards::ToolMoodboards::BannersController < ApplicationContro
                                 .where(created_at: Date.current.beginning_of_week..Date.current.end_of_week.end_of_day)
                                 .count
 
-    @percentage = consumption_count.positive? ? ((limit.limit.to_f - consumption_count.to_f) / limit.limit.to_f) * 100 : 100.0
+    @percentage = if consumption_count.positive?
+                    ([(limit.limit - consumption_count),
+                      0].max / limit.limit.to_f) * 100
+                  else
+                    100.0
+                  end
     @balance = "#{[(limit.limit - consumption_count), 0].max}/#{limit.limit}"
     @balance_left = limit.limit - consumption_count
     @result = business.ai_results.where(kind: 'ai.moodboard.generative.banner').order(created_at: :desc).first
@@ -60,6 +65,7 @@ I want to visualise what my business banner could look like and how it looks lik
 my business building storefront!
 Give me an image of that banner on my business building storefront, with bustling customers
 coming into my business.
+Give a minimalistic theme of Malaysia culture.
 "'',
         size: '1024x1024',
         quality: 'standard',

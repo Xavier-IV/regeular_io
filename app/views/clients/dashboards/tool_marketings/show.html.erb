@@ -5,6 +5,9 @@
     <% end %>
   </div>
   <div class="col-span-3 flex items-center justify-center">Marketing</div>
+  <%= link_to clients_dashboards_tool_marketings_viral_contents_path, class: 'flex items-center justify-end' do %>
+    <i class="lni lni-plus text-lg text-gray-400"></i>
+  <% end %>
 <% end %>
 
 <div
@@ -13,7 +16,7 @@
     <div class="flex gap-2 items-center text-gray-700 pl-0.5">
       <h1 class="text-lg">Generative</h1>
     </div>
-    <p class="text-gray-400 text-sm pl-0.5">Let AI do the hard thinking, and be inspired!</p>
+    <p class="text-gray-400 text-sm pl-0.5">Let AI do the hard thinking for common day-to-day tasks!</p>
     <div class="flex flex-col gap-1 mt-4 text-gray-800">
       <%= link_to new_clients_dashboards_tool_marketings_copywriting_path, class: 'w-full p-3 px-5 bg-gray-200 rounded-md flex items-center justify-between' do %>
         <p class="flex items-center gap-2"><span class="text-xs">🖊</span>️ Copywriting</p>
@@ -21,19 +24,28 @@
           <div class="h-full bg-green-500 rounded-full" style="width: <%= @percentage_copy %>%;"></div>
         </div>
       <% end %>
-      <%= link_to new_clients_dashboards_tool_marketings_viral_content_path, class: 'w-full p-3 px-5 bg-gray-200 rounded-md flex justify-between' do %>
+      <%= link_to new_clients_dashboards_tool_marketings_viral_content_path, class: 'w-full p-3 px-5 bg-gray-200 rounded-md flex items-center justify-between' do %>
         <p class="flex items-center gap-2"><span class="text-xs">🔥</span> Viral Content Idea</p>
         <div class="w-14 h-2 rounded-full bg-gray-300 overflow-hidden">
           <div class="h-full bg-green-500 rounded-full" style="width: <%= @percentage_viral %>%;"></div>
         </div>
       <% end %>
-      <%= link_to new_clients_dashboards_tool_marketings_daily_post_path, class: 'w-full p-3 px-5 bg-gray-200 rounded-md flex justify-between' do %>
+      <%= link_to new_clients_dashboards_tool_marketings_daily_post_path, class: 'w-full p-3 px-5 bg-gray-200 rounded-md flex items-center justify-between' do %>
         <p class="flex items-center gap-2"><span class="text-xs">📢</span> Daily Social Media Post</p>
         <div class="w-14 h-2 rounded-full bg-gray-300 overflow-hidden">
           <div class="h-full bg-green-500 rounded-full" style="width: <%= @percentage_daily_post %>%;"></div>
         </div>
       <% end %>
+      <%= link_to new_clients_dashboards_tool_marketings_engagement_path, class: 'w-full p-3 px-5 bg-gray-200 rounded-md flex items-center justify-between' do %>
+        <p class="flex items-center gap-2"><span class="text-xs">📢</span> Daily Social Engagement</p>
+        <div class="w-14 h-2 rounded-full bg-gray-300 overflow-hidden">
+          <div class="h-full bg-green-500 rounded-full" style="width: <%= @percentage_daily_engagement %>%;"></div>
+        </div>
+      <% end %>
     </div>
   </div>
 
+  <div class="flex gap-2 items-center text-gray-700 pl-0.5 text-center mt-20">
+    <p class="text-gray-400 text-sm pl-0.5">Not enough? You can add your own custom app prompt by clicking the "+" button.</p>
+  </div>
 </div>

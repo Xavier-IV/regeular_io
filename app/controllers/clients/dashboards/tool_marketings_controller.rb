@@ -24,13 +24,43 @@ class Clients::Dashboards::ToolMarketingsController < ApplicationController
                                    .where(created_at: Date.current.beginning_of_week..Date.current.end_of_week.end_of_day)
                                    .count
 
+    @gen_daily_engagement_used = business.business_token_consumptions
+                                         .where(kind: 'ai.marketing.generative.engagement')
+                                         .where(created_at: Date.current.beginning_of_week..Date.current.end_of_week.end_of_day)
+                                         .count
+
     limit_viral = business.business_token_limits.find_by(kind: 'ai.marketing.generative.viral_content_idea')
-    @percentage_viral = @gen_viral_used.present? ? ((limit_viral.limit.to_f - @gen_viral_used.to_f) / limit_viral.limit.to_f) * 100 : 100.0
+    @percentage_viral = if @gen_viral_used.present?
+                          ([(limit_viral.limit.to_f - @gen_viral_used.to_f),
+                            0].max / limit_viral.limit.to_f) * 100
+                        else
+                          100.0
+                        end
 
     limit_copy = business.business_token_limits.find_by(kind: 'ai.marketing.generative.copywriting')
-    @percentage_copy = @gen_copywriting_used.present? ? ((limit_copy.limit.to_f - @gen_copywriting_used.to_f) / limit_copy.limit.to_f) * 100 : 100.0
+    @percentage_copy = if @gen_copywriting_used.present?
+                         ([(limit_copy.limit.to_f - @gen_copywriting_used.to_f),
+                           0].max / limit_copy.limit.to_f) * 100
+                       else
+                         100.0
+                       end
 
     limit_daily_post = business.business_token_limits.find_by(kind: 'ai.marketing.generative.daily_post')
-    @percentage_daily_post = @gen_daily_post_used.present? ? ((limit_daily_post.limit.to_f - @gen_daily_post_used.to_f) / limit_daily_post.limit.to_f) * 100 : 100.0
+    @percentage_daily_post = if @gen_daily_post_used.present?
+                               ([
+                                 (limit_daily_post.limit.to_f - @gen_daily_post_used.to_f), 0
+                               ].max / limit_daily_post.limit.to_f) * 100
+                             else
+                               100.0
+                             end
+
+    limit_daily_engagement = business.business_token_limits.find_by(kind: 'ai.marketing.generative.engagement')
+    @percentage_daily_engagement = if @gen_daily_engagement_used.present?
+                                     ([
+                                       (limit_daily_engagement.limit.to_f - @gen_daily_engagement_used.to_f), 0
+                                     ].max / limit_daily_engagement.limit.to_f) * 100
+                                   else
+                                     100.0
+                                   end
   end
 end

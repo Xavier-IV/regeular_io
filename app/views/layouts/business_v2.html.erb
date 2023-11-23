@@ -49,15 +49,30 @@
 </head>
 
 <body
-  data-controller="dashboard--profile-tray"
-  data-action="click->dashboard--profile-tray#screenToggle"
+  data-controller="dashboard--profile-tray nav"
+  data-action="click->dashboard--profile-tray#screenToggle click->nav#closeAll"
   class="lg:overscroll-y-none bg-[#0C0011]">
 
 <div id="flash">
   <%= render 'shared/flash' %>
 </div>
-<div class="w-full h-fit px-10 py-2 flex justify-between items-center text-white border-b border-gray-800">
-  <div class="flex gap-14 items-center">
+<div
+  class="w-full h-fit px-10 py-2 flex justify-between items-center text-white border-b border-gray-800">
+  <div
+    class="relative md:hidden flex gap-4 items-center">
+    <button data-action="nav#toggle"><i class="lni text-2xl text-white lni-menu"></i></button>
+    <%= link_to 'Regülar', business_root_path,
+                class: "py-4 text-xl text-center text-center text-purple-500 font-semibold" %>
+    <div
+      data-nav-target="content"
+      class="hidden text-gray-800 absolute top-14 -left-4 border rounded-lg flex flex-col bg-white w-[200px] divide-y h-fit">
+      <%= link_to 'Pricing', pricing_path,
+                  class: "py-4 text-center #{current_page?(pricing_path) ? 'text-purple-500 font-semibold' : ''}"
+      %>
+      <%= link_to 'I\'m An Expert', root_url, class: 'py-4 text-center' %>
+    </div>
+  </div>
+  <div class="hidden md:flex gap-14 items-center">
     <%= link_to 'Regülar', business_root_path,
                 class: "#{current_page?(business_root_path) ? 'text-purple-500 font-semibold' : ''} p-4 font-bold text-lg" %>
     <div class="flex gap-6 items-center">

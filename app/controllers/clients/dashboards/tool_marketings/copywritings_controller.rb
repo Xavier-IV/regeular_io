@@ -20,7 +20,12 @@ class Clients::Dashboards::ToolMarketings::CopywritingsController < ApplicationC
                                 .where(created_at: Date.current.beginning_of_week..Date.current.end_of_week.end_of_day)
                                 .count
 
-    @percentage = consumption_count.present? ? ((limit.limit.to_f - consumption_count.to_f) / limit.limit.to_f) * 100 : 100.0
+    @percentage = if consumption_count.present?
+                    ([(limit.limit - consumption_count),
+                      0].max / limit.limit.to_f) * 100
+                  else
+                    100.0
+                  end
     @balance = "#{[(limit.limit - consumption_count), 0].max}/#{limit.limit}"
     @balance_left = limit.limit - consumption_count
     @result = business.ai_results.where(kind: 'ai.marketing.generative.copywriting').order(created_at: :desc).first
