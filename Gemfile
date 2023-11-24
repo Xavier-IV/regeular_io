@@ -131,3 +131,5 @@ gem 'chronic', '~> 0.10.2'
 gem 'ruby-openai', '~> 6.2'
 
 gem 'stripe', '~> 10.1'
+
+gem "time_difference", "~> 0.5.0"

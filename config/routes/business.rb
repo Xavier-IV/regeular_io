@@ -67,6 +67,7 @@ constraints host: Rails.application.credentials.dig(:host, :business) do
           resource :consume
         end
       end
+      resources :future_events
 
       namespace :businesses do
         resource :approval

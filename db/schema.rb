@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_19_182612) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_23_210128) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -174,6 +174,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_182612) do
     t.time "open_at"
     t.time "close_at"
     t.string "status", default: "new"
+    t.string "category"
   end
 
   create_table "cities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -223,6 +224,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_19_182612) do
     t.index ["business_reward_id"], name: "index_customer_rewards_on_business_reward_id"
     t.index ["qr_code_id"], name: "index_customer_rewards_on_qr_code_id"
     t.index ["user_id"], name: "index_customer_rewards_on_user_id"
+  end
+
+  create_table "events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.date "date"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "omniauths", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|

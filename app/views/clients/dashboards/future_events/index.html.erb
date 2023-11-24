@@ -1,0 +1,38 @@
+<% content_for :back_to do %>
+  <div class="w-full hidden pwa:flex">
+    <%= link_to clients_dashboards_path do %>
+      <i class="lni lni-arrow-left text-2xl"></i>
+    <% end %>
+  </div>
+  <div class="col-span-3 flex items-center justify-center">Future Events</div>
+<% end %>
+
+<div class="flex flex-col gap-4 md:my-20 px-4 md:px-0 pb-20">
+  <p class="text-sm text-gray-400">These are your calendar for you
+    to manage future events and marketing strategies.</p>
+
+  <h2 class="text-lg font-semibold">Nearest Event</h2>
+  <div class="p-4 border rounded-md flex flex-col">
+    <div class="flex justify-between w-full">
+      <p class="line-clamp-1"><%= @closest_event.name %></p>
+      <p><%= @closest_event.date.strftime("%d %b") %></p>
+    </div>
+    <div class="w-full py-2 text-gray-500">
+      <p><%= @days_until %> days left</p>
+      <p class="text-sm italic">Description</p>
+      <p><%= @closest_event.description %></p>
+    </div>
+  </div>
+
+  <h2 class="text-lg font-semibold mt-10">Future Event</h2>
+  <div class="flex flex-col gap-2">
+    <% @future_events.each do |event| %>
+      <div class="w-full p-4 border rounded-md flex justify-between">
+        <div class="w-5/6">
+          <p class="line-clamp-1"><%= event.name %></p>
+        </div>
+        <p><%= event.date.strftime("%d %b") %></p>
+      </div>
+    <% end %>
+  </div>
+</div>

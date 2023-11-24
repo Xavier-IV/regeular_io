@@ -91,6 +91,11 @@ Some other example:
       Customer Success Stories,
       Timelapse Videos of Food Preparation,
       sentimental video, and more.
+      Customer forgot their order, the shop already consumed the product and now
+      the customer is coming to get the product.
+      Mini dramas.
+AVOID giving response about secret or unknown recipe, customer
+don't want to know that.
 Limit 30 words, ONLY gives the answer. Result in accurate friendly Bahasa Melayu.
 "'' }
       ]
