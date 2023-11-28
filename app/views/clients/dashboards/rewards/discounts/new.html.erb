@@ -1,11 +1,16 @@
-<div class="w-full p-4 hidden pwa:flex">
-  <%= link_to clients_dashboards_reward_path do %>
-    <i class="lni lni-arrow-left text-2xl"></i>
-  <% end %>
-</div>
+<% content_for :back_to do %>
+  <div class="w-full hidden pwa:flex">
+    <%= link_to clients_dashboards_reward_path do %>
+      <i class="lni lni-arrow-left text-2xl"></i>
+    <% end %>
+  </div>
+  <div class="col-span-3 flex items-center justify-center">General Discount</div>
+<% end %>
+
 <div
   data-controller="dashboard--reward"
-  id="account_edit" class="w-full h-fit grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto px-4 md:px-0 mt-4">
+  id="account_edit"
+  class="w-full h-fit grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto px-4 md:px-0 mt-4">
   <div class="col-span-2 md:col-span-1">
   <%= render partial: 'clients/dashboards/rewards/discounts/preview', locals: {
     model: @reward
@@ -22,7 +27,6 @@
       } %>
     </div>
   </div>
-
 </div>
 
 <%= render 'clients/dashboards/rewards/discounts/how' %>

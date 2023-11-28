@@ -1,0 +1,61 @@
+<% content_for :back_to do %>
+  <div class="w-full hidden pwa:flex">
+    <%= link_to clients_dashboards_tool_marketing_path do %>
+      <i class="lni lni-arrow-left text-2xl"></i>
+    <% end %>
+  </div>
+  <div class="col-span-3 flex items-center justify-center">Marketing/Copywriting</div>
+  <div class="flex items-center justify-end">
+    <i class="lni lni-archive text-2xl text-gray-400"></i>
+  </div>
+<% end %>
+
+<div class="h-full flex flex-col items-center justify-between text-center">
+  <div class="grow w-full h-full flex items-center justify-center text-center px-4 py-4 pb-20 overflow-y-scroll">
+    <% if @result.blank? %>
+      <div class="p-10 text-gray-400 rounded-2xl border w-full flex flex-col gap-10 items-center justify-center mx-auto">
+        <%= image_tag 'undraw/floating_hot_air.svg', class: 'w-40 p-2 opacity-40', alt: 'Empty rewards' %>
+        <p>It's empty</p>
+      </div>
+    <% else %>
+      <div class="w-full flex flex-col text-gray-700 h-full">
+        <div class="p-4 pb-8 border rounded-2xl h-fit">
+          <p class="text-justify whitespace-pre-line break-words">
+            <%= @result.output_text %>
+          </p>
+        </div>
+        <p>&nbsp;</p>
+
+      </div>
+    <% end %>
+  </div>
+  <div
+    style="box-shadow: 0px -5px 5px rgba(0, 0, 0, 0.05);"
+    class="flex w-full flex-col px-4 gap-2 border-t pb-10 pt-4 rounded-t-3xl shadow-2xl">
+    <%- if @result.blank? %>
+      <p class="text-gray-800">Use our AI tool to get inspiration on some copywriting you can leverage!</p>
+    <% end %>
+    <div class="flex justify-between items-center">
+      <div class="flex gap-2 items-center">
+        <div class="w-14 h-2 rounded-full bg-gray-200 overflow-hidden">
+          <div class="h-full bg-green-500 rounded-full" style="width: <%= @percentage %>%;"></div>
+        </div>
+        <p class="text-gray-400 text-sm"><%= @balance %> inspiration left</p>
+      </div>
+
+      <div class="w-fit flex items-center justify-center">
+        <% if @balance_left.present? && @balance_left.positive? %>
+          <%= button_to clients_dashboards_tool_marketings_copywriting_path, params: {
+            generate_new: true
+          }, class: 'px-4 py-2 bg-purple-500 text-white rounded-full' do %>
+            <p>Get Inspired</p>
+          <% end %>
+        <% else %>
+          <div class="px-4 py-2 bg-purple-200 text-white rounded-full">
+            <p>Get Inspired</p>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

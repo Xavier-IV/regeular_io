@@ -13,7 +13,6 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
   has_many :omniauths, dependent: :destroy
-
   # Client
   belongs_to :business, optional: true
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Clients::Dashboards::Rewards::DiscountsController < ApplicationController
-  include Dashboard::Layout
+  include Dashboard::LayoutDetail
   include Dashboard::Auth
   include Dashboard::Verified
 
@@ -14,6 +14,7 @@ class Clients::Dashboards::Rewards::DiscountsController < ApplicationController
     @reward.business = current_client.business
     @reward.created_by = current_client
     @reward.updated_by = current_client
+    @reward.is_active = rewards_param[:toggle] == '1'
 
     if @reward.save
       flash[:notice] = 'Reward created.'
@@ -39,6 +40,7 @@ class Clients::Dashboards::Rewards::DiscountsController < ApplicationController
     @reward = Business::Reward.find_by(kind: 'Discount',
                                        business: current_client.business.id)
     @reward.updated_by = current_client
+    @reward.is_active = params[:business_reward][:toggle] == '1'
 
     if @reward.update(rewards_param.except(:kind))
       flash[:notice] = 'Reward updated.'

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Clients::Dashboards::Qrs::BanksController < ApplicationController
-  include Dashboard::Layout
+  include Dashboard::LayoutDetail
   include Dashboard::Auth
   include Dashboard::Verified
 

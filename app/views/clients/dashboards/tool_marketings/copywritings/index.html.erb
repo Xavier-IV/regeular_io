@@ -1,0 +1,33 @@
+<% content_for :back_to do %>
+  <div class="w-full hidden pwa:flex">
+    <%= link_to new_clients_dashboards_tool_marketings_copywriting_path do %>
+      <i class="lni lni-arrow-left text-2xl"></i>
+    <% end %>
+  </div>
+  <div class="col-span-3 flex items-center justify-center">History</div>
+<% end %>
+
+<div class="h-full w-full flex flex-col items-center text-center px-4 gap-10 overflow-y-scroll overflow-x-hidden pb-20">
+  <%- @histories.each do |history| %>
+    <div class="border w-full flex rounded-md pb-4 px-4 bg-white">
+      <div class="whitespace-pre-line w-full break-words">
+        <p class="text-left w-fit whitespace-pre-line w-full break-words">
+          <%= history.output_text %>
+        </p>
+      </div>
+    </div>
+  <% end.empty? and begin %>
+    <div class="p-10 text-gray-400 rounded-2xl border w-full flex flex-col gap-10 items-center justify-center mx-auto">
+      <%= image_tag 'undraw/floating_hot_air.svg', class: 'w-40 p-2 opacity-40', alt: 'Empty rewards' %>
+      <p>No history yet</p>
+    </div>
+  <% end %>
+
+  <%- if current_client.business.business_subscription.plan != 'SME Business' %>
+    <div class="flex flex-col gap-2 mt-10 text-gray-400">
+      <i class="lni lni-lock-alt"></i>
+      <p class="">You can only see last 7 days histories</p>
+      <p>Upgrade to SME Business to see more</p>
+    </div>
+  <% end %>
+</div>

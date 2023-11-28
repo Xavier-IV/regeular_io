@@ -15,7 +15,7 @@ class Clients::RegistrationsController < Devise::RegistrationsController
 
   private
 
-  def after_sign_in_path_for(_resource)
-    clients_dashboards_path
+  def after_sign_in_path_for(resource)
+    stored_location_for(resource) || business_root_path
   end
 end

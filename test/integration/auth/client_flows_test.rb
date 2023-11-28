@@ -19,7 +19,8 @@ class AuthClientFlowsTest < ActionDispatch::IntegrationTest
 
   test 'can see the business page' do
     get business_root_url
-    assert_select 'h1', 'Regülar for business'
+    assert_select 'h1', "Grow Your Customer Database
+      Without Pen and Buku 555 📝"
   end
 
   test 'can sign in' do
@@ -57,7 +58,7 @@ class AuthClientFlowsTest < ActionDispatch::IntegrationTest
   end
 
   test 'can sign up and onboard' do
-    assert_response :redirect
+    assert_response :success
 
     get clients_dashboards_path
     assert_response :redirect
@@ -83,6 +84,6 @@ class AuthClientFlowsTest < ActionDispatch::IntegrationTest
 
     get clients_dashboards_path
     assert_response :success
-    assert_select 'p', 'Ready to get listed? Let\'s get started!'
+    assert_select 'p', 'Ready to get started? Let\'s go!'
   end
 end

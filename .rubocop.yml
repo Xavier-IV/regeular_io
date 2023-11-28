@@ -40,6 +40,9 @@ Metrics/CyclomaticComplexity:
     - 'app/controllers/omniauth_sessions_controller.rb'
     - 'app/controllers/clients/dashboards/qrs/reviews_controller.rb'
     - 'app/controllers/clients/dashboards/businesses/approvals_controller.rb'
+    - 'app/controllers/qr_codes_controller.rb'
+    - 'app/controllers/clients/webhooks_controller.rb'
+    - 'app/controllers/clients/dashboards/tool_marketings/*'
 
 Metrics/MethodLength:
   Enabled: false
@@ -55,6 +58,9 @@ Metrics/PerceivedComplexity:
     - 'app/controllers/clients/dashboards/businesses_controller.rb'
     - 'app/controllers/omniauth_sessions_controller.rb'
     - 'app/controllers/clients/dashboards/businesses/approvals_controller.rb'
+    - 'app/controllers/clients/webhooks_controller.rb'
+    - 'app/controllers/clients/dashboards/tool_marketings/*'
+    - 'app/controllers/clients/dashboards/tool_moodboards/*'
 
 Style/Documentation:
   Enabled: false
@@ -76,6 +82,9 @@ Layout/LineLength:
     - 'db/seeds.rb'
     - 'app/models/review.rb'
     - 'app/models/business.rb'
+    - 'app/controllers/clients/dashboards/tool_moodboards_controller.rb'
+    - 'app/controllers/clients/dashboards/tool_marketings/*'
+    - 'app/controllers/clients/dashboards/tool_moodboards/*'
 
 Rails/LexicallyScopedActionFilter:
   Enabled: false
@@ -83,3 +92,4 @@ Rails/LexicallyScopedActionFilter:
 Metrics/ClassLength:
   Exclude:
     - 'test/**/*.rb'
+    - 'app/controllers/clients/dashboards/tool_marketings/*'

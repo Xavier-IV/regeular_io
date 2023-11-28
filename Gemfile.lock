@@ -141,15 +141,13 @@ GEM
     down (5.4.1)
       addressable (~> 2.8)
     erubi (1.12.0)
-    factory_bot (6.2.1)
-      activesupport (>= 5.0.0)
-    factory_bot_rails (6.2.0)
-      factory_bot (~> 6.2.0)
-      railties (>= 5.0.0)
+    event_stream_parser (0.3.0)
     faraday (2.7.11)
       base64
       faraday-net_http (>= 2.0, < 3.1)
       ruby2_keywords (>= 0.0.4)
+    faraday-multipart (1.0.4)
+      multipart-post (~> 2)
     faraday-net_http (3.0.2)
     ffi (1.16.3)
     globalid (1.2.1)
@@ -178,6 +176,7 @@ GEM
     listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
+    local_time (2.1.0)
     loofah (2.21.3)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -194,6 +193,7 @@ GEM
     msgpack (1.7.2)
     multi_json (1.15.0)
     multi_xml (0.6.0)
+    multipart-post (2.3.0)
     net-imap (0.4.0)
       date
       net-protocol
@@ -242,6 +242,7 @@ GEM
     omniauth-twitter (1.4.0)
       omniauth-oauth (~> 1.1)
       rack
+    openssl (3.2.0)
     orm_adapter (0.5.0)
     parallel (1.23.0)
     parser (3.2.2.4)
@@ -337,6 +338,10 @@ GEM
       activesupport (>= 4.2.0)
       rack (>= 1.1)
       rubocop (>= 1.33.0, < 2.0)
+    ruby-openai (6.2.0)
+      event_stream_parser (>= 0.3.0, < 1.0.0)
+      faraday (>= 1)
+      faraday-multipart (>= 1)
     ruby-progressbar (1.13.0)
     ruby2_keywords (0.0.5)
     rubyzip (2.3.2)
@@ -363,11 +368,14 @@ GEM
     stimulus-rails (1.2.2)
       railties (>= 6.0.0)
     stringio (3.0.8)
+    stripe (10.1.0)
     tailwindcss-rails (2.0.30-arm64-darwin)
       railties (>= 6.0.0)
     tailwindcss-rails (2.0.30-x86_64-linux)
       railties (>= 6.0.0)
     thor (1.2.2)
+    time_difference (0.5.0)
+      activesupport
     timeout (0.4.0)
     tty-color (0.6.0)
     tty-cursor (0.7.1)
@@ -398,6 +406,9 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
+    web-push (3.0.1)
+      jwt (~> 2.0)
+      openssl (~> 3.0)
     websocket (1.2.10)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
@@ -427,10 +438,10 @@ DEPENDENCIES
   devise (~> 4.9)
   devise_invitable (~> 2.0)
   down (~> 5.4)
-  factory_bot_rails
   importmap-rails
   jbuilder
   letter_opener (~> 1.8)
+  local_time (~> 2.1)
   omniauth (~> 2.1)
   omniauth-google-oauth2 (~> 1.1)
   omniauth-rails_csrf_protection (~> 1.0)
@@ -447,16 +458,20 @@ DEPENDENCIES
   rqrcode (~> 2.2)
   rubocop (~> 1.56)
   rubocop-rails (~> 2.21)
+  ruby-openai (~> 6.2)
   selenium-webdriver
   simplecov
   sprockets-rails
   stimulus-rails
+  stripe (~> 10.1)
   tailwindcss-rails
+  time_difference (~> 0.5.0)
   tty-prompt (~> 0.23.1)
   turbo-rails
   tzinfo-data
   view_component (~> 3.6)
   web-console
+  web-push (~> 3.0)
   wicked (~> 2.0)
 
 RUBY VERSION

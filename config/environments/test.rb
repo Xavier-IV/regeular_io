@@ -61,4 +61,7 @@ Rails.application.configure do
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+
+  config.stripe_micro_link = 'https://buy.stripe.com/test_7sI7uj1tB2hX2CAbIK'
+  config.stripe_sme_link = 'https://buy.stripe.com/test_3csbKz2xF7Chdhe6or'
 end

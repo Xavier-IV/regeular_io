@@ -30,6 +30,6 @@ class DashboardsControllerTest < ActionDispatch::IntegrationTest
     get clients_dashboards_url
 
     assert_response :success
-    assert_select 'p', 'Business Logo'
+    assert_select 'p', /AddressLine1/
   end
 end

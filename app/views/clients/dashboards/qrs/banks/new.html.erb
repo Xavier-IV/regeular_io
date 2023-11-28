@@ -1,3 +1,10 @@
+<% content_for :back_to do %>
+  <%= link_to clients_dashboards_qrs_path do %>
+    <i class="lni lni-arrow-left text-2xl"></i>
+  <% end %>
+  <div class="col-span-3 flex items-center justify-center">Edit Bank</div>
+<% end %>
+
 <div class="w-full p-4 hidden pwa:grid pwa:grid-cols-5">
   <%= link_to clients_dashboards_qrs_path do %>
     <i class="lni lni-arrow-left text-2xl"></i>

@@ -32,11 +32,11 @@
   data-action="click->dashboard--profile-tray#screenToggle"
   class="select-none overscroll-y-none">
 <%= render 'shared/flash' %>
-<div class="w-full pwa:h-[calc(100vh-28px)] h-screen flex flex-col">
+<div class="w-full pwa:h-[calc(100vh-28px)] h-full flex flex-col">
   <div class="w-full h-full overflow-hidden">
     <div class="w-full h-full">
-      <div class="w-full h-full mx-auto max-w-3xl flex flex-col mb-20">
-        <div class="print:hidden pwa:hidden flex justify-between gap-3 my-4 px-4 md:px-0">
+      <div class="w-full h-full flex flex-col mb-20 overflow-hidden">
+        <div class="print:hidden mx-auto max-w-3xl w-full pwa:hidden flex justify-between gap-3 my-4 px-4 md:px-0">
           <%= link_to clients_dashboards_path, class: 'rounded-md w-fit text-2xl text-gray-800 flex items-center justify-center cursor-pointer p-1' do %>
             <i class="lni lni-home"></i>
           <% end %>
@@ -71,11 +71,11 @@
             </div>
           </div>
         </div>
-        <div class="w-full h-full no-scrollbar flex flex-col">
-          <div class="shrink w-full p-4 hidden pwa:grid pwa:grid-cols-5">
+        <div class="w-full h-full overflow-hidden flex flex-col">
+          <div class="shrink w-full h-fit p-4 hidden pwa:grid pwa:grid-cols-5">
             <%= yield :back_to %>
           </div>
-          <div class="w-full h-full overflow-y-scroll">
+          <div class="w-full h-full overflow-y-scroll mx-auto max-w-3xl w-full no-scrollbar">
             <%= yield %>
           </div>
         </div>
@@ -90,7 +90,6 @@
           </button>
           <p class="text-gray-400">Download our PWA app</p>
         </div>
-
       </div>
     </div>
   </div>

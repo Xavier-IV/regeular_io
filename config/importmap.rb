@@ -16,3 +16,4 @@ pin 'tailwindcss/plugin', to: 'https://ga.jspm.io/npm:tailwindcss@3.3.3/plugin.j
 pin 'copy-to-clipboard', to: 'https://ga.jspm.io/npm:copy-to-clipboard@3.3.3/index.js'
 pin 'toggle-selection', to: 'https://ga.jspm.io/npm:toggle-selection@1.0.6/index.js'
 pin '@sjmc11/tourguidejs', to: 'https://ga.jspm.io/npm:@sjmc11/tourguidejs@0.0.10/dist/tour.js'
+pin 'local-time', to: 'https://ga.jspm.io/npm:local-time@2.1.0/app/assets/javascripts/local-time.js'

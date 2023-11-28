@@ -1,6 +1,6 @@
 {
-  "name": "Regülar: Business",
-  "short_name": "Regülar Business",
+  "name": "Regülar",
+  "short_name": "Regülar",
   "id": "/?source=pwa",
   "start_url": "/clients/dashboards?source=pwa",
   "description": "Track your regular customer, gives them reward and grow your business!",

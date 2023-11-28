@@ -16,6 +16,7 @@ class OmniauthSessionsController < ApplicationController
     purpose = request.env['omniauth.params']['purpose']
     existing_user_id = request.env['omniauth.params']['user_id']
     review_id = request.env['omniauth.params']['review_id']
+    business_id = request.env['omniauth.params']['business_id']
 
     resource = role == 'clients' ? Client : Customer
     redirect_url = role == 'clients' ? new_client_registration_url : new_customer_registration_url
@@ -38,6 +39,16 @@ class OmniauthSessionsController < ApplicationController
       else
         flash[:success] = 'Review is already owned by someone else.'
       end
+
+      return sign_in_and_redirect anon_omniauth, event: :authentication
+    end
+
+    if role == 'customers' && purpose == 'check_in' && business_id.present?
+      anon_omniauth = User.from_omniauth(request.env['omniauth.auth'], request.env['omniauth.params'], resource)
+      business = Business.find(business_id)
+
+      flash[:success] = 'You are now checked in!'
+      check_in_progress(anon_omniauth, business)
 
       return sign_in_and_redirect anon_omniauth, event: :authentication
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_17_155621) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_28_180231) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -41,6 +41,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_17_155621) do
     t.uuid "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "ai_results", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "kind"
+    t.text "input_text"
+    t.text "output_text"
+    t.text "api_response"
+    t.uuid "business_id"
+    t.uuid "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_id"], name: "index_ai_results_on_business_id"
+    t.index ["user_id"], name: "index_ai_results_on_user_id"
   end
 
   create_table "banks", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -74,6 +87,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_17_155621) do
     t.index ["bank_id", "account_number"], name: "index_business_banks_on_bank_id_and_account_number", unique: true
     t.index ["bank_id"], name: "index_business_banks_on_bank_id"
     t.index ["business_id"], name: "index_business_banks_on_business_id"
+  end
+
+  create_table "business_customers", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "business_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_id"], name: "index_business_customers_on_business_id"
+    t.index ["user_id"], name: "index_business_customers_on_user_id"
   end
 
   create_table "business_products", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -115,6 +137,36 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_17_155621) do
     t.index ["business_id"], name: "index_business_statistics_on_business_id"
   end
 
+  create_table "business_subscriptions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "stripe_subscription_id"
+    t.uuid "business_id", null: false
+    t.string "status"
+    t.string "plan"
+    t.date "start_date"
+    t.date "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_id"], name: "index_business_subscriptions_on_business_id"
+  end
+
+  create_table "business_token_consumptions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "kind"
+    t.uuid "business_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_id"], name: "index_business_token_consumptions_on_business_id"
+  end
+
+  create_table "business_token_limits", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "kind"
+    t.integer "limit"
+    t.string "limit_by"
+    t.uuid "business_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_id"], name: "index_business_token_limits_on_business_id"
+  end
+
   create_table "businesses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.string "registration_id"
@@ -131,6 +183,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_17_155621) do
     t.time "open_at"
     t.time "close_at"
     t.string "status", default: "new"
+    t.string "category"
   end
 
   create_table "cities", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -147,6 +200,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_17_155621) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "customer_check_ins", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "business_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["business_id"], name: "index_customer_check_ins_on_business_id"
+    t.index ["user_id"], name: "index_customer_check_ins_on_user_id"
+  end
+
   create_table "customer_progresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.uuid "user_id", null: false
     t.uuid "business_id", null: false
@@ -157,6 +219,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_17_155621) do
     t.datetime "updated_at", null: false
     t.integer "experience", default: 0
     t.integer "level", default: 0
+    t.integer "check_in_count", default: 0
     t.index ["business_id"], name: "index_customer_progresses_on_business_id"
     t.index ["user_id"], name: "index_customer_progresses_on_user_id"
   end
@@ -182,6 +245,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_17_155621) do
     t.index ["user_id"], name: "index_customer_rewards_on_user_id"
   end
 
+  create_table "events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.date "date"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "omniauths", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "provider", null: false
     t.string "uid", null: false
@@ -202,6 +273,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_17_155621) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_progresses_on_user_id"
+  end
+
+  create_table "push_subscriptions", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "endpoint"
+    t.string "p256dh"
+    t.string "auth"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "user_id", null: false
+    t.string "type"
+    t.index ["p256dh", "auth", "user_id", "type"], name: "index_push_subscriptions_on_p256dh_auth_user_id_type", unique: true
+    t.index ["user_id"], name: "index_push_subscriptions_on_user_id"
   end
 
   create_table "qr_codes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -285,17 +368,26 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_17_155621) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "ai_results", "businesses"
+  add_foreign_key "ai_results", "users"
   add_foreign_key "business_approval_histories", "businesses"
   add_foreign_key "business_approval_histories", "users", column: "managed_by_id"
   add_foreign_key "business_approval_histories", "users", column: "requested_by_id"
   add_foreign_key "business_banks", "banks"
   add_foreign_key "business_banks", "businesses"
+  add_foreign_key "business_customers", "businesses"
+  add_foreign_key "business_customers", "users"
   add_foreign_key "business_products", "businesses"
   add_foreign_key "business_rewards", "businesses"
   add_foreign_key "business_rewards", "users", column: "created_by_id"
   add_foreign_key "business_rewards", "users", column: "updated_by_id"
   add_foreign_key "business_statistics", "businesses"
+  add_foreign_key "business_subscriptions", "businesses"
+  add_foreign_key "business_token_consumptions", "businesses"
+  add_foreign_key "business_token_limits", "businesses"
   add_foreign_key "cities", "states"
+  add_foreign_key "customer_check_ins", "businesses"
+  add_foreign_key "customer_check_ins", "users"
   add_foreign_key "customer_progresses", "businesses"
   add_foreign_key "customer_progresses", "users"
   add_foreign_key "customer_rewards", "business_rewards"
@@ -304,6 +396,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_17_155621) do
   add_foreign_key "customer_rewards", "users"
   add_foreign_key "omniauths", "users"
   add_foreign_key "progresses", "users"
+  add_foreign_key "push_subscriptions", "users"
   add_foreign_key "qr_codes", "businesses"
   add_foreign_key "reviews", "businesses"
   add_foreign_key "reviews", "qr_codes"

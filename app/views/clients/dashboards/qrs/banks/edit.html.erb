@@ -1,9 +1,10 @@
-<div class="w-full p-4 hidden pwa:grid pwa:grid-cols-5">
+<% content_for :back_to do %>
   <%= link_to clients_dashboards_qrs_path do %>
     <i class="lni lni-arrow-left text-2xl"></i>
   <% end %>
   <div class="col-span-3 flex items-center justify-center">Edit Bank</div>
-</div>
+<% end %>
+
 <div id="bank_edit" class="flex flex-col gap-4 my-4 md:my-20">
   <div class="w-full h-fit flex flex-col gap-4 mx-auto px-4 md:px-0 text-gray-400">
     <div
@@ -15,7 +16,7 @@
             <%= form.label :bank_name, for: :bank_id %>
 
             <%= form.collection_select :bank_id, Common::Bank.all.order(name: :asc), :id, :name, { include_blank: 'Select a bank...' },
-                                    { selected: @bank_info&.bank_id.present? ? @bank_info.bank_id : nil } %>
+                                       { selected: @bank_info&.bank_id.present? ? @bank_info.bank_id : nil } %>
           </div>
 
           <div class="field">

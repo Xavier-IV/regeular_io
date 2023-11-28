@@ -1,6 +1,18 @@
 <%= form_with model:, url:, method:, class: 'flex flex-col gap-4 justify-between h-full' do |f| %>
+  <div class="flex flex-col col-span-2 md:col-span-1 items-start justify-start pr-10 mt-4">
+    <label class="relative inline-flex items-center cursor-pointer">
+      <%= f.check_box :toggle, checked: @reward.is_active, class: "sr-only peer" %>
+      <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-1 peer-focus:ring-purple-500
+      rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white
+      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all
+      peer-checked:bg-purple-500">
+      </div>
+      <span class="ms-3 text-sm font-medium text-white">Enable Reward?</span>
+    </label>
+  </div>
+
   <div class="grid gap-2 grid-cols-2">
-    <div class="flex flex-col col-span-2 md:col-span-1 items-start justify-start pr-10">
+    <div class="flex flex-col col-span-2 md:col-span-1 items-start justify-start pr-10 mt-4">
       <span class="font-semibold">Reward Detail</span>
       <span class="text-blue-200 text-sm">A discount can be by percentage that is capped, or fixed amount.</span>
     </div>
@@ -18,7 +30,7 @@
                        action: 'change->dashboard--reward#handleValueType',
                        'dashboard--reward-target': 'valueType'
                      },
-                   }%>
+                   } %>
 
       <%= f.label :amount, class: 'text-blue-200 text-sm' %>
       <%= f.text_field :value, value: model.value.to_i, data: {

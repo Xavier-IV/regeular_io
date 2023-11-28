@@ -35,8 +35,8 @@
 <div class="w-full pwa:h-[calc(100vh-28px)] h-screen flex flex-col">
   <div class="w-full h-full overflow-hidden">
     <div class="w-full h-full">
-      <div class="w-full h-full mx-auto max-w-3xl flex flex-col mb-20">
-        <div class="print:hidden pwa:hidden flex justify-between gap-3 my-4 px-4 md:px-0">
+      <div class="w-full h-full mx-auto flex flex-col mb-20">
+        <div class="print:hidden max-w-3xl mx-auto w-full pwa:hidden flex justify-between gap-3 my-4 px-4 md:px-0">
           <%= link_to clients_dashboards_path, class: 'rounded-md w-fit text-2xl text-gray-800 flex items-center justify-center cursor-pointer p-1' do %>
             <i class="lni lni-home"></i>
           <% end %>
@@ -71,7 +71,7 @@
             </div>
           </div>
         </div>
-        <div class="w-full h-full overflow-y-scroll no-scrollbar">
+        <div class="w-full h-full overflow-auto no-scrollbar max-w-3xl mx-auto">
           <%= yield %>
         </div>
         <div

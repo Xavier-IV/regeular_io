@@ -1,0 +1,80 @@
+<%= form_with model:, url:, method:, class: 'flex flex-col gap-4 justify-between h-full' do |f| %>
+  <div class="flex flex-col col-span-2 md:col-span-1 items-start justify-start pr-10 mt-4">
+    <label class="relative inline-flex items-center cursor-pointer">
+      <%= f.check_box :toggle, checked: @reward.is_active, class: "sr-only peer" %>
+      <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-1 peer-focus:ring-purple-500
+      rounded-full peer peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white
+      after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all
+      peer-checked:bg-purple-500">
+      </div>
+      <span class="ms-3 text-sm font-medium text-white">Enable Reward?</span>
+    </label>
+  </div>
+  <div class="grid gap-2 grid-cols-2">
+    <div class="flex flex-col col-span-2 md:col-span-1 items-start justify-start pr-10 mt-4">
+      <span class="font-semibold">Reward Detail</span>
+      <span class="text-blue-200 text-sm">A discount can be by percentage that is capped, or fixed amount.</span>
+    </div>
+    <div
+      class="flex flex-col col-span-2 md:col-span-1 gap-2">
+      <%= f.text_field :kind, readonly: true, class: 'hidden' %>
+
+      <%= f.label :value_type, 'Discount Type', class: 'text-blue-200 text-sm' %>
+      <%= f.select :value_type, options_for_select([['Percentage', 'percentage'], ['Fixed Value', 'fixed']], model.value_type),
+                   {
+                     include_blank: 'Select discount type...'
+                   },
+                   {
+                     data: {
+                       action: 'change->dashboard--reward#handleValueType',
+                       'dashboard--reward-target': 'valueType'
+                     },
+                   } %>
+
+      <%= f.label :amount, class: 'text-blue-200 text-sm' %>
+      <%= f.text_field :value, value: model.value.to_i, data: {
+        action: 'keyup->dashboard--reward#handleChange',
+        'dashboard--reward-target': 'value'
+      }, autocomplete: 'off' %>
+
+    </div>
+  </div>
+
+  <div class="grid gap-2 grid-cols-2 mt-10">
+    <div class="flex flex-col col-span-2 md:col-span-1 items-start justify-start pr-10">
+      <span class="font-semibold">Minimum Order</span>
+      <span class="text-blue-200 text-sm">User need to purchase minimum amount to use the reward.</span>
+    </div>
+
+    <div class="flex flex-col col-span-2 md:col-span-1 gap-2">
+      <%= f.label :min_order_amount, class: 'text-blue-200 text-sm' %>
+      <%= f.text_field :min_order_amount, autocomplete: 'off' %>
+    </div>
+  </div>
+
+  <div
+    data-dashboard--reward-target="capForm"
+    class="grid gap-2 grid-cols-2 mt-10 <%= model.value_type == 'percentage' ? '' : 'hidden' %>">
+    <div class="flex flex-col col-span-2 md:col-span-1 items-start justify-start pr-10">
+      <span class="font-semibold">Limit & Safety Net</span>
+      <span class="text-blue-200 text-sm">To avoid abuse of rewards, you can specify reward limit</span>
+      <span class="text-blue-200 text-sm mt-4">Only for percentage discount</span>
+    </div>
+
+    <div class="flex flex-col col-span-2 md:col-span-1 gap-2">
+      <%= f.label :capped_amount, class: 'text-blue-200 text-sm' %>
+      <%= f.number_field :capped_amount, data: {
+        action: 'keyup->dashboard--reward#handleCappedAmount',
+      }, autocomplete: 'off', pattern: "\d*" %>
+    </div>
+  </div>
+
+  <div class="flex gap-2 justify-end">
+    <%= link_to customers_dashboards_account_path, class: 'p-3 bg-red-500 rounded-lg flex items-center' do %>
+      <i class="lni lni-close"></i>
+    <% end %>
+    <button class="p-3 bg-green-500 rounded-lg flex items-center">
+      <i class="lni lni-checkmark"></i>
+    </button>
+  </div>
+<% end %>

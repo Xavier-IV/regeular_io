@@ -1,6 +1,6 @@
 {
-  "name": "Regülar: Business (Stage)",
-  "short_name": "Regülar Business (Stage)",
+  "name": "Regülar (Stage)",
+  "short_name": "Regülar (Stage)",
   "id": "/?source=pwa",
   "start_url": "/clients/dashboards?source=pwa",
   "description": "Track your regular customer, gives them reward and grow your business!",

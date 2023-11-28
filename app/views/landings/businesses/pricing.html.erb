@@ -1,0 +1,166 @@
+<script async
+        src="https://js.stripe.com/v3/buy-button.js">
+</script>
+
+<div class="w-full py-20 gap-4 flex flex-col items-center text-center text-white">
+  <h1 class="text-5xl font-bold heading-gradient p-2">Pricing</h1>
+  <p class="text-gray-200 text-xl">Start investing in your business growth<br/>
+    with our powerful database.</p>
+</div>
+
+<%- if false %>
+  <div class="w-full py-10 gap-4 flex flex-col items-center text-center text-white mt-10">
+    <p>Save 30% more with yearly subscription</p>
+  </div>
+<% end %>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-6xl mx-auto px-10 md:px-20 md:px-4">
+
+  <div class="bg-gray-300 p-10 text-gray-700 rounded-lg min-h-[400px] flex flex-col gap-4 justify-between">
+    <div class="flex flex-col gap-4 items-center text-center">
+      <h2 class="text-lg">Freemium</h2>
+      <div class="flex gap-1 items-end align-text-bottom">
+        <span class="text-xs font-light mb-1">RM</span>
+        <p class="text-3xl font-bold">0.00</p>
+        <span class="text-xs font-light mb-1">/month</span>
+      </div>
+      <p class="text-sm">
+        Start managing your own customer database
+      </p>
+      <div class="flex flex-col w-full text-left text-sm">
+        <p>+ 2 user</p>
+        <p>+ <span class="font-bold">50</span> customers database</p>
+        <p>+ Collect customer data</p>
+        <p>+ Essential discount and reward</p>
+        <p>+ Free forever!</p>
+        <p class="mt-10 text-gray-400">You need to provide debit card so we can verify you're not a robot,
+          any charge will be refunded by Stripe, our trusted payment partner.</p>
+      </div>
+    </div>
+    <%- if client_signed_in? %>
+      <div class="w-full">
+        <a href="<%= clients_dashboards_path %>"
+           class="w-full flex items-center justify-center p-2 rounded-full
+         bg-gray-200 text-gray-600
+         hover:bg-gray-500 hover:text-white">
+          Manage Subscription
+        </a>
+      </div>
+    <% else %>
+      <div class="w-full">
+        <a href="<%= Rails.application.config.stripe_micro_link %>"
+           class="w-full flex items-center justify-center p-2 rounded-full
+         bg-gray-200 text-gray-600
+         hover:bg-gray-500 hover:text-white">
+          Subscribe
+        </a>
+      </div>
+    <% end %>
+  </div>
+
+  <div
+    style="background: linear-gradient(180deg, #9940D0 0%, #7513B1 100%);"
+    class="relative border border-purple-500 border-2
+     text-white
+     p-10 text-gray-800 rounded-lg min-h-[450px] flex flex-col gap-4 justify-between">
+    <div class="absolute -right-6 top-8">
+      <div class="px-2 py-2 rounded-full bg-green-500 text-white text-xs">
+        Best Seller
+      </div>
+    </div>
+    <div class="flex flex-col gap-4 items-center text-center">
+      <h2 class="text-lg">Microenterprise</h2>
+      <div class="flex gap-1 items-end align-text-bottom">
+        <span class="text-xs font-light mb-1">RM</span>
+        <p class="text-3xl font-bold">25.00</p>
+        <span class="text-xs font-light mb-1">/month</span>
+      </div>
+      <p class="text-gray-200 text-sm">
+        Essential tools to start growing
+        new business
+      </p>
+      <div class="flex flex-col w-full text-left justify-start text-sm wrap">
+        <p>+ 3 users</p>
+        <p>+ <span class="font-bold">1000</span> customers database</p>
+        <p>+ [New] General AI Marketing Tools</p>
+        <p>+ Essential discount and reward</p>
+        <p>+ 7 days AI history retention</p>
+      </div>
+    </div>
+
+    <%- if client_signed_in? %>
+      <div class="w-full">
+        <a href="<%= clients_dashboards_path %>"
+           class="w-full
+         border border-purple-400 border-2
+         shadow-md
+         flex items-center justify-center p-2 rounded-full bg-purple-400 text-white
+         hover:bg-purple-700 hover:text-white hover:border-purple-300">
+          Manage Subscription
+        </a>
+      </div>
+    <% else %>
+      <div class="w-full">
+        <a href="<%= Rails.application.config.stripe_micro_link %>"
+           class="w-full
+         border border-purple-400 border-2
+         shadow-md
+         flex items-center justify-center p-2 rounded-full bg-purple-400 text-white
+         hover:bg-purple-700 hover:text-white hover:border-purple-300">
+          Subscribe
+        </a>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="bg-gray-300 p-10 text-gray-700 rounded-lg min-h-[400px] flex flex-col gap-4 justify-between">
+    <div class="flex flex-col gap-4 items-center text-center">
+      <h2 class="text-lg">SME Business</h2>
+      <div class="flex gap-1 items-end align-text-bottom">
+        <span class="text-xs font-light mb-1">RM</span>
+        <p class="text-3xl font-bold">55.00</p>
+        <span class="text-xs font-light mb-1">/month</span>
+      </div>
+      <p class="text-sm">
+        All advanced tools to grow your
+        business to next level
+      </p>
+      <div class="flex flex-col w-full text-left text-sm">
+        <p>+ 10 users</p>
+        <p>+ <span class="font-bold">5000</span> customers database</p>
+        <p>+ [New] Powerful AI Marketing Tool</p>
+        <p>+ Essential discount and reward</p>
+        <p>+ 14 days AI response history</p>
+      </div>
+    </div>
+    <%- if client_signed_in? %>
+      <div class="w-full">
+        <a href="<%= clients_dashboards_path %>"
+           class="w-full flex items-center justify-center p-2 rounded-full
+         bg-gray-200 text-gray-600
+         hover:bg-gray-500 hover:text-white">
+          Manage Subscription
+        </a>
+      </div>
+    <% else %>
+      <div class="w-full">
+        <a href="<%= Rails.application.config.stripe_sme_link %>"
+           class="w-full flex items-center justify-center p-2 rounded-full
+         bg-gray-200 text-gray-600
+         hover:bg-gray-500 hover:text-white">
+          Subscribe
+        </a>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="w-full flex flex-col text-center items-center mt-10">
+  <p>You are free to cancel anytime.<br/>
+    No question asked.</p>
+</div>
+
+<div class="w-full flex flex-col text-center items-center mt-10 text-gray-500 text-sm ">
+  <p>*All price are excluding SST Tax.</p>
+</div>
+

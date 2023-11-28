@@ -1,6 +1,6 @@
 // service-worker.js
 
-const CACHE_NAME = 'business-pwa-cache-v1';
+const CACHE_NAME = 'business-pwa-cache-v2';
 const urlsToCache = [
     '/',
     '/assets/application.css',
@@ -17,11 +17,11 @@ self.addEventListener('install', (event) => {
     );
 });
 
-self.addEventListener('fetch', (event) => {
-    event.respondWith(
-        caches.match(event.request)
-            .then((response) => {
-                return response || fetch(event.request);
-            })
-    );
+self.addEventListener('push', function(event) {
+    const data = event.data?.json();
+    console.log(data)
+    self.registration.showNotification(data.title, {
+        body: data.body,
+        // other notification options
+    });
 });
