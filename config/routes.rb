@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-  match '*path', to: 'notices#construction', via: :all
-
+  match '*path', to: 'notices#construction', via: :all if Rails.env.production?
   root 'notices#construction' if Rails.env.production?
 
   unless Rails.env.production?
