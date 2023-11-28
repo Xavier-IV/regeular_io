@@ -44,7 +44,7 @@
       </div>
 
       <div class="w-fit flex items-center justify-center">
-        <% if @balance_left.positive? %>
+        <% if @balance.present? && @balance_left.positive? %>
           <%= button_to clients_dashboards_tool_marketings_viral_content_path, params: {
             generate_new: true
           }, class: 'px-4 py-2 bg-purple-500 text-white rounded-full' do %>

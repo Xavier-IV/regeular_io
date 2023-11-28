@@ -43,6 +43,8 @@ class Clients::Dashboards::ToolMarketingsController < ApplicationController
   end
 
   def calculate_percentage(limit, used)
+    return 100.0 if limit.blank?
+
     used.present? ? ([(limit.limit.to_f - used.to_f), 0].max / limit.limit.to_f) * 100 : 100.0
   end
 end

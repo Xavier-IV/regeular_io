@@ -14,7 +14,18 @@ class Clients::Dashboards::ToolMarketings::EngagementsController < ApplicationCo
 
   def new
     business = current_client.business
-    limit = business.business_token_limits.find_by(kind: 'ai.marketing.generative.engagement')
+    limit = business.business_token_limits.find_or_create_by(kind: 'ai.marketing.generative.engagement')
+    if limit.limit.blank?
+      limit.limit = if business.business_subscription.present? && business.business_subscription.plan == 'Microenterprise'
+                      5
+                    elsif business.business_subscription.present? && business.business_subscription.plan == 'SME Business'
+                      10
+                    else
+                      0
+                    end
+      limit.limit_by = 'week'
+      limit.save
+    end
     consumption_count = business.business_token_consumptions
                                 .where(kind: 'ai.marketing.generative.engagement')
                                 .where(created_at: Date.current.beginning_of_week..Date.current.end_of_week.end_of_day)

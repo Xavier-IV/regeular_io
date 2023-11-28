@@ -16,7 +16,13 @@ class Clients::Dashboards::ToolMoodboards::BannersController < ApplicationContro
     business = current_client.business
     limit = business.business_token_limits.find_or_create_by(kind: 'ai.moodboard.generative.banner')
     if limit.limit.blank?
-      limit.limit = business.business_subscription.plan == 'SME Business' ? 5 : 3
+      limit.limit = if business.business_subscription.present? && business.business_subscription.plan == 'Microenterprise'
+                      5
+                    elsif business.business_subscription.present? && business.business_subscription.plan == 'SME Business'
+                      10
+                    else
+                      0
+                    end
       limit.limit_by = 'week'
       limit.save
     end

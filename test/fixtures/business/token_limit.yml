@@ -1,0 +1,36 @@
+
+one:
+  kind: ai.moodboard.generative.banner
+  limit: 10
+  limit_by: week
+  business: business_approved
+
+two:
+  kind: ai.marketing.generative.viral_content_idea
+  limit: 10
+  limit_by: week
+  business: business_approved
+
+three:
+  kind: ai.marketing.generative.copywriting
+  limit: 10
+  limit_by: week
+  business: business_approved
+
+four:
+  kind: ai.marketing.generative.daily_post
+  limit: 10
+  limit_by: week
+  business: business_approved
+
+five:
+  kind: ai.moodboard.generative.interior_design
+  limit: 10
+  limit_by: week
+  business: business_approved
+
+six:
+  kind: ai.marketing.generative.engagement
+  limit: 10
+  limit_by: week
+  business: business_approved

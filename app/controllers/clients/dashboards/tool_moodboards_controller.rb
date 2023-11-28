@@ -14,7 +14,10 @@ class Clients::Dashboards::ToolMoodboardsController < ApplicationController
                            .count
 
     limit_banner = business.business_token_limits.find_by(kind: 'ai.moodboard.generative.banner')
-    @gen_banners_used = @gen_banners.present? ? ((limit_banner.limit.to_f - @gen_banners.to_f) / limit_banner.limit.to_f) * 100 : 100.0
+    @gen_banners_used = 100.0
+    if limit_banner.present?
+      @gen_banners_used = @gen_banners.present? ? ((limit_banner.limit.to_f - @gen_banners.to_f) / limit_banner.limit.to_f) * 100 : 100.0
+    end
 
     @gen_interior = business.business_token_consumptions
                             .where(kind: 'ai.moodboard.generative.interior_design')
@@ -22,6 +25,9 @@ class Clients::Dashboards::ToolMoodboardsController < ApplicationController
                             .count
 
     limit_interior = business.business_token_limits.find_by(kind: 'ai.moodboard.generative.interior_design')
+    @gen_interior_used = 100.0
+    return if @gen_interior.blank?
+
     @gen_interior_used = @gen_interior.present? ? ((limit_interior.limit.to_f - @gen_interior.to_f) / limit_interior.limit.to_f) * 100 : 100.0
   end
 end

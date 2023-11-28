@@ -9,7 +9,7 @@
          class="p-4 py-2 hover:bg-gray-200 px-4 w-full flex justify-between items-center"
          target="_blank">
         <span>Manage Subscriptions</span>
-        <span class="text-xs text-gray-300"><%= current_client.business.business_subscription.plan %></span>
+        <span class="text-xs text-gray-300"><%= current_client.business.business_subscription.present? ? current_client.business.business_subscription.plan : 'Free' %></span>
       </a>
     </div>
 

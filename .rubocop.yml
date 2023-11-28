@@ -60,6 +60,7 @@ Metrics/PerceivedComplexity:
     - 'app/controllers/clients/dashboards/businesses/approvals_controller.rb'
     - 'app/controllers/clients/webhooks_controller.rb'
     - 'app/controllers/clients/dashboards/tool_marketings/*'
+    - 'app/controllers/clients/dashboards/tool_moodboards/*'
 
 Style/Documentation:
   Enabled: false
@@ -83,6 +84,7 @@ Layout/LineLength:
     - 'app/models/business.rb'
     - 'app/controllers/clients/dashboards/tool_moodboards_controller.rb'
     - 'app/controllers/clients/dashboards/tool_marketings/*'
+    - 'app/controllers/clients/dashboards/tool_moodboards/*'
 
 Rails/LexicallyScopedActionFilter:
   Enabled: false
