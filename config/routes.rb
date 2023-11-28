@@ -5,11 +5,6 @@ Rails.application.routes.draw do
   root 'notices#construction' if Rails.env.production?
 
   unless Rails.env.production?
-    draw(:omniauth)
-    draw(:admin)
-    draw(:customer)
-    draw(:business)
-
     match '/404', to: 'errors#not_found', via: :all
     match '/500', to: 'errors#internal_server_error', via: :all
 
@@ -29,5 +24,10 @@ Rails.application.routes.draw do
     post '/clients/webhook', to: 'clients/webhooks#stripe'
 
     post 'pwa_subscriptions', to: 'pwa_subscriptions#create'
+
+    draw(:omniauth)
+    draw(:admin)
+    draw(:customer)
+    draw(:business)
   end
 end
