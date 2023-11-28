@@ -12,6 +12,30 @@ module CustomerHelper
     progress.rating_count = ratings.length
     progress.save
 
+    Business::Customer.find_or_create_by(
+      user_id: current_customer.id,
+      business:
+    )
+
+    progress.gain_exp
+  end
+
+  def check_in_progress(current_customer, business)
+    progress = Customer::Progress.find_or_create_by(user: current_customer, business:)
+
+    progress.check_in_count = progress.check_in_count + 1
+    progress.save
+
+    Customer::CheckIn.create(
+      user_id: current_customer.id,
+      business:
+    )
+
+    Business::Customer.find_or_create_by(
+      user_id: current_customer.id,
+      business:
+    )
+
     progress.gain_exp
   end
 end

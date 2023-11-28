@@ -15,7 +15,13 @@ Rails.application.routes.draw do
   get '/acceptable_use_policy', to: 'landings/legals#acceptable_use_policy'
   get '/disclaimer', to: 'landings/legals#disclaimer'
 
+  match '*path', to: 'notices#construction', via: :all, constraints: ->(req) { !req.xhr? } if Rails.env.production?
+
+  get '/construction', to: 'notices#construction'
+
   post '/clients/webhook', to: 'clients/webhooks#stripe'
+
+  post 'pwa_subscriptions', to: 'pwa_subscriptions#create'
 
   draw(:omniauth)
   draw(:admin)

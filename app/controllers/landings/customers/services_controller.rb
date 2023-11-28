@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Landings::Customers::ServicesController < ApplicationController
   def index
     @tags = [
@@ -9,8 +11,8 @@ class Landings::Customers::ServicesController < ApplicationController
     @cities = if query_params[:state].present?
                 Common::State.find_by(name: query_params[:state])
                              .cities.where(
-                  name: Business.where(state: query_params[:state]).distinct.pluck(:city)
-                )
+                               name: Business.where(state: query_params[:state]).distinct.pluck(:city)
+                             )
               else
                 []
               end
@@ -22,10 +24,10 @@ class Landings::Customers::ServicesController < ApplicationController
                           .with_city(query_params[:city])
   end
 
-  def show
-  end
+  def show; end
 
   private
+
   def query_params
     params.permit(:most, :state, :city, :experience, :level)
   end

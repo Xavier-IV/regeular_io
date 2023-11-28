@@ -1,6 +1,15 @@
 <div class="flex flex-col gap-4 my-10 md:my-10 px-10 md:px-0 text-gray-600">
   <h1 class="font-bold text-2xl">Welcome<%= ", #{current_customer.first_name}!" if current_customer.first_name.present? %></h1>
 
+
+  <div
+    data-controller="notification-pwa"
+    data-notification-pwa-target="subscribeButton"
+    data-action="click->notification-pwa#subscribeUser"
+    class="rounded-md px-4 py-2 bg-purple-500 text-white w-fit">
+    Subscribe Notification
+  </div>
+
   <%- if current_customer.customer_progresses.present? %>
     <div class="mt-10 flex flex-col gap-4">
       <h2 class="text-lg font-bold">Progress & Rewards</h2>

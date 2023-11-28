@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Clients::Dashboards::FutureEventsController < ApplicationController
   include Dashboard::LayoutDetail
   include Dashboard::Auth
@@ -13,6 +15,5 @@ class Clients::Dashboards::FutureEventsController < ApplicationController
     @days_until = (@closest_event.date - Time.zone.today).to_i
   end
 
-  def show
-  end
+  def show; end
 end

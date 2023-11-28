@@ -1,0 +1,83 @@
+<% if @business.present? %>
+  <div class="flex flex-col gap-4 py-10 md:py-16 h-fit pb-20">
+    <!--Auth-->
+    <div class="flex flex-col justify-center items-center px-5">
+      <div class="flex flex-col justify-center items-center">
+        <% if customer_signed_in? %>
+          <p>Welcome, <%= current_customer.first_name %>!</p>
+        <% end %>
+      </div>
+    </div>
+
+    <!--Review-->
+    <div class="w-full h-fit grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto px-4 md:px-10 md:px-0">
+      <div
+        style="box-shadow: 0px 4px 10px rgba(131, 105, 221, 0.50);"
+        class="col-span-3 order-2 py-10 md:py-20 md:order-4 w-full h-fit py-10 md:py-20 bg-gradient-to-l from-violet-500 to-indigo-500 rounded-2xl shadow flex flex-col items-center justify-center gap-4">
+        <div class="w-full flex flex-col gap-2 px-6 items-center text-center text-white">
+          <h2 class="text-3xl font-bold text-white">Check In</h2>
+          <div class="flex gap-1 w-full">
+            <div class="h-[1px] w-full bg-purple-400 my-4 rounded-full drop-shadow-lg"></div>
+          </div>
+
+          <div class="px-4 my-10 text-lg flex flex-col gap-4">
+            <i class="lni lni-map-marker text-4xl"></i>
+            <p>"<%= @business.name %>"</p>
+            <%- if !@checked_in %>
+              <p>Quickly sign in or register to earn loyalty points and rewards.</p>
+            <% else %>
+              <p>Thank you for checking in at <%= local_time(@recent_check_in.created_at, '%l:%M%P') %>!</p>
+            <% end %>
+          </div>
+
+          <% unless customer_signed_in? %>
+            <div class="flex gap-2 items-center justify-center">
+              <div class="flex gap-2 items-center justify-center">
+                <% [:google_oauth2, :twitter].each do |provider| %>
+                  <%= button_to "/auth/#{provider}?role=customers&purpose=check_in&business_id=#{@business.id}&redirect_to=#{request.original_url}", method: :post, data: { turbo: false },
+                                class: 'bg-white text-gray-800 border border-gray-300 px-4 py-3 flex items-center justify-between rounded-sm gap-4 fill-blue-400' do %>
+                    <%= image_tag "logos/#{omniauth_logo(provider)}", class: 'border-none drops-shadow-none shadow-none w-4 fill-blue-400', alt: 'Your Image' %>
+                    <p><%= "#{omniauth_name(provider)}" %></p>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!--Benefits-->
+    <div class="flex flex-col gap-4 px-10 py-6 bg-white rounded-2xl border mx-4 md:mx-10">
+      <div class="flex flex-col justify-center items-center gap-4 px-10">
+        <div class="flex flex-col items-center">
+          <div class="flex gap-1 items-center">
+            <p class="text-lg text-center"><strong>Regülar Customer Benefit</strong></p>
+            <% unless customer_signed_in? %>
+              <i class="lni lni-lock-alt"></i>
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <%= render partial: 'qr_codes/reviews/progress' %>
+      <%- if @rewards.present? %>
+        <%= render partial: 'qr_codes/reviews/benefit' %>
+      <% else %>
+        <div class="flex items-center justify-center text-gray-800 text-center">
+          <p>This merchant don't have a reward yet.<br/>You can let them know!</p>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+<% else %>
+  <div class="flex flex-col gap-4 py-10 mt-10 md:mt-16 md:py-16 overflow-scroll no-scrollbar">
+    <div class="w-full h-fit grid grid-cols-2 md:grid-cols-3 gap-4 mx-auto px-4 md:px-10 md:px-0">
+      <div
+        style="box-shadow: 0px 4px 10px rgba(131, 105, 221, 0.50);"
+        class="col-span-3 order-2 py-10 md:py-20 md:order-4 w-full h-fit py-10 md:py-20 bg-gradient-to-l from-violet-500 to-indigo-500 rounded-2xl shadow flex flex-col items-center justify-center text-white gap-4">
+        Invalid QR Code
+      </div>
+    </div>
+  </div>
+<% end %>

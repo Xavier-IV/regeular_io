@@ -132,4 +132,8 @@ gem 'ruby-openai', '~> 6.2'
 
 gem 'stripe', '~> 10.1'
 
-gem "time_difference", "~> 0.5.0"
+gem 'time_difference', '~> 0.5.0'
+
+gem 'web-push', '~> 3.0'
+
+gem 'local_time', '~> 2.1'

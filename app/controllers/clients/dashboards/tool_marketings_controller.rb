@@ -8,59 +8,41 @@ class Clients::Dashboards::ToolMarketingsController < ApplicationController
   def show
     business = current_client.business
     @limits = business.business_token_limits
+    @token_usages = calculate_token_usages(business)
+  end
 
-    @gen_copywriting_used = business.business_token_consumptions
-                                    .where(kind: 'ai.marketing.generative.copywriting')
-                                    .where(created_at: Date.current.beginning_of_week..Date.current.end_of_week.end_of_day)
-                                    .count
+  private
 
-    @gen_viral_used = business.business_token_consumptions
-                              .where(kind: 'ai.marketing.generative.viral_content_idea')
-                              .where(created_at: Date.current.beginning_of_week..Date.current.end_of_week.end_of_day)
-                              .count
+  def calculate_token_usages(business)
+    token_kinds = %w[ai.marketing.generative.copywriting
+                     ai.marketing.generative.viral_content_idea
+                     ai.marketing.generative.daily_post
+                     ai.marketing.generative.engagement]
 
-    @gen_daily_post_used = business.business_token_consumptions
-                                   .where(kind: 'ai.marketing.generative.daily_post')
-                                   .where(created_at: Date.current.beginning_of_week..Date.current.end_of_week.end_of_day)
-                                   .count
+    token_usages = {}
 
-    @gen_daily_engagement_used = business.business_token_consumptions
-                                         .where(kind: 'ai.marketing.generative.engagement')
-                                         .where(created_at: Date.current.beginning_of_week..Date.current.end_of_week.end_of_day)
-                                         .count
+    token_kinds.each do |kind|
+      token_usages[kind] = calculate_usage(business, kind)
+      set_percentage_instance_variable(kind, token_usages[kind])
+    end
 
-    limit_viral = business.business_token_limits.find_by(kind: 'ai.marketing.generative.viral_content_idea')
-    @percentage_viral = if @gen_viral_used.present?
-                          ([(limit_viral.limit.to_f - @gen_viral_used.to_f),
-                            0].max / limit_viral.limit.to_f) * 100
-                        else
-                          100.0
-                        end
+    token_usages
+  end
 
-    limit_copy = business.business_token_limits.find_by(kind: 'ai.marketing.generative.copywriting')
-    @percentage_copy = if @gen_copywriting_used.present?
-                         ([(limit_copy.limit.to_f - @gen_copywriting_used.to_f),
-                           0].max / limit_copy.limit.to_f) * 100
-                       else
-                         100.0
-                       end
+  def calculate_usage(business, kind)
+    business.business_token_consumptions
+            .where(kind:)
+            .where(created_at: Date.current.beginning_of_week..Date.current.end_of_week.end_of_day)
+            .count
+  end
 
-    limit_daily_post = business.business_token_limits.find_by(kind: 'ai.marketing.generative.daily_post')
-    @percentage_daily_post = if @gen_daily_post_used.present?
-                               ([
-                                 (limit_daily_post.limit.to_f - @gen_daily_post_used.to_f), 0
-                               ].max / limit_daily_post.limit.to_f) * 100
-                             else
-                               100.0
-                             end
+  def set_percentage_instance_variable(kind, used)
+    limit = current_client.business.business_token_limits.find_by(kind:)
+    percentage_variable_name = "@percentage_#{kind.gsub('.', '_')}"
+    instance_variable_set(percentage_variable_name, calculate_percentage(limit, used))
+  end
 
-    limit_daily_engagement = business.business_token_limits.find_by(kind: 'ai.marketing.generative.engagement')
-    @percentage_daily_engagement = if @gen_daily_engagement_used.present?
-                                     ([
-                                       (limit_daily_engagement.limit.to_f - @gen_daily_engagement_used.to_f), 0
-                                     ].max / limit_daily_engagement.limit.to_f) * 100
-                                   else
-                                     100.0
-                                   end
+  def calculate_percentage(limit, used)
+    used.present? ? ([(limit.limit.to_f - used.to_f), 0].max / limit.limit.to_f) * 100 : 100.0
   end
 end

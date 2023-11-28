@@ -9,4 +9,8 @@ class Landings::BusinessesController < ApplicationController
   def pricing
     render layout: 'business_v2'
   end
+
+  def about
+    render layout: 'business_v2'
+  end
 end

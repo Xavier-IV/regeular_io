@@ -12,4 +12,10 @@ class Customers::RegistrationsController < Devise::RegistrationsController
       respond_with_navigational(resource) { render :new }
     end
   end
+
+  private
+
+  def after_sign_in_path_for(resource)
+    stored_location_for(resource) || customer_root_path
+  end
 end

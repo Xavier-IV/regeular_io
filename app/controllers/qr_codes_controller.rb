@@ -26,6 +26,8 @@ class QrCodesController < ApplicationController
       redirect_to qr_codes_bank_path(reference: query_params[:reference])
     when 'QrCode::Review'
       redirect_to new_qr_codes_review_path(reference: query_params[:reference])
+    when 'QrCode::CheckIn'
+      redirect_to new_qr_codes_check_in_path(reference: query_params[:reference])
     when 'QrCode::Reward'
       redirect_to(edit_clients_dashboards_reward_consume_url(reference: query_params[:reference],
                                                              host: Rails.application.credentials.dig(:host,

@@ -5,6 +5,32 @@
     data-website-uuid="3ae5dddb-62c1-4120-b5b7-e5a383369979"
 ></script>
 
+<script type="text/javascript">
+    console.log('running')
+    window.vapidPublicKey = new Uint8Array(<%= Base64.urlsafe_decode64(Rails.application.credentials.dig(:vapid, :public_key)).bytes %>);
+
+    console.log('serviceWorker' in navigator)
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/business-service-worker.js')
+          .then(function(registration) {
+              console.log('Service Worker registered with scope:', registration.scope);
+          })
+          .catch(function(err) {
+              console.log('Service Worker registration failed:', err);
+          });
+
+        console.log(window.vapidPublicKey)
+
+        navigator.serviceWorker.ready.then((serviceWorkerRegistration) => {
+            serviceWorkerRegistration.pushManager
+              .subscribe({
+                  userVisibleOnly: true,
+                  applicationServerKey: window.vapidPublicKey
+              });
+        });
+    }
+</script>
+
 <!--Amplitude-->
 <script type="text/javascript">
     !function () {

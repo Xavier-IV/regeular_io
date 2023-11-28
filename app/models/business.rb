@@ -22,6 +22,7 @@ class Business < ApplicationRecord
   has_one :qr_code_bank, class_name: 'QrCode::Bank', dependent: :destroy
   has_many :qr_code_review, class_name: 'QrCode::Review', dependent: :destroy
   has_many :qr_code_reward, class_name: 'QrCode::Reward', dependent: :destroy
+  has_many :qr_code_check_ins, class_name: 'QrCode::CheckIn', dependent: :destroy
 
   has_many :reviews, dependent: :destroy, class_name: 'Review'
   has_many :reviewers, -> { distinct }, through: :reviews, source: :customer, class_name: 'User'
