@@ -47,7 +47,6 @@ class OmniauthSessionsController < ApplicationController
       anon_omniauth = User.from_omniauth(request.env['omniauth.auth'], request.env['omniauth.params'], resource)
       business = Business.find(business_id)
 
-      flash[:success] = 'You are now checked in!'
       check_in_progress(anon_omniauth, business)
 
       return sign_in_and_redirect anon_omniauth, event: :authentication
