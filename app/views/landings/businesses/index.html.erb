@@ -6,13 +6,26 @@
 </div>
 
 <%- if client_signed_in? %>
-  <div class="flex flex-col gap-4 items-center justify-center mt-10">
+  <div class="flex flex-col gap-3 items-center justify-center mt-10">
     <div class="w-52 md:w-60 h-full p-4 text-center bg-white border rounded-2xl">
       <%= raw generate_qr(@path, color: '000000') %>
     </div>
-    <%- if Rails.env.development? %>
-      <a href="<%= @path %>" class="underline">Test Link</a>
-    <% end %>
+    <div
+      data-controller="clipboard"
+      class="flex gap-2">
+      <a
+        data-controller="analytic"
+        data-analytic-key-param="client.download_qr_pdf"
+        data-action="click->analytic#track"
+        href="<%= printable_path %>" download="printable_qr_code.pdf" class="border rounded-md px-4 py-2 bg-white hover:bg-gray-200">Download PDF</a>
+      <button
+        data-controller="analytic"
+        data-analytic-key-param="client.shareable_link"
+        data-clipboard-target="text"
+        data-action="click->clipboard#copyValue analytic#track"
+        data-value="<%= @path %>"
+        class="border rounded-md px-4 py-2 bg-white hover:bg-gray-200 min-w-40">Shareable Link</button>
+    </div>
   </div>
 <% else %>
   <div class="flex flex-col gap-4 items-center justify-center mt-10">
@@ -26,7 +39,7 @@
   <div class="flex flex-col gap-1 mt-10 px-4 text-gray-500 w-full max-w-2xl mx-auto">
     <div class="flex gap-1 items-center">
       <h2 class="text-lg">My Database</h2>
-      <%= link_to business_root_path do %>
+      <%= link_to business_root_path, class: 'flex items-center' do %>
         <i class="lni lni-reload"></i>
       <% end %>
     </div>

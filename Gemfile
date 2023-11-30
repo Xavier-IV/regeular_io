@@ -136,3 +136,7 @@ gem 'time_difference', '~> 0.5.0'
 gem 'web-push', '~> 3.0'
 
 gem 'local_time', '~> 2.1'
+
+gem 'wicked_pdf', '~> 2.7'
+
+gem 'wkhtmltopdf-binary', '~> 0.12.6'

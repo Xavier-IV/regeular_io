@@ -19,7 +19,6 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('push', async function(event) {
     const data = event.data?.json();
-    console.log(data)
     await self.registration.showNotification(data.title, {
         vibrate: [200, 100, 200, 100, 200, 100, 200],
         tag: data.tag,

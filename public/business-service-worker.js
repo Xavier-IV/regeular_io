@@ -19,7 +19,6 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('push', function(event) {
     const data = event.data?.json();
-    console.log(data)
     self.registration.showNotification(data.title, {
         body: data.body,
         // other notification options
