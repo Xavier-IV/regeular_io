@@ -24,7 +24,12 @@
 
 <%- if client_signed_in? %>
   <div class="flex flex-col gap-1 mt-10 px-4 text-gray-500 w-full max-w-2xl mx-auto">
-    <h2 class="text-lg">My Database</h2>
+    <div class="flex gap-1 items-center">
+      <h2 class="text-lg">My Database</h2>
+      <%= link_to business_root_path do %>
+        <i class="lni lni-reload"></i>
+      <% end %>
+    </div>
     <p>Your database has <%= @customers.count %> customers.</p>
 
     <% @customers.each do |customer| %>
@@ -35,7 +40,9 @@
   </div>
 <% else %>
   <div class="flex flex-col gap-2 mt-10 px-4 text-gray-500 w-full max-w-2xl mx-auto">
-    <h2 class="text-lg">My Database</h2>
+    <div class="flex gap-2 items-center">
+      <h2 class="text-lg">My Database</h2>
+    </div>
     <p>Your database has 150 customers.</p>
     <div class="flex flex-col gap-1">
       <div class="border rounded-md px-4 py-2 bg-white">
@@ -111,14 +118,14 @@
     <%- if @client_count < 100 %>
       <div class="flex items-center gap-2">
         <div class="w-full h-2 rounded-full overflow-hidden bg-gray-200">
-          <div class="h-full rounded-full bg-green-400" style="width: <%= @client_count * 1.0/100 * 100 %>%;"></div>
+          <div class="h-full rounded-full bg-green-400" style="width: <%= @client_count * 1.0 + 2.0/100 * 100 %>%;"></div>
         </div>
         <div class="flex w-fit">
           <p><%= @client_count %>/100</p>
         </div>
       </div>
       <p>We need 100 business to register for this feature. Share with your friends and family.</p>
-      <ul class="list-disc list-inside">
+      <ul class="list-disc list-inside pl-1">
         <li>Loyalty Stamps</li>
         <li>Give rewards to customer</li>
         <li>Push notifications to customer, everytime you have rewards</li>
@@ -144,9 +151,9 @@
 </div>
 
 <div class="flex flex-col px-4 mt-10 text-center w-full max-w-2xl mx-auto">
-  <% if customer_signed_in? %>
+  <% if client_signed_in? %>
     <div class="w-full p-4 bg-white border rounded-md flex flex-col gap-4">
-      <p>Welcome, <%= current_customer.first_name %>!</p>
+      <p>Welcome, <%= current_client.full_name %>!</p>
       <%= button_to "Logout", destroy_client_session_path, method: :delete, class: 'p-4 py-3 bg-black text-white rounded-md w-full' %>
     </div>
   <% else %>

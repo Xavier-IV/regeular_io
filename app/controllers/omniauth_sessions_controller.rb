@@ -69,7 +69,7 @@ class OmniauthSessionsController < ApplicationController
 
     # https://github.com/heartcombo/devise/wiki/How-To:-%5BRedirect-back-to-current-page-after-sign-in,-sign-out,-sign-up,-update%5D#storelocation-to-the-rescue
     target_path = stored_location_for(resource_or_scope)
-    target_path = clients_dashboards_path if current_domain == Rails.application.credentials.dig(:host, :business)
+    target_path = business_root_path if current_domain == Rails.application.credentials.dig(:host, :business)
     target_path = customer_root_path if current_domain == Rails.application.credentials.dig(:host, :review)
     target_path = request.env['omniauth.params']['redirect_to'] if request.env['omniauth.params']['redirect_to']
 

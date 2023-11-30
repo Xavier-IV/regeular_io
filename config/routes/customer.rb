@@ -17,20 +17,20 @@ constraints host: Rails.application.credentials.dig(:host, :review) do
     passwords: 'customers/passwords'
   }, after_sign_up: '/'
 
-  get '/how_it_works', to: 'landings/customers#how_it_works'
-  post '/how_it_works', to: 'landings/customers#how_it_works_progress'
+  # get '/how_it_works', to: 'landings/customers#how_it_works'
+  # post '/how_it_works', to: 'landings/customers#how_it_works_progress'
 
-  namespace :landings, path: '' do
-    namespace :customers, path: '' do
-      resources :services
-    end
-  end
+  # namespace :landings, path: '' do
+  #   namespace :customers, path: '' do
+  #     resources :services
+  #   end
+  # end
 
   resource :qr_code, only: :show
   namespace :qr_codes do
-    resource :bank
+    # resource :bank
     resource :check_in
-    resource :review, only: %i[new create show]
+    # resource :review, only: %i[new create show]
   end
 
   namespace :customers do

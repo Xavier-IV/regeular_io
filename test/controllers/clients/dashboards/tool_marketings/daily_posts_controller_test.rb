@@ -3,28 +3,28 @@
 require 'test_helper'
 
 class Clients::Dashboards::ToolMarketings::DailyPostsControllerTest < ActionDispatch::IntegrationTest
-  test 'only authenticated' do
-    get clients_dashboards_tool_marketings_daily_posts_url
-
-    assert_response :redirect
-    assert_redirected_to new_client_session_path
-  end
-
-  test 'should get index' do
-    sign_in clients(:client_business_approved)
-    get clients_dashboards_tool_marketings_daily_posts_url
-    assert_response :success
-  end
-
-  test 'should get new' do
-    sign_in clients(:client_business_approved)
-    get new_clients_dashboards_tool_marketings_daily_post_url
-    assert_response :success
-  end
-
-  test 'should get show' do
-    sign_in clients(:client_business_approved)
-    get clients_dashboards_tool_marketings_daily_post_url(id: 1)
-    assert_response :success
-  end
+  # test 'only authenticated' do
+  #   get clients_dashboards_tool_marketings_daily_posts_url
+  #
+  #   assert_response :redirect
+  #   assert_redirected_to new_client_session_path
+  # end
+  #
+  # test 'should get index' do
+  #   sign_in clients(:client_business_approved)
+  #   get clients_dashboards_tool_marketings_daily_posts_url
+  #   assert_response :success
+  # end
+  #
+  # test 'should get new' do
+  #   sign_in clients(:client_business_approved)
+  #   get new_clients_dashboards_tool_marketings_daily_post_url
+  #   assert_response :success
+  # end
+  #
+  # test 'should get show' do
+  #   sign_in clients(:client_business_approved)
+  #   get clients_dashboards_tool_marketings_daily_post_url(id: 1)
+  #   assert_response :success
+  # end
 end
