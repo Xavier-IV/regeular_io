@@ -33,7 +33,7 @@ class Business < ApplicationRecord
   has_many :customer_progresses, class_name: 'Customer::Progress', dependent: :destroy, inverse_of: false
   has_many :customer_rewards, class_name: 'Customer::Reward', dependent: :destroy, inverse_of: false
   has_many :business_rewards, class_name: 'Business::Reward', dependent: :destroy
-  has_many :business_customers, :class_name => 'Business::Customer', dependent: :destroy
+  has_many :business_customers, class_name: 'Business::Customer', dependent: :destroy
 
   scope :state_new, -> { where(status: 'new') }
   scope :state_pending_review, -> { where(status: 'pending_review') }

@@ -3,6 +3,10 @@
 class Landings::BusinessesController < ApplicationController
   layout 'business'
   def index
+    if client_signed_in? && current_client.business.blank?
+      return redirect_to clients_dashboards_onboarding_path(id: :onboard_company_name)
+    end
+
     if client_signed_in?
       @qr = current_client.business.qr_code_check_ins.find_by(scanned_times: 0)
       @qr = current_client.business.qr_code_check_ins.create if @qr.blank?

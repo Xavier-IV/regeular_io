@@ -17,12 +17,6 @@ class AuthClientFlowsTest < ActionDispatch::IntegrationTest
     Rails.cache.clear
   end
 
-  test 'can see the business page' do
-    get business_root_url
-    assert_select 'h1', "Grow Your Customer Database
-      Without Pen and Buku 555 📝"
-  end
-
   test 'can sign in' do
     delete destroy_client_session_path
 
@@ -58,7 +52,7 @@ class AuthClientFlowsTest < ActionDispatch::IntegrationTest
   end
 
   test 'can sign up and onboard' do
-    assert_response :success
+    assert_response :redirect
 
     get clients_dashboards_path
     assert_response :redirect

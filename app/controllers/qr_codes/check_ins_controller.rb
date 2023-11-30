@@ -16,11 +16,11 @@ class QrCodes::CheckInsController < ApplicationController
       flash.now[:notice] = "You've already checked in!"
     else
       check_in_progress(current_customer, @business)
-      user_name = current_customer.first_name.present? ? current_customer.first_name : 'A user'
-      total_check_in = Customer::CheckIn
-                         .where("created_at >= ?", Time.zone.today.beginning_of_day)
-                         .where(business_id: @business.id)
-                         .count
+      (current_customer.first_name.presence || 'A user')
+      Customer::CheckIn
+        .where('created_at >= ?', Time.zone.today.beginning_of_day)
+        .where(business_id: @business.id)
+        .count
       # TODO: Release on 50 registered users
       # @business.owner.push_subscriptions.each do |sub|
       #   PushNotificationService.send_notification(

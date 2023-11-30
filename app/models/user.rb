@@ -13,7 +13,7 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
   has_many :omniauths, dependent: :destroy
-  has_many :push_subscriptions, foreign_key: 'user_id', dependent: :destroy, inverse_of: false
+  has_many :push_subscriptions, dependent: :destroy, inverse_of: false
 
   # Client
   belongs_to :business, optional: true

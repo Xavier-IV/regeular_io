@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Clients::PwaSubscriptionsController < ApplicationController
   before_action :authenticate_client!
 
