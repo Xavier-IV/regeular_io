@@ -2,12 +2,12 @@
   "name": "Regülar (Stage)",
   "short_name": "Regülar (Stage)",
   "id": "/?source=pwa",
-  "start_url": "/clients/dashboards?source=pwa",
+  "start_url": "/?source=pwa",
   "description": "Track your regular customer, gives them reward and grow your business!",
-  "scope": "/clients",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#ffffff",
+  "background_color": "#F6FAFC",
+  "theme_color": "#F6FAFC",
   "capture_links": "existing-client-navigate",
   "screenshots" : [
     {

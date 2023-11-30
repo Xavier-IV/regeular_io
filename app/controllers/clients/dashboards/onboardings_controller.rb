@@ -14,7 +14,7 @@ class Clients::Dashboards::OnboardingsController < ApplicationController
        current_client.business.city.present? &&
        current_client.business.state.present? &&
        step != :onboard_complete
-      return redirect_to clients_dashboards_path
+      return redirect_to business_root_path
     end
 
     has_business = current_client.business.present?

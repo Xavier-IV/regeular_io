@@ -22,6 +22,8 @@ constraints host: Rails.application.credentials.dig(:host, :business) do
   }
 
   namespace :clients do
+    resource :pwa_subscription
+
     resources :dashboards, only: :index
     namespace :dashboards do
       resource :confirmation

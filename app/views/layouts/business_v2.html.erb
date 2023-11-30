@@ -51,53 +51,13 @@
 <body
   data-controller="dashboard--profile-tray nav"
   data-action="click->dashboard--profile-tray#screenToggle click->nav#closeAll"
-  class="lg:overscroll-y-none bg-[#110019] no-scrollbar">
+  class="lg:overscroll-y-none bg-slate-50 no-scrollbar">
 
 <div id="flash">
   <%= render 'shared/flash' %>
 </div>
-<div
-  class="w-full h-fit px-4 md:px-10 py-2 flex justify-between items-center text-white border-b border-gray-800">
-  <div
-    class="relative md:hidden flex gap-4 items-center">
-    <button data-action="nav#toggle"><i class="lni text-2xl text-white lni-menu"></i></button>
-    <%= link_to 'Regülar', business_root_path,
-                class: "py-4 text-xl text-center text-center text-purple-500 font-semibold" %>
-    <div
-      data-nav-target="content"
-      class="hidden text-gray-800 absolute top-14 -left-4 border rounded-lg flex flex-col bg-white w-[200px] divide-y h-fit">
-      <%= link_to 'Pricing', pricing_path,
-                  class: "py-4 text-center #{current_page?(pricing_path) ? 'text-purple-500 font-semibold' : ''}"
-      %>
-      <%= link_to 'About Us', about_path,
-                  class: "py-4 text-center #{current_page?(about_path) ? 'text-purple-500 font-semibold' : ''}"
-      %>
-    </div>
-  </div>
-  <div class="hidden md:flex gap-14 items-center">
-    <%= link_to 'Regülar', business_root_path,
-                class: "#{current_page?(business_root_path) ? 'text-purple-500 font-semibold' : ''} p-4 font-bold text-lg" %>
-    <div class="flex gap-6 items-center">
-      <%= link_to 'Pricing', pricing_path,
-                  class: "py-4 #{current_page?(pricing_path) ? 'text-purple-500 font-semibold' : ''}"
-      %>
-      <%= link_to 'About Us', about_path,
-                  class: "py-4 #{current_page?(about_path) ? 'text-purple-500 font-semibold' : ''}"
-      %>
-    </div>
-  </div>
-  <div class="flex gap-2 md:gap-10 items-center">
-    <%- if client_signed_in? %>
-      <%= link_to 'My Database', clients_dashboards_path, class: 'border h-fit rounded-full px-4 py-1 border-purple-600 border-2 text-purple-600 bg-white' %>
-    <% else %>
-      <%= link_to 'Login', new_client_session_path, class: 'py-4' %>
-      <div class="border h-fit rounded-full px-4 py-1 border-purple-600 border-2 text-purple-600 bg-white">Get Started
-      </div>
-    <% end %>
-  </div>
-</div>
 
-<main class="min-h-screen text-white mb-20">
+<main class="min-h-screen text-gray-900 mb-20">
   <%= yield %>
 </main>
 <%= render 'shared/footer_v2' %>

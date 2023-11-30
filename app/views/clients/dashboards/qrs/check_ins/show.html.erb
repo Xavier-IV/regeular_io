@@ -6,7 +6,7 @@
 </div>
 <div class="flex flex-col gap-4 py-4 md:py-10 overflow-scroll no-scrollbar">
   <div class="w-full h-fit flex flex-col mx-auto px-4 md:px-4 md:px-0">
-    <%= turbo_stream_from current_client.business, 'qr_codes_review' %>
+    <%= turbo_stream_from current_client.business, 'check_ins' %>
     <div
       style="box-shadow: 0px 4px 10px rgba(131, 105, 221, 0.50);"
       class="col-span-3 cursor-pointer py-10 md:py-6 w-full h-fit py-10 bg-gradient-to-l from-violet-500 to-indigo-500 rounded-2xl shadow flex flex-col items-center justify-center text-white gap-1">
@@ -17,7 +17,7 @@
         <p class="print:hidden"><%= link_to 'Go to link', qr_code_url(reference: @qr.id) if Rails.env.development? %></p>
       </div>
       <div class="w-full flex flex-col gap-2 px-4 items-center text-center">
-        <h1 class="text-lg font-light text-gray-200">Share your review with us!</h1>
+        <h1 class="text-lg font-light text-gray-200">Check in to collect stamps and earn rewards!</h1>
       </div>
     </div>
     <div class="w-full h-fit px-4 flex col-span-3 items-center justify-center text-center row-start-2">

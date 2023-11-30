@@ -20,7 +20,7 @@
             <div class="h-[1px] w-full bg-purple-400 my-4 rounded-full drop-shadow-lg"></div>
           </div>
 
-          <div class="px-4 my-10 text-lg flex flex-col gap-4">
+          <div class="px-4 my-4 text-lg flex flex-col gap-4">
             <i class="lni lni-map-marker text-4xl"></i>
             <p>"<%= @business.name %>"</p>
             <%- if !@checked_in %>
@@ -45,28 +45,6 @@
           <% end %>
         </div>
       </div>
-    </div>
-
-    <!--Benefits-->
-    <div class="flex flex-col gap-4 px-10 py-6 bg-white rounded-2xl border mx-4 md:mx-10">
-      <div class="flex flex-col justify-center items-center gap-4 px-10">
-        <div class="flex flex-col items-center">
-          <div class="flex gap-1 items-center">
-            <p class="text-lg text-center"><strong>Regülar Customer Benefit</strong></p>
-            <% unless customer_signed_in? %>
-              <i class="lni lni-lock-alt"></i>
-            <% end %>
-          </div>
-        </div>
-      </div>
-      <%= render partial: 'qr_codes/reviews/progress' %>
-      <%- if @rewards.present? %>
-        <%= render partial: 'qr_codes/reviews/benefit' %>
-      <% else %>
-        <div class="flex items-center justify-center text-gray-800 text-center">
-          <p>This merchant don't have a reward yet.<br/>You can let them know!</p>
-        </div>
-      <% end %>
     </div>
   </div>
 
