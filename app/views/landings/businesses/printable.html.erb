@@ -1,0 +1,13 @@
+<div class="flex flex-col gap-4 text-center items-center justify-center bg-purple-500 py-10 text-white" style="background-color: mediumpurple; color: white;">
+  <h1 class="text-white text-3xl"><%= @business.name %></h1>
+</div>
+
+<div class="w-full max-w-lg mx-auto text-center flex flex-col gap-10 items-center justify-center mt-10 p-10">
+  <div class="md:w-[400px] h-[400px] px-8 py-8 flex items-center justify-center text-center bg-white border rounded-2xl">
+    <img src="<%= "data:image/svg+xml;base64,#{Base64.encode64(generate_qr(@path, color: '000000')).gsub("\n", '')}" %>" class="w-full h-full" alt="">
+  </div>
+
+  <h2 class="text-2xl font-bold mt-10">Sign In > Enable Notification</h2>
+  <p class="text-2xl text-gray-500 mt-2">By checking in, you stand a chance to get discount and rewards!</p>
+  <p class="text-lg text-gray-500 mt-10" style="color: gray;">A system by Regülar Database, https://regeular.io</p>
+</div>

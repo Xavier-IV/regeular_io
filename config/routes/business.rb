@@ -9,6 +9,7 @@ constraints host: Rails.application.credentials.dig(:host, :business) do
 
   # Business Landing Page
   root 'landings/businesses#index', as: :business_root
+  get 'printable', to: 'landings/businesses#printable', defaults: { format: :pdf }
   get 'pricing', to: 'landings/businesses#pricing'
   get 'about', to: 'landings/businesses#about'
 

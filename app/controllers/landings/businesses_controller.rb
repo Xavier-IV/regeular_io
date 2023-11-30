@@ -18,6 +18,28 @@ class Landings::BusinessesController < ApplicationController
     render layout: 'business_v2'
   end
 
+  def printable
+    return redirect_to business_root_path unless client_signed_in?
+
+    @business = current_client.business
+    @qr = current_client.business.qr_code_check_ins.find_by(scanned_times: 0)
+    @qr = current_client.business.qr_code_check_ins.create if @qr.blank?
+    @path = qr_code_url(reference: @qr.id)
+
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: 'pdf_filename',
+               layout: 'pdf',
+               formats: [:html],
+               disposition: :inline,
+               background: true,
+               print_media_type: true,
+               no_background: false
+      end
+    end
+  end
+
   def pricing
     render layout: 'business_v2'
   end

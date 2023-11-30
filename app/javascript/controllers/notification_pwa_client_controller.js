@@ -5,7 +5,6 @@ export default class extends Controller {
   static targets = ['subscribeButton']
 
   connect() {
-    console.log('Connect notification pwa')
     const isSubscribed = localStorage.getItem('is_subscribed');
 
     if (isSubscribed === 'true') {
@@ -14,7 +13,6 @@ export default class extends Controller {
   }
 
   subscribeUser() {
-    console.log('Subscribing...')
     const subscribeBtn = this.subscribeButtonTarget
     const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content"); // Get CSRF token
 
@@ -25,9 +23,6 @@ export default class extends Controller {
             userVisibleOnly: true,
             applicationServerKey: window.vapidPublicKey
           }).then(function(subscription) {
-            // Send subscription to the server
-            console.log(JSON.stringify(subscription));
-            console.log({ subscription });
             fetch('/clients/pwa_subscription', {
               method: 'POST',
               headers: {

@@ -6,10 +6,7 @@
 ></script>
 
 <script type="text/javascript">
-    console.log('running')
     window.vapidPublicKey = new Uint8Array(<%= Base64.urlsafe_decode64(Rails.application.credentials.dig(:vapid, :public_key)).bytes %>);
-
-    console.log('serviceWorker' in navigator)
     if ('serviceWorker' in navigator) {
         navigator.serviceWorker.register('/business-service-worker.js')
           .then(function(registration) {
@@ -18,8 +15,6 @@
           .catch(function(err) {
               console.log('Service Worker registration failed:', err);
           });
-
-        console.log(window.vapidPublicKey)
 
         navigator.serviceWorker.ready.then((serviceWorkerRegistration) => {
             serviceWorkerRegistration.pushManager
