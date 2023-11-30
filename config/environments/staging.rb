@@ -113,6 +113,7 @@ Rails.application.configure do
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
 
+  config.stripe_free_link = 'https://buy.stripe.com/test_cN2bKza07aOt5OM3ci'
   config.stripe_micro_link = 'https://buy.stripe.com/test_7sI7uj1tB2hX2CAbIK'
   config.stripe_sme_link = 'https://buy.stripe.com/test_3csbKz2xF7Chdhe6or'
 end

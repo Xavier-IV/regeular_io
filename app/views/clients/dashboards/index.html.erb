@@ -1,6 +1,13 @@
 <div class="flex flex-col gap-4 mt-4 md:mt-10 w-full h-fit">
   <%= render 'clients/dashboards/info' %>
   <%= render 'clients/dashboards/onboarding_steps' %>
+  <div
+    data-controller="notification-pwa-client"
+    data-notification-pwa-client-target="subscribeButton"
+    data-action="click->notification-pwa-client#subscribeUser"
+    class="rounded-md px-4 py-2 bg-purple-500 text-white w-fit">
+    Subscribe Notification
+  </div>
 
   <div class="w-full h-fit grid grid-cols-2 md:grid-cols-3 gap-2 mx-auto px-4 md:px-0">
     <div

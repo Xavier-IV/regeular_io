@@ -22,64 +22,66 @@ constraints host: Rails.application.credentials.dig(:host, :business) do
   }
 
   namespace :clients do
-    resources :dashboards, only: :index
+    resource :pwa_subscription
+
+    # resources :dashboards, only: :index
     namespace :dashboards do
       resource :confirmation
 
-      resource :tool_marketing
-      namespace :tool_marketings do
-        resources :copywritings
-        resources :viral_contents
-        resources :daily_posts
-        resources :engagements
-      end
+      # resource :tool_marketing
+      # namespace :tool_marketings do
+      #   resources :copywritings
+      #   resources :viral_contents
+      #   resources :daily_posts
+      #   resources :engagements
+      # end
 
-      resource :tool_moodboard
-      namespace :tool_moodboards do
-        resources :banners
-        resources :interior_designs
-      end
+      # resource :tool_moodboard
+      # namespace :tool_moodboards do
+      #   resources :banners
+      #   resources :interior_designs
+      # end
 
-      namespace :qrs do
-        resource :bank
-        resource :check_in
-        resources :reviews
-      end
+      # namespace :qrs do
+      #   resource :bank
+      #   resource :check_in
+      #   resources :reviews
+      # end
 
-      namespace :qr_guides do
-        resource :review
-        resource :bank
-      end
+      # namespace :qr_guides do
+      #   resource :review
+      #   resource :bank
+      # end
 
-      resources :customers
-      namespace :customers do
-        scope ':id' do
-          resources :reviews
-        end
-      end
+      # resources :customers
+      # namespace :customers do
+      #   scope ':id' do
+      #     resources :reviews
+      #   end
+      # end
 
-      resources :teams, only: %i[index]
-      resources :qrs
-      resource :setting
+      # resources :teams, only: %i[index]
+      # resources :qrs
+      # resource :setting
 
-      resource :reward do
-        scope module: 'rewards' do
-          resource :discount
-          resource :birthday
-          resource :consume
-        end
-      end
-      resources :future_events
+      # resource :reward do
+      #   scope module: 'rewards' do
+      #     resource :discount
+      #     resource :birthday
+      #     resource :consume
+      #   end
+      # end
+      # resources :future_events
 
-      namespace :businesses do
-        resource :approval
-      end
+      # namespace :businesses do
+      #   resource :approval
+      # end
 
       resource :onboarding
-      resource :progress
+      # resource :progress
 
       resource :business, only: %i[edit update]
-      resource :account
+      # resource :account
     end
   end
 end

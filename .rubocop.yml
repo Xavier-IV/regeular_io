@@ -93,3 +93,4 @@ Metrics/ClassLength:
   Exclude:
     - 'test/**/*.rb'
     - 'app/controllers/clients/dashboards/tool_marketings/*'
+    - 'app/controllers/clients/webhooks_controller.rb'

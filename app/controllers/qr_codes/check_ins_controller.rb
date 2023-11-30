@@ -16,8 +16,28 @@ class QrCodes::CheckInsController < ApplicationController
       flash.now[:notice] = "You've already checked in!"
     else
       check_in_progress(current_customer, @business)
+      (current_customer.first_name.presence || 'A user')
+      Customer::CheckIn
+        .where('created_at >= ?', Time.zone.today.beginning_of_day)
+        .where(business_id: @business.id)
+        .count
+      # TODO: Release on 50 registered users
+      # @business.owner.push_subscriptions.each do |sub|
+      #   PushNotificationService.send_notification(
+      #     'Customer signed in',
+      #     "#{user_name} checked in. You have #{total_check_in} customers today!",
+      #     sub
+      #   )
+      # end
       flash.now[:success] = "You've successfully check in!"
     end
+
+    replace_qr = @business.qr_code_check_ins.find_by(scanned_times: 0)
+    replace_qr = @business.qr_code_check_ins.create if replace_qr.blank?
+    Turbo::StreamsChannel.broadcast_replace_to([@business, 'check_ins'],
+                                               target: 'codes',
+                                               locals: { qr_code: replace_qr },
+                                               partial: 'clients/dashboards/qrs/check_ins/code')
 
     @checked_in = true
   end
