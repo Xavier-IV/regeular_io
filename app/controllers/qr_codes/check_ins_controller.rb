@@ -10,17 +10,20 @@ class QrCodes::CheckInsController < ApplicationController
 
     return unless customer_signed_in?
 
-    @recent_check_in = Customer::CheckIn.where(user_id: current_customer.id).order(created_at: :desc).first
+    @recent_check_in = Customer::CheckIn.where(
+      user_id: current_customer.id,
+      business_id: @business.id
+    ).order(created_at: :desc).first
 
     if @recent_check_in.present? && (Time.zone.now - @recent_check_in.created_at) < 10.minutes
       flash.now[:notice] = "You've already checked in!"
     else
       check_in_progress(current_customer, @business)
-      (current_customer.first_name.presence || 'A user')
-      Customer::CheckIn
-        .where('created_at >= ?', Time.zone.today.beginning_of_day)
-        .where(business_id: @business.id)
-        .count
+      # (current_customer.first_name.presence || 'A user')
+      # Customer::CheckIn
+      #   .where('created_at >= ?', Time.zone.today.beginning_of_day)
+      #   .where(business_id: @business.id)
+      #   .count
       # TODO: Release on 50 registered users
       # @business.owner.push_subscriptions.each do |sub|
       #   PushNotificationService.send_notification(

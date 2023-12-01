@@ -24,7 +24,7 @@
           <div class="px-4 my-4 text-lg flex flex-col gap-4">
             <i class="lni lni-map-marker text-4xl"></i>
             <p>"<%= @business.name %>"</p>
-            <%- if !@checked_in %>
+            <%- if !@checked_in || @recent_check_in.blank? %>
               <p>Quickly sign in or register to earn loyalty points and rewards.</p>
             <% else %>
               <p>Thank you for checking in at <%= local_time(@recent_check_in.created_at, '%l:%M%P') %>!</p>
