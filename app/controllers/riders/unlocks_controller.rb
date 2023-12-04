@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Rider::UnlocksController < Devise::UnlocksController
+class Riders::UnlocksController < Devise::UnlocksController
   layout 'rider/auth'
 
   def create
