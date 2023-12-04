@@ -18,7 +18,7 @@
       <%- @benefits.each do |benefit| %>
         <% cache benefit do %>
           <div
-            class="w-full <%= benefit.total_votes < 0 ? 'text-gray-700' : '' %> flex gap-2 justify-between items-start md:items-center px-6 py-2 border rounded-md text-left">
+            class="w-full <%= benefit.total_votes < 0 ? 'text-gray-700' : '' %> bg-white flex gap-2 justify-between items-start md:items-center px-6 py-2 border rounded-md text-left">
             <div class="flex flex-col gap-1">
               <p class="text-sm md:text-normal <%= benefit.rider_brand_benefit.approved_at.present? ? 'font-semibold' : 'text-gray-400' %>"><%= benefit.rider_brand_benefit.description %></p>
               <p class="text-xs md:text-normal text-gray-300">by <%= benefit.rider_brand_benefit.created_by.first_name %></p>
@@ -57,12 +57,31 @@
           </div>
         <% end %>
       <% end.empty? and begin %>
-        <div class="w-full flex items-center justify-center px-4 py-10 border rounded-lg">
-          <p class="text-gray-400">No benefits yet. Add one.</p>
+        <div class="w-full flex items-center justify-center px-4 py-10 border rounded-lg bg-white">
+          <p class="text-gray-400">No benefits found. Easily join and add one.</p>
         </div>
       <% end %>
-      <%= render 'landings/riders/brands/form' %>
+      <%- if !rider_signed_in? && @total_benefits > 5 %>
+        <div class="flex items-center justify-center mt-4">
+          <p>Join now to unlock and see <%= @total_benefits - 5 %>+ more benefits</p>
+        </div>
+      <% end %>
+      <%= render 'landings/riders/brands/form' if rider_signed_in? %>
     </div>
+
+    <%- unless rider_signed_in? %>
+      <div class="mt-10">
+        <div class="flex gap-2 items-center justify-center">
+          <% [:google_oauth2, :twitter].each do |provider| %>
+            <%= button_to "/auth/#{provider}?role=riders&redirect_to=#{request.original_url}", method: :post, data: { turbo: false },
+                          class: 'border bg-white border-gray-300 px-4 py-3 flex items-center justify-between rounded-lg gap-4 fill-blue-400' do %>
+              <%= image_tag "logos/#{omniauth_logo(provider)}", class: 'border-none drops-shadow-none shadow-none w-4 fill-blue-400', alt: 'Your Image' %>
+              <p><%= "#{omniauth_name(provider)}" %></p>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
 
     <div class="mt-20 flex flex-col gap-2 text-left text-gray-400">
       <p class="text-gray-400 text-center">These are community driven data, shared by riders from local community.</p>
@@ -70,11 +89,15 @@
         <p>If you have experience or are working with <%= @brand.name %>, you can share the benefit you've
           experienced.</p>
         <ol class="list-decimal list-inside flex flex-col gap-1">
-          <li>Take a look at other's submission first, and upvote/downvote where necessary before creating a new record.</li>
+          <li>Take a look at other's submission first, and upvote/downvote where necessary before creating a new
+            record.
+          </li>
           <li>Provide the best information that you can, so that it can help others to learn more.</li>
           <li>Feel free to use our national language, Bahasa Melayu, or English.</li>
-          <li>Once you've submitted, we will review shortly to ensure it adheres to community guideline (no profanity, proper
-            language etc)</li>
+          <li>Once you've submitted, we will review shortly to ensure it adheres to community guideline (no profanity,
+            proper
+            language etc)
+          </li>
           <li>Let's continue creating a healthy supportive community.</li>
         </ol>
       </div>
