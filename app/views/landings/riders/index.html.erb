@@ -10,13 +10,15 @@
   </div>
   <div class="grid grid-cols-2 md:grid-cols-3 w-full max-w-2xl mx-auto mt-20 gap-4 p-4">
     <%- @brands.each do |brand| %>
-      <%= link_to rider_brand_path(slug: brand.slug),
-                  style: "background-color: #{brand.brand_color}; color: #{brand.text_color}",
-                  class: "w-full opacity-90 hover:opacity-100 p-4 h-20 md:h-40
+      <% cache brand do %>
+        <%= link_to rider_brand_path(slug: brand.slug),
+                    style: "background-color: #{brand.brand_color}; color: #{brand.text_color}",
+                    class: "w-full opacity-90 hover:opacity-100 p-4 h-20 md:h-40
             text-center
             border rounded-lg flex items-center justify-center hover:shadow-2xl cursor-pointer" do %>
 
-        <h2 class="text-xl md:text-3xl font-semibold"><%= brand.name %></h2>
+          <h2 class="text-xl md:text-3xl font-semibold"><%= brand.name %></h2>
+        <% end %>
       <% end %>
     <% end %>
   </div>
@@ -34,13 +36,35 @@
     </div>
   <% end %>
 
-  <div class="flex flex-col gap-4 mt-10">
+  <div class="mt-10 flex flex-col gap-4">
+    <h2>Recent Submission</h2>
+    <div class="flex flex-col gap-2 w-full">
+      <% @benefits.each do |benefit| %>
+        <% cache benefit do %>
+          <%= link_to rider_brand_path(slug: benefit.rider_brand.slug), class: 'w-full flex justify-between px-4 py-2 border bg-white rounded-md text-left' do %>
+            <div class="flex flex-col w-full gap-2">
+              <div class="flex w-full justify-between items-center gap-2">
+                <p><%= benefit.description %>
+                  <span class="text-gray-300 text-xs">@ <%= benefit.created_by.first_name %></span></p>
+                <span
+                  style="background-color: <%= benefit.rider_brand.brand_color %>; color: <%= benefit.rider_brand.text_color %>;"
+                  class="px-2 py-0.5 w-fit rounded-full opacity-80 flex items-center text-xs"><%= benefit.rider_brand.name %></span>
+              </div>
+            </div>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="flex flex-col gap-4 mt-20">
     <% if rider_signed_in? %>
       <div class="w-full p-4 bg-white border rounded-md flex flex-col gap-4">
         <p>Welcome, <%= current_rider.full_name %>!</p>
-        <p class="text-gray-400">Are you a vendor? Our free <%= link_to 'customer database system', business_root_url,
+        <p class="text-gray-400 text-xs">Are you a vendor? Our free <%= link_to 'customer database system', business_root_url,
                                                                         target: '_blank',
-                                                                        class: 'text-purple-400' %> might be of your interest.</p>
+                                                                        class: 'text-purple-400' %> might be of your
+          interest.</p>
         <%= button_to "Logout", destroy_rider_session_path, method: :delete, class: 'p-4 py-3 bg-black text-white rounded-md w-full mt-8' %>
       </div>
     <% else %>
