@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+benefit_one:
+  description: MyText
+  rider_brand: rider_brand_one
+  created_by: rider_one
+
+benefit_two:
+  description: MyText
+  rider_brand: rider_brand_two
+  created_by: rider_two

@@ -18,8 +18,16 @@ class OmniauthSessionsController < ApplicationController
     review_id = request.env['omniauth.params']['review_id']
     business_id = request.env['omniauth.params']['business_id']
 
-    resource = role == 'clients' ? Client : Customer
-    redirect_url = role == 'clients' ? new_client_registration_url : new_customer_registration_url
+    resource = if role == 'clients'
+                 Client
+               else
+                 role == 'riders' ? Rider : Customer
+               end
+    redirect_url = if role == 'clients'
+                     new_client_registration_url
+                   else
+                     role == 'riders' ? rider_root_path : new_customer_registration_url
+                   end
 
     if role == 'clients' && purpose == 'link' && existing_user_id
       linked_omniauth = User.link_omniauth(request.env['omniauth.auth'], request.env['omniauth.params'], resource)

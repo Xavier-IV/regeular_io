@@ -34,7 +34,6 @@ class Clients::Dashboards::Rewards::BirthdaysController < ApplicationController
   end
 
   def update
-    Rails.logger.debug params
     @reward = Business::Reward.find_by(kind: 'Birthday',
                                        business: current_client.business.id)
     @reward.assign_attributes(rewards_param.except(:kind))

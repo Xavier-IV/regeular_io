@@ -245,3 +245,16 @@ events_2024 = [
 events_2024.each do |event_data|
   Event.find_or_create_by(event_data)
 end
+
+brands = [
+  { name: 'Grab', text_color: 'white', brand_color: '#0a9830', slug: 'grab' },
+  { name: 'Food Panda', text_color: 'white', brand_color: '#D70F64', slug: 'food-panda' },
+  { name: 'Shopee', text_color: 'white', brand_color: '#EE4D2D', slug: 'shopee' },
+  { name: 'Air Asia', text_color: 'white', brand_color: '#E32526', slug: 'air-asia' },
+  { name: 'Misi Rakyat', text_color: 'black', brand_color: '#F4D405', slug: 'misi-rakyat' },
+  { name: 'Lalamove', text_color: 'white', brand_color: '#F16C2B', slug: 'lalamove' }
+]
+
+brands.each do |brand|
+  Rider::Brand.find_or_create_by(brand)
+end

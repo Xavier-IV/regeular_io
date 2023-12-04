@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_11_28_180231) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_03_101809) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pgcrypto"
   enable_extension "plpgsql"
@@ -309,6 +309,64 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_28_180231) do
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
+  create_table "rider_brand_benefit_statistics", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "rider_brand_id", null: false
+    t.uuid "rider_brand_benefit_id", null: false
+    t.integer "total_votes"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rider_brand_benefit_id"], name: "index_rider_brand_benefit_statistics_on_rider_brand_benefit_id"
+    t.index ["rider_brand_id"], name: "index_rider_brand_benefit_statistics_on_rider_brand_id"
+  end
+
+  create_table "rider_brand_benefit_votes", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "rider_brand_id", null: false
+    t.uuid "rider_brand_benefit_id", null: false
+    t.uuid "user_id", null: false
+    t.integer "direction"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rider_brand_benefit_id"], name: "index_rider_brand_benefit_votes_on_rider_brand_benefit_id"
+    t.index ["rider_brand_id"], name: "index_rider_brand_benefit_votes_on_rider_brand_id"
+    t.index ["user_id"], name: "index_rider_brand_benefit_votes_on_user_id"
+  end
+
+  create_table "rider_brand_benefits", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "description", null: false
+    t.uuid "rider_brand_id", null: false
+    t.uuid "created_by_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "approved_at"
+    t.index ["created_by_id"], name: "index_rider_brand_benefits_on_created_by_id"
+    t.index ["rider_brand_id"], name: "index_rider_brand_benefits_on_rider_brand_id"
+  end
+
+  create_table "rider_brands", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.string "name"
+    t.string "text_color"
+    t.string "brand_color"
+    t.string "slug"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "rider_earnings", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "rider_brand_id", null: false
+    t.text "notes"
+    t.string "kind"
+    t.decimal "amount", precision: 5, scale: 2
+    t.decimal "min_amount", precision: 5, scale: 2
+    t.decimal "max_amount", precision: 5, scale: 2
+    t.integer "hours_spent"
+    t.integer "trips_completed"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["rider_brand_id"], name: "index_rider_earnings_on_rider_brand_id"
+    t.index ["user_id"], name: "index_rider_earnings_on_user_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.string "session_id", null: false
     t.text "data"
@@ -401,6 +459,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_11_28_180231) do
   add_foreign_key "reviews", "businesses"
   add_foreign_key "reviews", "qr_codes"
   add_foreign_key "reviews", "users"
+  add_foreign_key "rider_brand_benefit_statistics", "rider_brand_benefits"
+  add_foreign_key "rider_brand_benefit_statistics", "rider_brands"
+  add_foreign_key "rider_brand_benefit_votes", "rider_brand_benefits"
+  add_foreign_key "rider_brand_benefit_votes", "rider_brands"
+  add_foreign_key "rider_brand_benefit_votes", "users"
+  add_foreign_key "rider_brand_benefits", "rider_brands"
+  add_foreign_key "rider_brand_benefits", "users", column: "created_by_id"
+  add_foreign_key "rider_earnings", "rider_brands"
+  add_foreign_key "rider_earnings", "users"
   add_foreign_key "states", "countries"
   add_foreign_key "users", "businesses"
 end

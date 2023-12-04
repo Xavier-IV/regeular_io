@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+statistic_one:
+  rider_brand: rider_brand_one
+  rider_brand_benefit: benefit_one
+  total_votes: 1
+
+statistic_two:
+  rider_brand: rider_brand_two
+  rider_brand_benefit: benefit_two
+  total_votes: 1

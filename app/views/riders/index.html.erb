@@ -1,0 +1,38 @@
+<div class="flex flex-col px-4 mt-10 text-center w-full max-w-2xl mx-auto">
+  <div class="flex flex-col gap-2 items-center mt-20 px-4 text-center">
+    <h1 class="text-3xl">Rider Benefit Database</h1>
+    <p class="text-gray-400">
+      Join your local rider community to help each other make better decision.
+    </p>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-3 w-full max-w-2xl mx-auto mt-20 gap-4 p-4">
+    <%- @brands.each do |brand| %>
+      <div
+        style="background-color: <%= brand.brand_color %>; color: <%= brand.text_color %>"
+        class="w-full opacity-90 hover:opacity-100 p-4 h-40
+            text-center
+            border rounded-lg flex items-center justify-center hover:shadow-2xl cursor-pointer">
+        <h2 class="text-3xl font-semibold"><%= brand.name %></h2>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="flex flex-col gap-4 mt-20">
+    <% if rider_signed_in? %>
+      <div class="w-full p-4 bg-white border rounded-md flex flex-col gap-4">
+        <p>Welcome, <%= current_rider.full_name %>!</p>
+        <%= button_to "Logout", destroy_rider_session_path, method: :delete, class: 'p-4 py-3 bg-black text-white rounded-md w-full' %>
+      </div>
+    <% else %>
+      <div class="flex gap-2 items-center justify-center">
+        <% [:google_oauth2, :twitter].each do |provider| %>
+          <%= button_to "/auth/#{provider}?role=riders&redirect_to=#{request.original_url}", method: :post, data: { turbo: false },
+                        class: 'border bg-white border-gray-300 px-4 py-3 flex items-center justify-between rounded-lg gap-4 fill-blue-400' do %>
+            <%= image_tag "logos/#{omniauth_logo(provider)}", class: 'border-none drops-shadow-none shadow-none w-4 fill-blue-400', alt: 'Your Image' %>
+            <p><%= "#{omniauth_name(provider)}" %></p>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

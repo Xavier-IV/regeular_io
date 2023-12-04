@@ -26,5 +26,6 @@ Rails.application.routes.draw do
   draw(:omniauth)
   draw(:admin)
   draw(:customer)
+  draw(:rider)
   draw(:business)
 end

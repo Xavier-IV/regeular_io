@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+rider_brand_one:
+  name: MyString
+  text_color: MyString
+  brand_color: MyString
+  slug: brand1
+
+rider_brand_two:
+  name: MyString
+  text_color: MyString
+  brand_color: MyString
+  slug: brand2

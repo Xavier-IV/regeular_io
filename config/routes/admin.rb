@@ -25,6 +25,13 @@ constraints host: Rails.application.credentials.dig(:host, :admin) do
 
       resources :copywritings
       resources :teams
+      namespace :riders do
+        namespace :brands do
+          resources :benefits
+          post '/approvals/:benefit_id/approve', to: 'benefit_approvals#approve', as: :benefit_approval_approve
+          post '/approvals/:benefit_id/reject', to: 'benefit_approvals#reject', as: :benefit_approval_reject
+        end
+      end
     end
   end
 end

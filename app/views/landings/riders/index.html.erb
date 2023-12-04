@@ -1,0 +1,65 @@
+<div class="flex flex-col px-4 text-center w-full max-w-2xl mx-auto pb-20">
+  <div class="flex flex-col gap-2 items-center mt-20 px-4 text-center">
+    <h1 class="text-3xl">Rider Community</h1>
+    <p class="text-gray-400">
+      Join your local rider community to help each other make better decision.<br/>
+    </p>
+    <p class="text-gray-400 mt-2">
+      "Share Experience. Help & Grow Together."
+    </p>
+  </div>
+  <div class="grid grid-cols-2 md:grid-cols-3 w-full max-w-2xl mx-auto mt-20 gap-4 p-4">
+    <%- @brands.each do |brand| %>
+      <%= link_to rider_brand_path(slug: brand.slug),
+                  style: "background-color: #{brand.brand_color}; color: #{brand.text_color}",
+                  class: "w-full opacity-90 hover:opacity-100 p-4 h-20 md:h-40
+            text-center
+            border rounded-lg flex items-center justify-center hover:shadow-2xl cursor-pointer" do %>
+
+        <h2 class="text-xl md:text-3xl font-semibold"><%= brand.name %></h2>
+      <% end %>
+    <% end %>
+  </div>
+
+  <% if false && rider_signed_in? %>
+    <div class="flex flex-col gap-4 mt-20">
+      <div class="w-full p-4 bg-white border rounded-md flex flex-col gap-4">
+        <h3>Share Your Earning Today</h3>
+        <p class="text-sm text-gray-400">Your contribution can help others estimate how much they could earn in a
+          day.</p>
+        <div class="flex flex-col gap-2">
+          <%= button_to "My Earning Today", destroy_rider_session_path, method: :delete, class: 'p-4 py-3 bg-purple-500 text-white rounded-md w-full' %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="flex flex-col gap-4 mt-20">
+    <% if rider_signed_in? %>
+      <div class="w-full p-4 bg-white border rounded-md flex flex-col gap-4">
+        <p>Welcome, <%= current_rider.full_name %>!</p>
+        <p class="text-gray-400">Are you a vendor? Our free <%= link_to 'customer database system', business_root_url,
+                                                                        target: '_blank',
+                                                                        class: 'text-purple-400' %> might be of your interest.</p>
+        <%= button_to "Logout", destroy_rider_session_path, method: :delete, class: 'p-4 py-3 bg-black text-white rounded-md w-full mt-8' %>
+      </div>
+    <% else %>
+      <div class="flex gap-2 items-center justify-center">
+        <% [:google_oauth2, :twitter].each do |provider| %>
+          <%= button_to "/auth/#{provider}?role=riders&redirect_to=#{request.original_url}", method: :post, data: { turbo: false },
+                        class: 'border bg-white border-gray-300 px-4 py-3 flex items-center justify-between rounded-lg gap-4 fill-blue-400' do %>
+            <%= image_tag "logos/#{omniauth_logo(provider)}", class: 'border-none drops-shadow-none shadow-none w-4 fill-blue-400', alt: 'Your Image' %>
+            <p><%= "#{omniauth_name(provider)}" %></p>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="text-center px-4 mt-10 text-sm text-gray-300">
+    <p>All trademarks mentioned on this website are the property of their respective owners.
+      Any references to Regülar are for informational purposes only, and Regülar does not endorse, sponsor, or have any
+      affiliation with mentioned brands. All rights to each trademarks are reserved by their respective owners.
+    </p>
+  </div>
+</div>
