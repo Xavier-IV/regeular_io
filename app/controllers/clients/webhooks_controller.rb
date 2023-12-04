@@ -42,7 +42,6 @@ class Clients::WebhooksController < ApplicationController
         end
 
         if client.business.present?
-          Rails.logger.debug 'Renewing testing....>>>>'
           subscription = Stripe::Subscription.retrieve(subscription_id)
           product_name = fetch_product_name(subscription)
           start_date = Time.zone.at(subscription['current_period_start']).to_date
@@ -61,7 +60,6 @@ class Clients::WebhooksController < ApplicationController
           )
         end
       end
-      Rails.logger.debug 'Running.....'
     when 'customer.subscription.updated'
       payment_intent = event.data.object
       subscription_id = payment_intent['subscription']
@@ -70,7 +68,6 @@ class Clients::WebhooksController < ApplicationController
         client = Client.find_or_initialize_by(email: payment_intent['customer_email'])
 
         if client.business.present?
-          Rails.logger.debug 'Renewing testing....>>>>'
           subscription = Stripe::Subscription.retrieve(subscription_id)
           product_name = fetch_product_name(subscription)
           start_date = Time.zone.at(subscription['current_period_start']).to_date
@@ -97,7 +94,6 @@ class Clients::WebhooksController < ApplicationController
         client = Client.find_or_initialize_by(email: payment_intent['customer_email'])
 
         if client.business.present?
-          Rails.logger.debug 'Renewing testing....>>>>'
           subscription = Stripe::Subscription.retrieve(subscription_id)
           product_name = fetch_product_name(subscription)
           start_date = Time.zone.at(subscription['current_period_start']).to_date
