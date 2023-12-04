@@ -19,7 +19,8 @@ class Landings::Riders::BrandsController < ApplicationController
                     .joins(:rider_brand_benefit)
                     .where(
                       rider_brand_id: @brand.id
-                    ).order(total_votes: :desc, created_at: :asc)
+                    )
+                    .order(total_votes: :desc, created_at: :asc)
                 else
                   Rider::BrandBenefitStatistic
                     .joins(:rider_brand_benefit)

@@ -16,46 +16,50 @@
 
       </div>
       <%- @benefits.each do |benefit| %>
-        <% cache benefit do %>
-          <div
-            class="w-full <%= benefit.total_votes < 0 ? 'text-gray-700' : '' %> bg-white flex gap-2 justify-between items-start md:items-center px-6 py-2 border rounded-md text-left">
-            <div class="flex flex-col gap-1">
-              <p class="text-sm md:text-normal <%= benefit.rider_brand_benefit.approved_at.present? ? 'font-semibold' : 'text-gray-400' %>"><%= benefit.rider_brand_benefit.description %></p>
-              <p class="text-xs md:text-normal text-gray-300">by <%= benefit.rider_brand_benefit.created_by.first_name %></p>
-            </div>
-            <div class="flex items-center gap-2 text-gray-300 cursor-default">
+        <%- if
+            benefit.rider_brand_benefit.approved_at.present? ||
+              (benefit.rider_brand_benefit.approved_at.blank? && (rider_signed_in? && benefit.rider_brand_benefit.created_by_id == current_rider.id)) %>
+          <% cache benefit do %>
+            <div
+              class="w-full <%= benefit.total_votes < 0 ? 'text-gray-700' : '' %> bg-white flex gap-2 justify-between items-start md:items-center px-6 py-2 border rounded-md text-left">
+              <div class="flex flex-col gap-1">
+                <p class="text-sm md:text-normal <%= benefit.rider_brand_benefit.approved_at.present? ? 'font-semibold' : 'text-gray-400' %>"><%= benefit.rider_brand_benefit.description %></p>
+                <p class="text-xs md:text-normal text-gray-300">by <%= benefit.rider_brand_benefit.created_by.first_name %></p>
+              </div>
+              <div class="flex items-center gap-2 text-gray-300 cursor-default">
 
-              <%- if benefit.rider_brand_benefit.approved_at.blank? %>
-                <button
-                  data-controller="tooltip"
-                  title="This is your submission. We will review shortly."
-                  class="flex items-center on-review w-fit h-fit">
-                  <i class="lni lni-comments-alt-2"></i>
-                </button>
-              <% end %>
+                <%- if benefit.rider_brand_benefit.approved_at.blank? && (rider_signed_in? && benefit.rider_brand_benefit.created_by_id == current_rider.id) %>
+                  <button
+                    data-controller="tooltip"
+                    title="This is your submission. We will review shortly."
+                    class="flex items-center on-review w-fit h-fit">
+                    <i class="lni lni-comments-alt-2"></i>
+                  </button>
+                <% end %>
 
-              <p class="md:text-lg"><%= benefit.total_votes %></p>
-              <div class="flex items-center gap-2">
-                <%= button_to riders_brands_upvote_path(brand_id: @brand.id),
-                              method: :post,
-                              params: {
-                                benefit_id: benefit.rider_brand_benefit.id
-                              },
-                              class: "flex items-center pb-1 #{upvoted?(@my_votes, benefit.rider_brand_benefit.id) ? 'text-green-500' : ''} hover:text-green-500" do %>
-                  <i class="lni lni-arrow-up"></i>
-                <% end %>
-                <%= button_to riders_brands_downvote_path(brand_id: @brand.id),
-                              method: :post,
-                              params: {
-                                benefit_id: benefit.rider_brand_benefit.id
-                              },
-                              class: "flex items-center pb-1 #{downvoted?(@my_votes, benefit.rider_brand_benefit.id) ? 'text-orange-500' : ''} hover:text-orange-500" do %>
-                  <i class="lni lni-arrow-down"></i>
-                <% end %>
+                <p class="md:text-lg"><%= benefit.total_votes %></p>
+                <div class="flex items-center gap-2">
+                  <%= button_to riders_brands_upvote_path(brand_id: @brand.id),
+                                method: :post,
+                                params: {
+                                  benefit_id: benefit.rider_brand_benefit.id
+                                },
+                                class: "flex items-center pb-1 #{upvoted?(@my_votes, benefit.rider_brand_benefit.id) ? 'text-green-500' : ''} hover:text-green-500" do %>
+                    <i class="lni lni-arrow-up"></i>
+                  <% end %>
+                  <%= button_to riders_brands_downvote_path(brand_id: @brand.id),
+                                method: :post,
+                                params: {
+                                  benefit_id: benefit.rider_brand_benefit.id
+                                },
+                                class: "flex items-center pb-1 #{downvoted?(@my_votes, benefit.rider_brand_benefit.id) ? 'text-orange-500' : ''} hover:text-orange-500" do %>
+                    <i class="lni lni-arrow-down"></i>
+                  <% end %>
+                </div>
               </div>
             </div>
-          </div>
-        <% end %>
+          <% end %>
+        <%- end %>
       <% end.empty? and begin %>
         <div class="w-full flex items-center justify-center px-4 py-10 border rounded-lg bg-white">
           <p class="text-gray-400">No benefits found. Easily join and add one.</p>

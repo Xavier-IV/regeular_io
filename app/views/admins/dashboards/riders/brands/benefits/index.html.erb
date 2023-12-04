@@ -4,9 +4,14 @@
   </div>
   <div class="flex flex-col gap-2 mt-4">
     <% @benefits.each do |benefit| %>
-      <div class="w-full flex justify-between px-4 py-2 border rounded-md">
+      <div class="w-full flex justify-between px-4 py-2 border bg-white rounded-md">
         <div class="flex flex-col gap-2">
-          <p>(<%= benefit.rider_brand.name %>) <%= benefit.description %></p>
+          <div class="flex flex-col justify-center gap-2">
+            <span
+              style="background-color: <%= benefit.rider_brand.brand_color %>; color: <%= benefit.rider_brand.text_color %>;"
+              class="px-2 py-0.5 w-fit rounded-full text-xs"><%= benefit.rider_brand.name %></span>
+            <p><%= benefit.description %></p>
+          </div>
           <p class="text-gray-300 text-sm">
             <%= benefit.created_by.full_name %>
           </p>
@@ -15,6 +20,27 @@
           <%= button_to 'Approve', admins_dashboards_riders_brands_benefit_approval_approve_path(benefit_id: benefit.id),
                         method: :post,
                         class: 'px-4 rounded-md bg-green-500 text-white' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="mt-10">
+    <h1 class="text-lg">Approved Brand Benefit</h1>
+  </div>
+  <div class="flex flex-col gap-2 mt-4">
+    <% @benefits_approved.each do |benefit| %>
+      <div class="w-full flex justify-between px-4 bg-white py-2 border rounded-md">
+        <div class="flex flex-col gap-2">
+          <div class="flex flex-col justify-center gap-2">
+            <span
+              style="background-color: <%= benefit.rider_brand.brand_color %>; color: <%= benefit.rider_brand.text_color %>;"
+              class="px-2 py-0.5 w-fit rounded-full text-xs"><%= benefit.rider_brand.name %></span>
+            <p><%= benefit.description %></p>
+          </div>
+          <p class="text-gray-300 text-sm">
+            <%= benefit.created_by.full_name %>
+          </p>
         </div>
       </div>
     <% end %>
