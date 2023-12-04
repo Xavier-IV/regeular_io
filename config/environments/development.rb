@@ -7,6 +7,7 @@ Rails.application.configure do
   config.hosts << 'regeular-local.com'
   config.hosts << 'customer.regeular-local.com'
   config.hosts << 'admin.regeular-local.com'
+  config.hosts << 'rider.regeular-local.com'
 
   # In the development environment your application's code is reloaded any time
   # it changes. This slows down response time but is perfect for development

@@ -43,6 +43,8 @@ Metrics/CyclomaticComplexity:
     - 'app/controllers/qr_codes_controller.rb'
     - 'app/controllers/clients/webhooks_controller.rb'
     - 'app/controllers/clients/dashboards/tool_marketings/*'
+    - 'app/controllers/riders/brands/downvotes_controller.rb'
+    - 'app/controllers/riders/brands/upvotes_controller.rb'
 
 Metrics/MethodLength:
   Enabled: false
@@ -61,6 +63,8 @@ Metrics/PerceivedComplexity:
     - 'app/controllers/clients/webhooks_controller.rb'
     - 'app/controllers/clients/dashboards/tool_marketings/*'
     - 'app/controllers/clients/dashboards/tool_moodboards/*'
+    - 'app/controllers/riders/brands/downvotes_controller.rb'
+    - 'app/controllers/riders/brands/upvotes_controller.rb'
 
 Style/Documentation:
   Enabled: false

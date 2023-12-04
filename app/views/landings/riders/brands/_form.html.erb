@@ -1,0 +1,8 @@
+<%= form_tag(riders_brands_benefit_path(brand_id: @brand.id),
+             method: :post,
+             class: 'relative flex gap-2 justify-between items-start md:items-center border rounded-md text-left overflow-hidden') do %>
+  <%= text_field_tag :description, {}, placeholder: 'Add new benefit', class: 'border-none w-full
+  px-6 text-sm md:text-normal placeholder:text-gray-300 py-4
+  focus:border-none hover:border-none outline-none focus:outline-none focus:border-transparent' %>
+  <button class="absolute right-0 px-5 h-full w-fit bg-gray-500 hover:bg-gray-600 text-white">Add</button>
+<% end %>

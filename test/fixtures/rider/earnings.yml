@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user: one
+  rider_brand: rider_brand_one
+  notes: MyText
+  amount: 9.99
+  hours_spent: 1
+  trips_completed: 1
+
+two:
+  user: two
+  rider_brand: rider_brand_two
+  notes: MyText
+  amount: 9.99
+  hours_spent: 1
+  trips_completed: 1

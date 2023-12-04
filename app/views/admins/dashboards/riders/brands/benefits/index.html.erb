@@ -1,0 +1,22 @@
+<div class="max-w-2xl w-full mx-auto">
+  <div class="mt-10">
+    <h1 class="text-lg">Brand Benefit</h1>
+  </div>
+  <div class="flex flex-col gap-2 mt-4">
+    <% @benefits.each do |benefit| %>
+      <div class="w-full flex justify-between px-4 py-2 border rounded-md">
+        <div class="flex flex-col gap-2">
+          <p>(<%= benefit.rider_brand.name %>) <%= benefit.description %></p>
+          <p class="text-gray-300 text-sm">
+            <%= benefit.created_by.full_name %>
+          </p>
+        </div>
+        <div class="flex gap-1">
+          <%= button_to 'Approve', admins_dashboards_riders_brands_benefit_approval_approve_path(benefit_id: benefit.id),
+                        method: :post,
+                        class: 'px-4 rounded-md bg-green-500 text-white' %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
