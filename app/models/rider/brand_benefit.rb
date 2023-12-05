@@ -15,6 +15,8 @@ class Rider::BrandBenefit < ApplicationRecord
 
   after_create :prepare_statistic
 
+  validates :description, presence: true, length: { minimum: 3, allow_blank: false }
+
   def total_all_votes
     rider_brand_benefit_votes.sum(:direction)
   end
