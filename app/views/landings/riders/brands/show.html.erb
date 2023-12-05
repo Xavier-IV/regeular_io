@@ -70,11 +70,12 @@
           <p>Join now to unlock and see <%= @total_benefits - 5 %>+ more benefits</p>
         </div>
       <% end %>
-      <%= render 'landings/riders/brands/form' if rider_signed_in? %>
+      <%= render 'landings/riders/brands/form' %>
     </div>
 
     <%- unless rider_signed_in? %>
-      <div class="mt-10">
+      <div class="mt-16 flex flex-col gap-4">
+        <p>Know other benefit with <%= @brand.name %>? Join now to add for free.</p>
         <div class="flex gap-2 items-center justify-center">
           <% [:google_oauth2, :twitter].each do |provider| %>
             <%= button_to "/auth/#{provider}?role=riders&redirect_to=#{request.original_url}", method: :post, data: { turbo: false },
