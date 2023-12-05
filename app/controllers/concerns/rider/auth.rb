@@ -15,7 +15,7 @@ module Rider::Auth
       if rider_signed_in?
         super
       else
-        redirect_to request.original_url, notice: 'Please sign in to continue'
+        redirect_back fallback_location: rider_root_url, notice: 'Please sign in to continue'
       end
     end
   end
