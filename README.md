@@ -31,6 +31,8 @@ It is recommended to install `rbenv` ahead.
 
 ## Setup
 
+For Terraform release, you can take a look at: https://github.com/Xavier-IV/regeular_io.terraform
+
 Head over to `config/credentials/example.yml` on how to setup your envs.
 At minimum, you should have generated `development` env.
 
